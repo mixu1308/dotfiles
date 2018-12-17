@@ -1,0 +1,215 @@
+exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+exec setxkbmap -option caps:escape
+
+# GAPS
+for_window [class="^.*"] border pixel 4
+gaps inner 10
+gaps outer 5
+
+# set modifier
+set $super Mod4
+set $alt Mod1
+set $TERMINAL urxvt
+
+# set font
+font pango: Noto Sans 8
+
+# Use Mouse+$super to drag floating windows to their wanted position
+floating_modifier $super
+
+#autostart
+exec_always --no-startup-id wal -i ~/.wall2.jpg
+exec --no-startup-id xsettingsd &
+exec --no-startup-id compton -b
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id blueman-applet
+
+# start a terminal
+bindsym $super+Shift+Return exec i3-sensible-terminal
+bindsym $super+Return exec $TERMINAL
+
+
+
+# start rofi & dmenu (a program launcher)
+bindsym $super+Shift+d exec i3-dmenu-desktop --dmenu="dmenu -i -fn 'Noto Sans:size=8'"
+bindsym $super+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 8'
+
+# common apps keybinds
+bindsym Print exec scrot 'Cheese_%a-%d%b%y_%H.%M.png' -e 'viewnior ~/$f'
+bindsym $super+Shift+l exec i3lock -i ~/lock.png
+bindsym $super+Shift+w exec google-chrome
+bindsym $super+e exec $TERMINAL -e ranger
+
+# Change Volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+
+#change brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+# kill focused window
+bindsym $super+q kill
+bindsym $alt+F4 kill
+
+# change focus (Vim bindings)
+bindsym $super+h focus left
+bindsym $super+j focus down
+bindsym $super+k focus up
+bindsym $super+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $super+Left focus left
+bindsym $super+Down focus down
+bindsym $super+Up focus up
+bindsym $super+Right focus right
+
+# move focused window
+bindsym $super+Shift+Left move left
+bindsym $super+Shift+Down move down
+bindsym $super+Shift+Up move up
+bindsym $super+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $super+c split h
+
+# split in vertical orientation
+bindsym $super+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $super+f fullscreen toggle
+
+# change container layout split
+bindsym $super+s layout toggle split
+
+
+# toggle tiling / floating
+bindsym $super+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $super+Shift+space focus mode_toggle
+
+## Gap adjustment
+# Fullscreen, i.e. NO gaps
+bindsym $super+Control+g gaps inner current set 0; gaps outer current set 0
+# Reset gaps to 10
+bindsym $super+Control+Shift+g gaps inner current set 10; gaps outer current set 10
+
+# Adjustment of gaps, courtesy of README example
+set $mode_gaps Adjust gaps: (o)uter, (i)nner
+set $mode_gaps_outer Outer: ↑|↓|0 (local), Shift + ↑|↓||0 (global)
+set $mode_gaps_inner Inner: ↑|↓|0 (local), Shift + ↑|↓||0 (global)
+bindsym $super+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+	bindsym o      mode "$mode_gaps_outer"
+	bindsym i      mode "$mode_gaps_inner"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+	bindsym Down gaps inner current plus 5
+	bindsym Up   gaps inner current minus 5
+	bindsym 0    gaps inner current set 0
+
+	bindsym Shift+Down gaps inner all plus 5
+	bindsym Shift+Up   gaps inner all minus 5
+	bindsym Shift+0    gaps inner all set 0
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+	bindsym Down gaps outer current plus 5
+	bindsym Up   gaps outer current minus 5
+	bindsym 0    gaps outer current set 0
+
+	bindsym Shift+Down gaps outer all plus 5
+	bindsym Shift+Up   gaps outer all minus 5
+	bindsym Shift+0    gaps outer all set 0
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+# switch to workspace
+bindsym $alt+Control+Right workspace next
+bindsym $alt+Control+Left workspace prev
+bindsym $super+1 workspace 1
+bindsym $super+2 workspace 2
+bindsym $super+3 workspace 3
+bindsym $super+4 workspace 4
+bindsym $super+5 workspace 5
+bindsym $super+6 workspace 6
+bindsym $super+7 workspace 7
+bindsym $super+8 workspace 8
+bindsym $super+9 workspace 9
+bindsym $super+0 workspace 10
+
+# move focused container to workspace
+bindsym $super+Shift+1 move container to workspace 1
+bindsym $super+Shift+2 move container to workspace 2
+bindsym $super+Shift+3 move container to workspace 3
+bindsym $super+Shift+4 move container to workspace 4
+bindsym $super+Shift+5 move container to workspace 5
+bindsym $super+Shift+6 move container to workspace 6
+bindsym $super+Shift+7 move container to workspace 7
+bindsym $super+Shift+8 move container to workspace 8
+bindsym $super+Shift+9 move container to workspace 9
+bindsym $super+Shift+0 move container to workspace 10
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $super+Shift+r restart
+
+# exit i3
+bindsym $super+Shift+e exec "i3-nagbar -t warning -m 'Really, exit?' -b 'Yes' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
+        bindsym Return mode "default"
+}
+bindsym $super+r mode "resize"
+
+# panel
+bar {
+	colors {
+        background #2f343f
+        statusline #2f343f
+        separator #4b5262
+
+		# colour of border, background, and text
+        focused_workspace	#2f343f	#bf616a	#d8dee8
+        active_workspace	#2f343f	#2f343f	#d8dee8
+        inactive_workspace	#2f343f	#2f343f	#d8dee8
+        urgent_workspace	#2f343f	#ebcb8b	#2f343f
+    }
+        status_command i3status
+}
+
+# window rules, you can find the window class using xprop
+#for_window [class=".*"] border pixel 4
+
+
+assign [class=Thunar|File-roller] 3
+assign [class=Geany|Evince|Gucharmap|Soffice|libreoffice*] 4
+assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
+assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Pavucontrol|Exo-helper*|Lxrandr|Arandr] 6
+
+for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
+for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
+for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
+
+# colour of border, background, text, indicator, and child_border
+client.focused			#bf616a #2f343f #d8dee8 #bf616a #d8dee8
+client.focused_inactive	#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.unfocused		#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.urgent			#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.placeholder		#2f343f #2f343f #d8dee8 #2f343f #2f343f
+client.background		#2f343f
