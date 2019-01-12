@@ -1,0 +1,566 @@
+/**** DeviceListPanel ****/
+#device_list_panel {
+  display: block;
+  position: relative;
+  width: inherit;
+  height: 500px;
+  background-color: #F1F1F1;
+}
+#device_list_message {
+  display: block;
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  top: 0px;
+  left: 0px;
+  z-index:1;
+}
+
+#device_list_message .message_box{
+  display: block;
+  position: relative;
+  width: auto;
+  height: auto;
+  top: 40%;
+  transform: translateY(-60%);
+  color: #C0C0C0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: "Helvetica Neue";
+}
+
+#device_search_bar {
+  /*display: block;*/
+  display: none;
+  position: relative;
+	height: 50px;
+	width: 100%;
+	z-index: 3;
+	border-bottom: 1px solid #B0B0B0;
+  background-color: #C0C0C0;
+}
+
+#search_bar_input_container {
+  display: block;
+  position: relative;
+  width: 256px;
+  height: 22px;
+  margin: 0px auto;
+  padding: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#device_search_bar .device_search_input {
+  display: block;
+  position: relative;
+  width: 226px; /*need to minus padding's size*/
+  height: 100%;
+  outline: none;
+  font-size: 15px;
+  padding-left: 30px;
+	border-width: 1px;
+  border-radius: 10px;
+  margin: 0px auto;
+}
+
+#device_search_bar .search_bar_btn {
+  display: block;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 5px;
+  margin: 0px auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#device_search_bar .search_bar_btn.search {
+  left: 8px;
+}
+
+#device_search_bar .search_bar_btn.clear {
+  width: 14px;
+  height: 14px;
+  display: none ;
+  top: 6px;
+  right: 4px;
+  cursor: pointer;
+}
+
+#device_search_bar .device_search_input:focus {
+  border-color: #0098FF;
+}
+
+#manual_connection {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 50px;
+	z-index: 3;
+  float: bottom;
+  bottom: 0px;
+	border-top: 1px solid #C9C9C9;
+	background-color: white;
+}
+
+#device_list_table {
+	position: relative;
+	display: block;
+	z-index: 1;
+	margin-bottom: 50px;
+	width: 100%;
+	height: 450px;
+	/*height: auto;*/
+	overflow: hidden;
+}
+
+#device_list_table.inSearch {
+  height: 400px;
+}
+
+#scroll-content {
+	z-index: 1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	width: 100%;
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	-o-text-size-adjust: none;
+	text-size-adjust: none;
+}
+
+#device_list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	text-align: left;
+}
+
+#scroll-content li {
+	padding: 0 10px;
+	height: 50px;
+	/*line-height: 20px;*/
+	/*border-bottom: 1px solid #ccc;*/
+	/*border-top: 1px solid #fff;*/
+	/*background-color: #fafafa;*/
+	/*font-size: 16px;*/
+}
+
+/*#scroll-content .device_cell:nth-child(even) {*/
+/*  background-color: #F9F9F9;*/
+/*}*/
+
+/*#scroll-content .device_cell:nth-child(odd) {*/
+/*  background-color: #E0E0E0;*/
+/*}*/
+
+/*#manual_input {*/
+/*  display: inline-block;*/
+/*  height:28px;*/
+/*  margin-top:11px;*/
+/*  margin-left:5px;*/
+/*}*/
+
+#manual_icon {
+  display: block;
+  height: 40px;
+  width: 40px;
+  margin-top: 5px;
+  margin-left: 10px;
+  float:left;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.iScrollVerticalScrollbar {
+  background-color: white;
+}
+
+
+/** Device Cell **/
+.device_attrs {
+  position: relative;
+  display: block;
+  margin: 0px auto;
+  overflow: auto;
+}
+
+#device_icon,
+#device_favorite,
+#device_control{
+  display: block;
+  height: 40px;
+  width: 40px;
+  margin-top: 5px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#device_icon {
+  float:left;
+  margin-right: 10px;
+}
+
+#device_control,
+#device_favorite {
+  /*display: none;*/
+  float:right;
+  margin-left: 5px;
+  visibility: hidden;
+  cursor: pointer;
+}
+#device_control{
+  display:none;
+}
+
+#manual_connect,
+#device_connect {
+  display: none;
+  width:80px;
+  height:28px;
+  margin-top:11px;
+  margin-left:5px;
+  float: right;
+  cursor: pointer;
+}
+
+#manual_connect {
+  margin-right:56px;
+}
+
+#manual_connect .manual_label.connect,
+#device_connect .device_label.connect {
+  display: inline-block;
+  width: 100%;
+  min-width: 64px;
+  height: 30px;
+  margin: 0px auto;
+  padding: 0px;
+  background-color: #0073CF;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+}
+
+#manual_input,
+#device_name {
+  /*margin-top: 5px;*/
+  /*height: 40px;*/
+  width: auto;
+  overflow: hidden;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+#manual_input {
+  width: 170px;
+  height: 24px;
+  margin-top:11px;
+  margin-left:5px;
+  outline: none;
+  border: 0px;
+  background-color:transparent;
+}
+::-webkit-input-placeholder {
+   /*color: black;*/
+}
+
+
+#scroll-content .device_cell.isNotReachable .device_label.name{
+  color: #C0C0C0;
+}
+
+#scroll-content .device_cell:focus,
+#scroll-content .device_cell:hover,
+#scroll-content .device_cell.selected{
+  background-color: white;
+}
+
+#manual_connection:hover .connect,
+#scroll-content .device_cell:focus .favorite,
+#scroll-content .device_cell:hover .favorite,
+#scroll-content .device_cell.selected .favorite,
+#scroll-content .device_cell:focus .connect,
+#scroll-content .device_cell:hover .connect,
+#scroll-content .device_cell.selected .connect {
+  display: block;
+  visibility: visible;
+}
+
+/*#scroll-content .device_cell:hover .device_label.name,*/
+/*#scroll-content .device_cell:focus .device_label.name,*/
+/*#scroll-content .device_cell.selected .device_label.name{*/
+/*  color: #EEEEEE;*/
+/*}*/
+
+.device_label.name p {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+
+#scroll-content .device_cell .device_label.name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  /*width: 100%;*/
+  height:50px;
+  line-height: 50px;
+}
+
+/*#scroll-content .device_cell.selected .device_label.name {*/
+/*  text-overflow: clip;*/
+/*  color: #EEEEEE;*/
+/*}*/
+
+#scroll-content .device_cell .connect{
+  visibility: visible;
+}
+
+#scroll-content .device_cell.connected .connect {
+  visibility: hidden;
+  display: none;
+}
+#scroll-content .device_cell.connected .icon {
+  cursor: pointer;
+}
+
+/*#scroll-content .device_cell .chatroom,*/
+/*#scroll-content .device_cell .control{*/
+/*  visibility: hidden;*/
+/*}*/
+
+/*#scroll-content .device_cell.connected .chatroom,*/
+/*#scroll-content .device_cell.connected:hover .chatroom,*/
+/*#scroll-content .device_cell.connected:focus .chatroom,*/
+/*#scroll-content .device_cell.connected.selected .chatroom,*/
+#scroll-content .device_cell.connected .favorite,
+#scroll-content .device_cell.connected:hover .favorite,
+#scroll-content .device_cell.connected:focus .favorite,
+#scroll-content .device_cell.connected.selected .favorite,
+#scroll-content .device_cell.connected .control,
+#scroll-content .device_cell.connected:hover .control,
+#scroll-content .device_cell.connected:focus .control,
+#scroll-content .device_cell.connected.selected .control {
+  display: block;
+  visibility: visible;
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1;}
+}
+
+/** Adding Images **/
+.header_attrs .refresh {
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_refresh@2x.png");
+}
+.header_attrs .refresh:hover {
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_refresh-hover@2x.png");
+}
+
+.header_attrs .search {
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_find@2x.png");
+}
+
+.header_attrs .search:hover {
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_find-hover@2x.png");
+}
+
+.header_attrs .user_name {
+  background-image: url("../../resources/images/controlPanel/customs/btn_user@2x.png") ;
+}
+
+.header_attrs .user_name:hover {
+  background-image: url("../../resources/images/controlPanel/customs/btn_user-hover@2x.png") ;
+}
+
+.device_attrs .icon.android {
+  background-image: url("../../resources/images/devicePanel/list_view/ico/ico_android@2x.png");
+}
+
+.device_attrs .icon.mac-ios {
+  background-image: url("../../resources/images/devicePanel/list_view/ico/ico_mac-ios@2x.png");
+}
+
+.device_attrs .icon.projector {
+  background-image: url("../../resources/images/devicePanel/list_view/ico/ico_projector@2x.png");
+}
+
+.device_attrs .icon.tv {
+  background-image: url("../../resources/images/devicePanel/list_view/ico/ico_tv@2x.png");
+}
+
+.device_attrs .icon.windows {
+  background-image: url("../../resources/images/devicePanel/list_view/ico/ico_windows@2x.png");
+}
+
+.device_attrs .icon.wireless_device{
+  background-image: url("../../resources/images/devicePanel/list_view/ico/ico_wireless_device@2x.png");
+}
+
+.device_attrs .favorite {
+  background-image: url("../../resources/images/devicePanel/list_view/btn/btn_fav@2x.png");
+}
+
+.device_attrs .favorite:hover,
+.device_attrs .favorite:focus{
+  background-image: url("../../resources/images/devicePanel/list_view/btn/btn_unfav-press@2x.png");
+}
+
+.device_attrs .favorite.selected{
+  background-image: url("../../resources/images/devicePanel/list_view/btn/btn_unfav@2x.png");
+}
+
+.device_attrs .chatroom {
+  background-image: url("../../resources/images/controlPanel/customs/btn_chatRoom@2x.png");
+}
+
+.device_attrs .chatroom:hover,
+.device_attrs .chatroom:focus,
+.device_attrs .chatroom.selected,
+.device_cell:focus .chatroom:hover,
+.device_cell:hover .chatroom:hover,
+.device_cell.selected .chatroom:hover{
+  background-image: url("../../resources/images/controlPanel/customs/btn_chatRoom-hover@2x.png");
+}
+
+.device_attrs .control {
+  background-image: url("../../resources/images/devicePanel/list_view/btn/btn_device_menu@2x.png");
+}
+
+.device_attrs .control:hover,
+.device_attrs .control:focus,
+.device_cell:focus .control:hover,
+.device_cell:hover .control:hover,
+.device_cell.selected .control:hover{
+  background-image: url("../../resources/images/devicePanel/list_view/btn/btn_device_menu-press@2x.png");
+}
+
+/*.device_cell:focus .control,*/
+/*.device_cell:hover .control,*/
+/*.device_cell.selected .control {*/
+/*  background-image: url("../../resources/images/devicePanel/list_view/btn/btn_device_menu-disable@2x.png");*/
+/*}*/
+
+/*.device_cell:focus .icon.wireless_device,*/
+/*.device_cell:hover .icon.wireless_device,*/
+/*.device_cell.selected .icon.wireless_device{*/
+/*  background-image: url("../../resources/images/devicePanel/list_view/ico/ico_wireless_device-unavailable@2x.png");*/
+/*}*/
+
+.device_cell.connected .icon {
+  background-image: url("../../resources/images/devicePanel/list_view/ico/ico_connected@2x.png");
+}
+
+.device_cell.connected:focus .icon,
+.device_cell.connected:hover .icon,
+.device_cell.connected.selected .icon {
+  background-image: url("../../resources/images/devicePanel/list_view/btn/btn_disconnect@2x.png");
+}
+
+#manual_icon{
+  background-image: url("../../resources/images/devicePanel/list_view/ico/ico_manual@2x.png");
+}
+
+.search_bar_btn.search {
+  background-image: url("../../resources/images/devicePanel/list_nav/ico_find@2x.png");
+}
+.search_bar_btn.clear {
+  background-image: url("../../resources/images/devicePanel/list_view/btn/btn_clear_text.png");
+}
+
+
+/*.list {*/
+/*  position: relative;*/
+/*  font-family:sans-serif;*/
+/*  width: 100%;*/
+/*  height: 500px;*/
+/*}*/
+/*td {*/
+/*  padding:10px; */
+/*  border:solid 1px #eee;*/
+/*}*/
+
+/*input {*/
+/*  border:solid 1px #ccc;*/
+/*  border-radius: 5px;*/
+/*  padding:7px 14px;*/
+/*  margin-bottom:10px*/
+/*}*/
+/*input:focus {*/
+/*  outline:none;*/
+/*  border-color:#aaa;*/
+/*}*/
+/*.sort {*/
+/*  padding:8px 30px;*/
+/*  border-radius: 6px;*/
+/*  border:none;*/
+/*  display:inline-block;*/
+/*  color:#fff;*/
+/*  text-decoration: none;*/
+/*  background-color: #28a8e0;*/
+/*  height:30px;*/
+/*}*/
+/*.sort:hover {*/
+/*  text-decoration: none;*/
+/*  background-color:#1b8aba;*/
+/*}*/
+/*.sort:focus {*/
+/*  outline:none;*/
+/*}*/
+/*.sort:after {*/
+/*  display:inline-block;*/
+/*  width: 0;*/
+/*  height: 0;*/
+/*  border-left: 5px solid transparent;*/
+/*  border-right: 5px solid transparent;*/
+/*  border-bottom: 5px solid transparent;*/
+/*  content:"";*/
+/*  position: relative;*/
+/*  top:-10px;*/
+/*  right:-5px;*/
+/*}*/
+/*.sort.asc:after {*/
+/*  width: 0;*/
+/*  height: 0;*/
+/*  border-left: 5px solid transparent;*/
+/*  border-right: 5px solid transparent;*/
+/*  border-top: 5px solid #fff;*/
+/*  content:"";*/
+/*  position: relative;*/
+/*  top:4px;*/
+/*  right:-5px;*/
+/*}*/
+/*.sort.desc:after {*/
+/*  width: 0;*/
+/*  height: 0;*/
+/*  border-left: 5px solid transparent;*/
+/*  border-right: 5px solid transparent;*/
+/*  border-bottom: 5px solid #fff;*/
+/*  content:"";*/
+/*  position: relative;*/
+/*  top:-4px;*/
+/*  right:-5px;*/
+/*}*/

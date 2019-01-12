@@ -1,0 +1,43 @@
+{
+   "app": {
+      "background": {
+         "scripts": [ "background.js" ]
+      }
+   },
+   "default_locale": "en",
+   "description": "MirrorOp Sender nacl beta",
+   "icons": {
+      "128": "MirrorOp-Sender-128.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjMn2BUh93FESSJpwzGLhEkQyBxCTJxd9dofl936eNmS7iU+ZAzKJWvDdRiboS2XlheCj0g9Cq1oAnDlaDAfX5T4KwFY/lL6G2vQtEJBTU1A/ocepZb/aKxXTAi/9dEYtvKYV9bmCbkgi3WVDPx3TzYcM8tv/bQPolYIsWK5CVShYX8KoY0inonP7gT2kDrmvAq5g2AYpE3Dk9GXbgywmWZGH9PSyehBjJgWt021Gyq4MfgMm33EXN9x7yHg3oqRyuGGgDRtZTlW4B3I8ZAku4kka8tMXNrx0wRVnyIDikvT+xW4BI9CsETHwFEc5EVu60Hdf/MZ61tANzvOkHIacxQIDAQAB",
+   "manifest_version": 2,
+   "minimum_chrome_version": "38",
+   "name": "MirrorOp Sender",
+   "oauth2": {
+      "client_id": "562759526175-gdt27n5d55mtm6u5m8h46naupd6i8bau.apps.googleusercontent.com",
+      "scopes": [ "https://www.googleapis.com/auth/plus.login", "https://www.googleapis.com/auth/chromewebstore.readonly" ]
+   },
+   "permissions": [ "https://accounts.google.com/*", "https://www.googleapis.com/oauth2/*", "https://www.googleapis.com/chromoting/v1/*", "https://remoting-pa.googleapis.com/v1/events/*", "https://*.talkgadget.google.com/talkgadget/*", "https://relay.google.com/*", "clipboardRead", "clipboardWrite", "contextMenus", "system.network", "system.display", "notifications", "desktopCapture", "alwaysOnTopWindows", "storage", "gcm", "audioCapture", "videoCapture", "identity", {
+      "fileSystem": [ "write" ]
+   }, "https://www.googleapis.com/", "background", {
+      "socket": [ "resolve-host", "tcp-connect:*:*" ]
+   } ],
+   "short_name": "MirrorOp",
+   "sockets": {
+      "tcp": {
+         "connect": [ "*:*" ]
+      },
+      "tcpServer": {
+         "listen": [ "*" ]
+      },
+      "udp": {
+         "bind": "*",
+         "broadcast": "",
+         "joinGroup": "*",
+         "multicastMembership": "",
+         "send": "*"
+      }
+   },
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0.0"
+}

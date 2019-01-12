@@ -1,0 +1,699 @@
+html, body {
+  /*-webkit-border-radius: 5px;*/
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+}
+    
+body {
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+/*video {*/
+/*	object-fit: contain;*/
+/*}*/
+
+#nacl-container {
+  visibility: hidden;
+  display: inline-block;
+  width: 0%;
+  height: 0%;
+}
+
+#mainContainer {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#passwordContainer,
+#errorContainer{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+#header_panel {
+  display: block;
+  width: inherit;
+  height: 110px;
+  background-color: #0073CF;
+  -webkit-app-region: drag;
+  z-index: 0;
+}
+
+#message_panel,
+#logo_panel {
+  position: relative;
+  width: inherit;
+  height: inherit;
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 1;
+}
+
+#message_panel {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 110px;
+  background-color: #0073CF;
+}
+
+#message_panel .message_label {
+  display: block;
+  position: relative;
+  width: auto;
+  height: auto;
+  margin: 0px auto;
+  z-index: 3;
+  font: 16px "Helvetica Neue";
+  text-align: center;
+  color: white;
+}
+
+#message_panel .message_label.device_ssid {
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+#message_panel .message_label.status {
+  margin-top: 8px;
+} 
+
+#header_panel .window_btn.option {
+  position: absolute;
+  -webkit-app-region: no-drag;
+  width: 22px;
+  height: 22px;
+  top: 5px;
+  left: 5px;
+  float: left;
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
+  z-index: 2;
+}
+
+#window_panel {
+  position: absolute;
+  -webkit-app-region: no-drag;
+  width: 100px;
+  height: 50px;
+  top: 5px;
+  right: 5px;
+  z-index: 2;
+}
+
+#window_panel .window_btn {
+  display: inline-block;
+  cursor: pointer;
+  float: right;
+  width: 22px;
+  height: 22px;
+  background-size: contain;
+}
+
+#window_panel .minimize {
+  /*display: none;*/
+}
+
+/***** StatusBar ******/
+#header_panel .status_bar {
+  display: none;
+  position: relative;
+  width: 100%;
+  height: 6px;
+  float: bottom;
+  transform: translateY(-100%);
+  z-index:3;
+  
+  /*-webkit-animation:blinking 1.4s alternate-reverse infinite;*/
+  /*animation:blinking 1.4s alternate-reverse infinite;*/
+  
+  /*background-size: contain;*/
+  /*background-repeat: no-repeat;*/
+  /*background-color: #DD3030;*/
+  /*-webkit-animation:blinking 1.2s alternate-reverse infinite;*/
+  /*animation:blinking 1.2s alternate-reverse infinite;*/
+}
+
+#header_panel .status_bar.did_start {
+  height: 4px;
+  display: block;
+  /*transform: translate(-45%, -50%);*/
+  background-repeat: no-repeat;
+  /*-webkit-animation:sliding 2.6s infinite;*/
+  /*animation:sliding 2.6s infinite;*/
+}
+
+/*#header_panel .status_Bar.connected{*/
+/*  -webkit-animation:blinking 1.4s alternate-reverse infinite;*/
+/*  animation:blinking 1.4s alternate-reverse infinite;*/
+/*}*/
+
+@-webkit-keyframes sliding {
+  from {left: -50%;}
+  to{left: 150%;}
+}
+
+@keyframes sliding {
+  from {left: -50%;}
+  to{left: 150%;}
+}
+
+@-webkit-keyframes blinking {
+  from {opacity: 0;}
+  to{opacity: 1;}
+  /*from {background-color: background-color;}*/
+  /*to {background-color: #F1F1F1;}*/
+}
+
+@keyframes blinking {
+  from {opacity: 0;}
+  to{opacity: 1;}
+  /*from {background-color: background-color;}*/
+  /*to {background-color: #F1F1F1;}*/
+}
+
+#passwordContainer,
+#errorContainer {
+  position: absolute;
+  background-color: rgba(33,33,33,0.7);
+  top: 0px;
+  left: 0px;
+  z-index: 3;
+  display:none;
+}
+#errorContainer {
+  z-index: 4;
+}
+
+/*#passwordConatiner.show {*/
+/*  display:block;*/
+/*  visibility: visible;*/
+/*}*/
+
+#errorContainer .dialogBox{
+  display: block;
+  width: 75%;
+  height: 75%;
+  margin: 0px auto;
+  min-height: 90px;
+  max-height: 150px;
+	border-radius:7px; 
+  
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  vertical-align: middle;
+  background-color: #333333;
+  
+  overflow:hidden;
+}
+#errorContainer .dialogBox .msg_container {
+  display: block;
+  width: 100%;
+  height: 80%;
+}
+
+#errorContainer .dialogBox .msg_container .spinning{
+  display: block;
+  position: absolute;
+  width: auto;
+  height: auto;
+  min-width: 32px;
+  max-width: 64px;
+  min-height: 32px;
+  max-height: 64px;
+  top: 30%;
+  left: 20%;
+  transform: translate(5%, -20%);
+  background-size:contain;
+  visibility: hidden;
+}
+
+#errorContainer .dialogBox .msg_container .message_box {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  min-height: 32px;
+  max-height: 88px;
+  top: 40%;
+  transform: translateY(-60%);
+  line-height: 20px;
+  vertical-align: bottom;
+  text-align: center;
+  font-size: 16px;
+  color: #FFFFFF;
+  background-color: transparent;
+}
+
+
+#errorContainer .dialogBox .btn_container {
+  display: block;
+  width: 100%;
+  height: 20%;
+  background-color: black;
+}
+
+#errorContainer .dialogBox .btn_container .btn_cancel,
+#errorContainer .dialogBox .btn_container .btn_confirm{
+  position: relative;
+  display: block;
+  height: 32px;
+  outline: solid rgba(160, 160, 160, 1) 1px;
+  background-color: rgba(200, 200, 200, 1);
+  cursor: pointer;
+  line-height: 32px;
+  text-align: center;
+  font-size: 14px;
+}
+
+
+#errorContainer .dialogBox .btn_container .btn_cancel {
+  float: left;
+  width: 0px;
+}
+
+#errorContainer .dialogBox .btn_container .btn_confirm {
+  float: right;
+  width: 100%;
+}
+
+#errorContainer .dialogBox.busy .msg_container .spinning{
+  display: block;
+  visibility: visible;
+}
+
+#errorContainer .dialogBox.busy .message_box{
+  display: block;
+  visibility: visible;
+  top: 42%;
+  transform: translate(5%,-58%);
+}
+#errorContainer .dialogBox.busy .btn_container{
+  display: block;
+}
+
+#errorContainer .dialogBox.busy .btn_container .btn_cancel {
+  width: 100%;
+}
+
+#errorContainer .dialogBox.onExit .btn_container .btn_cancel,
+#errorContainer .dialogBox.onExit .btn_container .btn_confirm {
+  width: 50%;
+}
+
+#errorContainer .dialogBox.onWait .msg_container .spinning {
+  display: block;
+  visibility: visible;
+  top: 40%;
+  left: 20%;
+  transform: translate(5%, -30%);
+}
+#errorContainer .dialogBox.onWait .message_box {
+  display: block;
+  visibility: visible;
+  top: 50%;
+  transform: translate(5%,-50%);
+}
+#errorContainer .dialogBox.onWait .btn_container{
+  display: none;
+}
+
+#errorContainer .dialogBox .btn_cancel:hover,
+#errorContainer .dialogBox .btn_confirm:hover {
+  outline: solid rgba(0, 112, 207, 1.0) 1px;
+  background-color: rgba(0, 112, 207, 1.0);  
+}
+
+#passwordContainer .dialogBox {
+  display: block;
+  position: relative;
+  width: 75%;
+  height: auto;
+  margin: 0px auto;
+  /*min-height: 160px;*/
+  /*max-height: 200px;*/
+	border-radius:7px; 
+  
+  top: 50%;
+  transform: translateY(-50%);
+  
+  vertical-align: middle;
+  background-color: #333333;
+  
+  overflow:hidden;
+}
+
+#passwordContainer .dialogBox .title_box {
+  display: block;
+  position: relative;
+  margin-top: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  height: 20px;
+  width: auto;
+  text-align:center;
+}
+
+#passwordContainer .dialogBox .title_box {
+  margin-top: 10px;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Helvetica Neue";
+}
+
+#passwordContainer .dialogBox .message_box{
+  display: block;
+  position: relative;
+  margin-left: 30px;
+  margin-top: 5px;
+  margin-right: 30px;
+  height: 45px;
+  line-height: 10px;
+  width: auto;
+}
+
+#passwordContainer .dialogBox .message_box {
+  margin-top: 5px;
+  color: #C0C0C0;
+  text-align: center;
+  font-size:14px;
+  font-family: "Helvetica Neue";
+}
+
+#passwordContainer .password_input_container {
+  display: block;
+  position: relative;
+  width: 164px;
+  height: 42px;
+  margin: auto;
+}
+
+#passwordContainer .password_input {
+  display: inline-block;
+  width: 32px;
+  height: 38px;
+  margin: auto;
+  color: #333333;
+  font-size: 28px;
+  font-family: "Helvetica Neue";
+  text-align: center;
+  outline: none;
+  border-radius: 5px;
+  border-width: 2px;
+  border-color: #C0C0C0;
+}
+
+#passwordContainer .password_input:focus {
+  border-width: 2px;
+  border-color: #0073CF;
+}
+
+#passwordContainer .password_btn_container {
+  display: block;
+  position: relative;
+  width: 192px;
+  height: 30px;
+  margin: auto;
+  margin-top: 18px;
+  margin-bottom: 20px;
+}
+.password_btn_container .password_btn {
+  display: inline-block;
+  position: relative;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #808080;
+  text-align:center;
+  color: #F1F1F1;
+}
+
+.password_btn_container .password_btn.confirm {
+  margin-left: 8px;
+}
+
+.password_btn_container .password_btn.enabled {
+  background-color: #0073CF;
+}
+
+.password_btn_container .password_btn.enabled:hover {
+  background-color: #0098FF;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+#logo_panel {
+  background-image: url("../../resources/images/headerPanel/logo@2x.png");
+}
+#errorContainer .dialogBox.onWait .spinning,
+#errorContainer .dialogBox.busy .spinning{
+  background-image: url("../../resources/images/headerPanel/loading@2x.gif");
+}
+
+#header_panel .window_btn.option {
+  background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_preferences_win.png");
+}
+
+#header_panel .status_bar {
+  background-image: url("../../resources/images/headerPanel/animation/ready.gif");
+}
+
+#header_panel .status_bar.did_start {
+  background-image: url("../../resources/images/headerPanel/animation/displaying.gif");
+}
+
+#header_panel .window_btn.option:hover,
+#header_panel .window_btn.option:focus {
+  background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_preferences_win-hover.png");
+}
+
+
+#window_panel .close {
+  /*background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_quit_mac.png");*/
+  background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_quit_win.png");
+}
+
+#window_panel .close:hover,
+#window_panel .close:focus {
+  /*background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_quit_mac-hover.png");*/
+  background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_quit_win-hover.png");
+}
+
+#window_panel .minimize {
+  /*background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_minimize_mac.png");*/
+  background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_minimize_win.png");
+}
+#window_panel .minimize:hover,
+#window_panel .minimize:focus {
+  /*background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_minimize_mac-hover.png");*/
+  background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_minimize_win-hover.png");
+}
+
+
+
+/*#localScreen {*/
+/*  display:block;*/
+/*  width: 256px;*/
+/*  height: 256px;*/
+/*  margin: 0px auto;*/
+/*  position: absolute;*/
+/*  left: 32px;*/
+/*  top: 169px;*/
+/*  background-color: rgba(33, 0, 0, 0.7);*/
+/*  visibility:hidden;*/
+/*}*/
+
+/*#errorContainer {*/
+/*  display: block;*/
+/*  position: absolute;*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  left: 0px;*/
+/*  top: 0px;*/
+/*  background-color: rgba(33,33,33,0.7);*/
+/*  visibility: hidden;*/
+/*}*/
+
+/*#logContainer {*/
+/*  display: block;*/
+/*  background-color: rgba(33,33,33,0.7); */
+/*  width: inherit;*/
+/*  height: 432px;*/
+/*  margin: 0 auto;*/
+/*  color: white;*/
+/*  font-size: 14px;*/
+/*  padding-top: 10px;*/
+/*  padding-left: 10px;*/
+/*}*/
+
+
+/*#logContainer p {*/
+/*  font-family: monospace;*/
+/*  line-height: 5px;*/
+/*}*/
+
+/*#logContainer p.layer1 {*/
+/*  text-indent: 20px;*/
+/*}*/
+
+/*#errorContainer .dialogBox{*/
+/*  display: block;*/
+/*  width: 75%;*/
+/*  height: 75%;*/
+/*  margin: 0px auto;*/
+/*  min-height: 90px;*/
+/*  max-height: 120px;*/
+/*	border-radius:7px; */
+  
+/*  position: relative;*/
+/*  top: 50%;*/
+/*  transform: translateY(-25%);*/
+  
+/*  vertical-align: middle;*/
+/*  background-color: rgba(240, 240, 240, 1);*/
+  
+/*  overflow:hidden;*/
+/*}*/
+
+/*.dialogBox .message_box {*/
+/*  position: absolute;*/
+/*  width: 100%;*/
+/*  height: auto;*/
+/*  min-height: 58px;*/
+/*  max-height: 88px;*/
+/*  top: 50%;*/
+/*  transform: translateY(-50%);*/
+/*  background-color: white;*/
+  
+/*  line-height: 1.2;*/
+/*  text-align: center;*/
+/*  font-size: 16px;*/
+  
+/*  background-color: rgba(240, 240, 240, 1);*/
+/*}*/
+
+/*.dialogBox .btn_confirm {*/
+/*  position: absolute;*/
+/*  width: 100%;*/
+/*  height: 32px;*/
+/*  bottom: 0;*/
+/*  left: 0;*/
+/*  border-top: solid rgba(180, 180, 180, 1) 1px;*/
+/*  background-color: rgba(200, 200, 200, 1);*/
+  
+/*  line-height: 32px;*/
+/*  text-align: center;*/
+/*  font-size: 14px;*/
+  
+/*  cursor: pointer;*/
+/*}*/
+
+/*.dialogBox .btn_confirm:hover {*/
+/*  background-color: rgba(0, 112, 207, 0.7);  */
+/*}*/
+
+
+/***** headerPanel ******/
+/*.headerPanel {*/
+/*  width: inherit;*/
+/*  height: 64px;*/
+/*  background: url("../resources/images/headerPanel/navbar_bg.png") repeat 0 0;*/
+/*  background-color: #0073CF;*/
+/*  background-image: url("../../resources/images/headerPanel/logo.png");*/
+/*  background-position: center; */
+/*  background-repeat: no-repeat;*/
+/*  background-size: contain;*/
+/*  -webkit-app-region: drag;*/
+/*}*/
+
+/*.headerPanel span {*/
+/*  margin-top: 4px;*/
+/*  width: 18px;*/
+/*  height: 18px;*/
+/*  display: inline-block;*/
+/*  -webkit-app-region: no-drag;*/
+/*}*/
+
+/*.headerPanel span.window_icons {*/
+/*  display: inline;*/
+/*  background-image: none;*/
+/*  cursor: pointer;*/
+/*  background-size: contain;*/
+/*}*/
+
+
+/*.headerPanel .windowPanel {*/
+/*  display: inline-block;*/
+/*  margin-top: 4px;*/
+/*  width: 100px;*/
+/*  height: 20px;*/
+/*  -webkit-app-region: no-drag;*/
+/*  position: absolute;*/
+/*  top: 0px;*/
+/*  z-index: 2;*/
+/*}*/
+
+/*.windowPanel .window_btn {*/
+/*  display: inline-block;*/
+/*  cursor: pointer;*/
+/*  width: 20px;*/
+/*  height: 20px;*/
+/*  background-image: none;*/
+/*  background-size: contain;*/
+/*}*/
+
+/*.headerPanel .logTrigger {*/
+/*  display: block;*/
+/*  width: 50%;*/
+/*  height: 44px;*/
+/*  margin: 0px auto;*/
+/*  -webkit-app-region: no-drag;*/
+/*}*/
+
+/*.windowPanel .close {*/
+/*  margin-left: 4px;*/
+/*  background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_quit_mac.png");*/
+/*}*/
+/*.windowPanel .close:hover,*/
+/*.windowPanel .close:focus {*/
+/*  background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_quit_mac-hover.png");*/
+/*}*/
+
+/*.windowPanel .minimize {*/
+/*  margin-left: -2px;*/
+/*  background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_minimize_mac.png");*/
+/*}*/
+/*.windowPanel .minimize:hover,*/
+/*.windowPanel .minimize:focus {*/
+/*  background-image: url("../../resources/images/headerPanel/window_ctr/header_btn_minimize_mac-hover.png");*/
+/*}*/
+
+/***** StatusBar ******/
+/*.statusBar {*/
+/*  width: inherit;*/
+/*  height: 2px;*/
+/*  background-color: #DD3030;*/
+/*  -webkit-animation:blinking 1.2s alternate-reverse infinite;*/
+/*  animation:blinking 1.2s alternate-reverse infinite;*/
+/*}*/
+
+

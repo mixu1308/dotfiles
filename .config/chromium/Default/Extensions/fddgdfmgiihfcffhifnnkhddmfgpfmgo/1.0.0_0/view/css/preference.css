@@ -1,0 +1,466 @@
+html, body {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+}
+    
+body {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  background-color: #E1E1E1;
+}
+#preference_container {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#option_btn_container{
+  margin: auto;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#option_btn_container .option_btn {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  margin: 0px;
+  border-radius: 6px;
+}
+.option_btn .option_btn_icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: auto;
+  margin-top: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.option_btn .option_btn_label {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 20px;
+  margin: auto;
+  margin-top: 5px;
+  text-align: center;
+  font-size: 14px;
+}
+
+#option_btn_container .option_btn:hover,
+#option_btn_container .option_btn:focus,
+#option_btn_container .option_btn.selected {
+  background-color: #C0C0C0;
+}
+
+#option_page_container {
+  display: block;
+  position: absolute;
+  width: 100%;
+  margin: 0px auto;
+  background-color: #C0C0C0;
+  top: 68px;
+  bottom: 0px;
+}
+
+#option_page_container .page_block {
+  display: block;
+  width: 100%;
+  /*height: 100%;*/
+  /*height: auto;*/
+  border-top: 1px solid;
+  border-color: #B0B0B0;
+  padding-top: 14px;
+}
+
+#option_page_container .page_block:first-child  {
+  padding-top: 20px;
+}
+
+#option_btn_container .option_btn.license {
+  display: none;
+}
+/*#option_page_container .page_block:first-child {*/
+/*  margin-top: 20px;*/
+/*}*/
+
+#option_page_container .title_block {
+  display: inline-block;
+  position: relative;
+  width: 147px;
+  /*height: 40px;*/
+  height: auto;
+  vertical-align: top;
+  padding-top: 2px;
+}
+
+#option_page_container .content_block {
+  display: inline-block;
+  /*width: 50%;*/
+  /*height: 40px;*/
+  /*height: auto;*/
+  overflow: hidden;
+  margin-left: 10px;
+  /*background-color: red;*/
+}
+
+.title_block .title_label {
+  display: block;
+  width: 100%;
+  height: 40px;
+  line-height: 18px;
+  text-align: right;
+}
+
+/** General page **/
+#option_page_container .content_block.name {
+  width: 50%;
+  
+}
+.option_page.general .content_input.name {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 16px;
+  line-height: 16px;
+  font-size: 16px;
+  /*margin-top: 8px;*/
+}
+
+.option_page.general .content_input.functions {
+  -webkit-transform: scale(1.2);
+  vertical-align:middle; 
+}
+
+/** Favorite page **/
+#option_page_container .content_block.default_list {
+  padding-bottom: 14px;
+}
+
+#option_page_container .title_block.favorite_list {
+  display: block; 
+  height: 20px;
+}
+#option_page_container .content_block.favorite_list {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.content_block .content_label.file_path {
+  display: inline-block;
+  width: 296px;
+  height: 42px;
+  float: left;
+  margin-left: 88px;
+  margin-right: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background-color: #F1F1F1;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.content_block.favorite_list .option_block{
+  display: block;
+  position: relative;
+  float: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  vertical-align: top;
+}
+
+.content_block.favorite_list .content_btn {
+  display: block;
+  position: relative;
+  border: solid 1px;
+  border-color: #C0C0C0;
+  border-radius: 4px;
+  width: 84px;
+  line-height: 21px;
+  text-align: center;
+  background-color: white;
+}
+
+.content_block.favorite_list .content_btn:hover {
+  border-color: #0098FF;
+}
+
+.content_block.favorite_list input[type="file"]{
+  -webkit-appearance:none; 
+  position:absolute;
+  top:0; left:0;
+  opacity:0; 
+}
+
+/** Advanced page **/
+#option_page_container .option_page.advanced .title_block {
+  width: 200px;
+}
+
+/** About page **/
+
+#option_page_container .page_block.copyright {
+  padding: 0px;
+}
+
+#option_page_container .option_page.about .content_block {
+  display: block;
+  margin: 0px auto;
+  margin-top: 5px;
+  text-align: center;
+}
+
+#option_page_container .option_page.about .content_block.logo {
+  margin-top: 20px;
+  width: 160px;
+  height: 160px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#option_page_container .option_page.about .content_block.name {
+  font-size: 24px;
+}
+
+#option_page_container .option_page.about .content_block.copyright {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+#option_page_container .option_page.license {
+  background-color: #4D4D4D;
+  height: 100%;
+  z-index: 2;
+}
+
+#option_page_container .option_page.license .page_block{
+  border: 0px;
+}
+
+#option_page_container .option_page.license .content_block.left {
+  display: inline-block;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-left: 22px;
+}
+#option_page_container .option_page.license .content_block.right {
+  display: inline-block;
+  position: relative;
+  /*width: 150px;*/
+  height: 150px;
+  margin-left: 8px;
+  margin-right: 22px;
+  left: 0px;
+  right: 0px;
+}
+
+.content_block.left .license_icon.logo {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.content_block.right .license_block,
+.content_block.right .license_label {
+  display: block;
+  width: 100%;
+  color: white;
+}
+
+.content_block.right .license_label.title,
+.content_block.right .license_label.subtitle{
+  width: auto;
+  display: inline-block;
+  font-size: 24px;
+}
+
+.content_block.right .license_label.subtitle {
+  margin-left: 4px;
+  color: #C0C0C0;
+}
+
+.content_block.right .license_label.description {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: #C0C0C0;
+  font-size: 15px;
+}
+
+.content_block.right .license_block {
+  height: 30px;
+  vertical-align: center;
+  padding: 0px;
+  margin: 0px auto;
+  overflow: hidden;
+}
+
+.content_block.right .license_input.code {
+  display: inline-block;
+  position: relative;
+  width: 320px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 16px;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.content_block.right .license_icon.status {
+  display: block;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  float: right;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 8px;
+  background-size: contain;
+  background-position: center; 
+  background-repeat: no-repeat;
+}
+
+.content_block.right .license_icon.status.wrong,
+.content_block.right .license_icon.status.checked{
+  display: block;
+}
+
+.content_block.right .license_label.detail {
+  margin-top: 8px;
+  color: #C0C0C0;
+  width: 320px;
+  height: 30px;
+}
+
+#option_page_container .page_block.footer{
+  position: absolute;
+  height: 60px;
+  left: 0px;
+  bottom: 0px;
+}
+
+.option_page.license .license_footer_btn {
+  display: inline-block;
+  position: relative;
+  width: 102px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  font-size: 15px;
+  float: right;
+  background-color: #808080;
+  color: white;
+  margin: 0px;
+  padding: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.option_page.license .license_footer_btn.activate {
+  margin-right: 22px;
+}
+
+.option_page.license .license_footer_btn.later {
+  margin-right: 8px;
+}
+.option_page.license .license_footer_btn.buy {
+  float: left;
+  margin-left: 22px;
+}
+
+.option_page.license .license_footer_btn:hover{
+  background-color: #0073CF; 
+}
+
+/*#option_page_container .option_page.general,*/
+#option_page_container .option_page.favorite,
+#option_page_container .option_page.advanced,
+#option_page_container .option_page.about,
+#option_page_container .option_page.license
+{
+  display: none;
+}
+
+/*#option_btn_container .option_btn:focus {*/
+/*}*/
+
+
+
+#option_footer {
+  display: none;
+  /*position: relative;*/
+  position: absolute;
+  height: 60px;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  border-top: 1px solid;
+  border-color: #C0C0C0;
+  background-color: #E1E1E1;
+  z-index: 2;
+}
+
+#option_footer .option_footer_btn{
+  display: inline-block;
+  position: relative;
+  width: 84px;
+  height: 21px;
+  line-height: 21px;
+  text-align: center;
+  float: right;
+  background-color: white;
+  border: solid 1px;
+  border-radius: 4px;
+  border-color: #C0C0C0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#option_footer .option_footer_btn:hover {
+  border-color: #0098FF;
+}
+
+.option_footer_btn.cancel {
+  margin-left: 12px;
+  margin-right: 20px;
+}
+
+.option_btn_icon.general{
+  background-image: url("../../resources/images/preference/pre_ico_gen@2x.png") ;
+}
+.option_btn_icon.favorite{
+  background-image: url("../../resources/images/preference/pre_ico_fav@2x.png") ;
+}
+.option_btn_icon.advance {
+  background-image: url("../../resources/images/preference/pre_ico_adv@2x.png") ;
+}
+.option_btn_icon.about {
+  background-image: url("../../resources/images/preference/pre_ico_help@2x.png") ;
+}
+.option_btn_icon.license {
+  background-image: url("../../resources/images/preference/pre_ico_license@2x.png") ;
+}
+.content_block.logo {
+  background-image: url("../../MirrorOp-Sender-512.png") ;
+}
+
+.content_block.left .license_icon.logo {
+  background-image: url("../../MirrorOp-Sender-512.png") ;
+}
+
+.content_block.right .license_icon.status.wrong {
+  background-image: url("../../resources/images/preference/dialog/ico_wrong@2x.png") ;
+}
+
+.content_block.right .license_icon.status.checked {
+  background-image: url("../../resources/images/preference/dialog/ico_check@2x.png") ;
+}

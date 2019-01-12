@@ -1,0 +1,256 @@
+/***** ControlPanel ******/
+#control_panel{
+  display: block;
+  position: relative;
+  width: inherit;
+  height: 50px;
+  background-color: #202020;
+  /*margin: 0px;*/
+  overflow: hidden;
+  z-index: 2;
+}
+
+#bar_container {
+  display: block;
+  margin-left: 22px;
+  margin-right: 22px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: auto;
+  height: auto;
+}
+
+#device_bar,
+#control_bar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Initally hidden */
+#control_bar {
+  display: none;
+}
+
+#device_bar .bar_btn,
+#control_bar .bar_btn {
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+}
+
+#play_panel{
+  display: flex;
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  top: 0px;
+  left: 50%;
+  margin-top: 5px;
+  margin-left: -40px;
+  justify-content: space-between;
+}
+
+.bar_btn .bar_btn_light {
+  display: block;
+  position: absolute;
+  width: inherit;
+  height: 2px;
+  bottom: -5px;
+  left: 0px;
+}
+
+#control_bar .bar_btn.btn_split {
+  float: right;
+}
+#control_bar .btn_split.disabled {
+  cursor: default;
+}
+
+#control_bar .bar_btn.btn_ratio {
+  display: none;
+}
+#play_panel .btn_play {
+  float: center;
+  left: 50%;
+  margin-left: -20px;
+}
+
+/* Initally hidden */
+#play_panel .btn_stop,
+#play_panel .btn_pause {
+  display: none;
+}
+
+/** Customization & Images Urls **/
+#device_bar .btn_expand,
+#control_bar .btn_expand {
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_expand@2x.png") ;
+}
+
+#device_bar .btn_expand:hover,
+#device_bar .btn_expand:focus,
+#control_bar .btn_expand:hover,
+#control_bar .btn_expand:focus {
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_expand-hover@2x.png") ;
+}
+
+#device_bar .btn_expand.selected,
+#control_bar .btn_expand.selected {
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_collapse@2x.png") ;
+}
+
+#device_bar .btn_expand.selected:hover,
+#control_bar .btn_expand.selected:hover {
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_collapse-hover@2x.png") ;
+}
+
+#device_bar .btn_list{
+  background-image: url("../../resources/images/devicePanel/list_nav/btn_discovery@2x.png") ;
+}
+#device_bar .btn_list:hover,
+#device_bar .btn_list.selected{
+  background-image: url("../../resources/images/devicePanel/list_nav/btn_discovery-hover@2x.png") ;
+}
+#device_bar .btn_favorite{
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_fav@2x.png") ;
+}
+#device_bar .btn_favorite:hover,
+#device_bar .btn_favorite.selected{
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_fav-hover@2x.png") ;
+}
+#device_bar .btn_refresh{
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_refresh@2x.png") ;
+}
+#device_bar .btn_refresh:hover,
+#device_bar .btn_refresh.selected{
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_refresh-hover@2x.png") ;
+}
+#device_bar .btn_search{
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_find@2x.png") ;
+}
+#device_bar .btn_search:hover,
+#device_bar .btn_search.selected{
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_btn_find-hover.png") ;
+}
+
+.bar_btn:hover .bar_btn_light,
+.bar_btn:not(.btn_expand).selected .bar_btn_light{
+  background-image: url("../../resources/images/devicePanel/list_nav/nav_highlight@2x.png") ;
+}
+
+/** control_bar **/
+
+
+#control_bar .btn_pause.selected,
+#control_bar .btn_play {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_play@2x.png") ;
+}
+
+#control_bar .btn_pause.selected:hover,
+#control_bar .btn_play:hover{
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_play-hover@2x.png") ;
+}
+#control_bar .btn_play:active{
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_play-press@2x.png") ;
+}
+
+#control_bar .btn_play.disabled {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_play-disable@2x.png") ;
+  cursor: default;
+}
+
+#control_bar .btn_pause {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_pause@2x.png") ;
+}
+
+#control_bar .btn_pause:hover{
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_pause-hover@2x.png") ;
+}
+
+
+#control_bar .btn_stop {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_stop@2x.png") ;
+}
+#control_bar .btn_stop:hover{
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_stop-hover@2x.png") ;
+}
+
+#control_bar .btn_split.full_screen {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_full@2x.png");
+}
+
+#control_bar .btn_split.disabled,
+#control_bar .btn_split.disabled:hover{
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_full-disable@2x.png");
+}
+
+#control_bar .control.btn_split.full_screen.selected,
+#control_bar .btn_split.full_screen:hover {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_full-hover@2x.png") ;
+}
+
+#control_bar .btn_split.top_left {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_tl@2x.png") ;
+}
+
+#control_bar .control.btn_split.top_left.selected,
+#control_bar .btn_split.top_left:hover {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_tl-hover@2x.png") ;
+}
+
+#control_bar .btn_split.top_right {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_tr@2x.png") ;
+}
+
+#control_bar .control.btn_split.top_right.selected,
+#control_bar .btn_split.top_right:hover {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_tr-hover@2x.png") ;
+}
+
+#control_bar .btn_split.bottom_left {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_bl@2x.png") ;
+}
+
+#control_bar .control.btn_split.bottom_left.selected,
+#control_bar .btn_split.bottom_left:hover {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_bl-hover@2x.png") ;
+}
+
+#control_bar .btn_split.bottom_right {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_br@2x.png") ;
+}
+
+#control_bar .control.btn_split.bottom_right.selected,
+#control_bar .btn_split.bottom_right:hover {
+  background-image: url("../../resources/images/controlPanel/playback_ctr/btn_split_br-hover@2x.png") ;
+}
+
+#control_bar .btn_ratio.aspectToFit {
+  background-image: url("../../resources/images/controlPanel/customs/btn_sreen_aspectToFit@2x.png") ;
+}
+
+#control_bar .btn_ratio.aspectToFit:hover {
+  background-image: url("../../resources/images/controlPanel/customs/btn_sreen_aspectToFit-hover@2x.png") ;
+}
+
+#control_bar .btn_ratio.scaleToFill {
+  background-image: url("../../resources/images/controlPanel/customs/btn_sreen_scaleToFill@2x.png") ;
+}
+#control_bar .btn_ratio.scaleToFill:hover {
+  background-image: url("../../resources/images/controlPanel/customs/btn_sreen_scaleToFill-hover@2x.png") ;
+}
+
+#control_bar .btn_setting {
+  background-image: url("../../resources/images/controlPanel/customs/btn_preference@2x.png") ;
+}
+
+#control_bar .btn_setting:hover {
+  background-image: url("../../resources/images/controlPanel/customs/btn_preference-hover@2x.png") ;
+}
+

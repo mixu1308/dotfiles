@@ -1,0 +1,125 @@
+{
+   "About": {
+      "message": "About"
+   },
+   "Advance": {
+      "message": "Advance"
+   },
+   "Allow_webslide": {
+      "message": "Allows screen projection be redireced to browsers"
+   },
+   "Always_on_top": {
+      "message": "Always on top"
+   },
+   "Aspect_ratio": {
+      "message": "Aspect Ratio"
+   },
+   "Best": {
+      "message": "Best"
+   },
+   "Cancel": {
+      "message": "CANCEL"
+   },
+   "Connect": {
+      "message": "Connect"
+   },
+   "Connecting": {
+      "message": "Connecting"
+   },
+   "Copyright": {
+      "message": "Copyright © 2016 MirrorOp. All rights reserved."
+   },
+   "Default_list": {
+      "message": "Default list"
+   },
+   "Discovery": {
+      "message": "Discovery"
+   },
+   "Display_BF": {
+      "message": "Display on bottom-left"
+   },
+   "Display_BR": {
+      "message": "Display on bottom-right"
+   },
+   "Display_FS": {
+      "message": "Display on full screen"
+   },
+   "Display_TF": {
+      "message": "Display on top-left"
+   },
+   "Display_TR": {
+      "message": "Display on top-right"
+   },
+   "ERR_CONNECTION_TIMED_OUT": {
+      "message": "The target device may not exist\n or cannot be found."
+   },
+   "ERR_INTERNET_DISCONNECTED": {
+      "message": "No Internet access"
+   },
+   "ERR_NAME_NOT_RESOLVED": {
+      "message": "The target device may not exist\n or cannot be found."
+   },
+   "Enter_Passcode": {
+      "message": "Enter the code displayed on"
+   },
+   "Export": {
+      "message": "Export"
+   },
+   "Favorite": {
+      "message": "Favorite"
+   },
+   "Favorite_list": {
+      "message": "Favorite list"
+   },
+   "Fill_screen": {
+      "message": "Fill Screen"
+   },
+   "Find_Device_By_Name": {
+      "message": "Input device name to find"
+   },
+   "Functions": {
+      "message": "Functions"
+   },
+   "General": {
+      "message": "General"
+   },
+   "Import": {
+      "message": "Import"
+   },
+   "Invalid_Passcode": {
+      "message": "Incorrect code, please try again."
+   },
+   "Keep_aspect_ratio": {
+      "message": "Keep Aspect Ratio"
+   },
+   "Manual_Connection": {
+      "message": "Input hostname or IP"
+   },
+   "Name": {
+      "message": "Name"
+   },
+   "No_Device": {
+      "message": "No compatible receiver found."
+   },
+   "Normal": {
+      "message": "Normal"
+   },
+   "OK": {
+      "message": "OK"
+   },
+   "Passcode": {
+      "message": "Passcode"
+   },
+   "Paused": {
+      "message": "Paused"
+   },
+   "Projecting_Exit": {
+      "message": "Projecting!\nAre you sure you want to close this application?"
+   },
+   "Quality": {
+      "message": "Quality"
+   },
+   "Ready": {
+      "message": "Ready"
+   }
+}

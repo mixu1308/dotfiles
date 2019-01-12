@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>MirrorOpSender</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/controlPanel.css">
+    <link rel="stylesheet" href="css/deviceListPanel.css">
+    <link rel="stylesheet" href="css/splitPanel.css">
+    <script src="../jslibrary/jquery/jquery-2.1.4.min.js"></script>
+    <script src="../jslibrary/jquery/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="../jslibrary/ui-library/iscroll.js"></script>
+    <script src="../jslibrary/ui-library/list.min.js"></script>
+    <!--<script src="../jslibrary/ui-library/list_v1.2.0.min.js"></script>-->
+    <script type="text/javascript" src="../utils/ArrayCategories.js"></script>
+    <script type="text/javascript" src="../utils/encryption.js"></script>
+    <script type="text/javascript" src="../utils/conversion.js"></script>
+    <!-- <script type="text/javascript" src="../model/ScreenCapture/CaptureModule.js"></script> -->
+    <script type="text/javascript" src="../model/Sockets/udp/udp_socket.js"></script>
+    <script type="text/javascript" src="../model/Sockets/tcp/tcp_socket.js"></script>
+    <script type="text/javascript" src="../model/CaptureModule.js"></script>
+    <script type="text/javascript" src="../model/DiscoveryModule.js"></script>
+    <!--<script type="text/javascript" src="../model/Handlers/WebRtcHandler.js"></script>-->
+    <script type="text/javascript" src="../model/MirrorOpLog.js"></script>
+    <!--<script type="text/javascript" src="../model/MirrorOp/MirrorOpStorage.js"></script>-->
+    <script type="text/javascript" src="../model/MirrorOpClient.js"></script>
+    <script type="text/javascript" src="../model/Settings.js"></script>
+    <script type="text/javascript" src="../view/js/main.js"></script>
+    <script type="text/javascript" src="../presenter.js"></script>
+  </head>
+
+  <body>
+    <!--Hidden divs-->
+    <div>
+      <div id='nacl-container'></div>
+      <!--<video id="local_video" class="video-medium" style="display:none;" autoplay></video>-->
+      <!--<video id="local_video" width=1920 height=1080 style="display: none;"> </video>-->
+    </div>
+
+    <!--Conatiner -->
+    <div id="mainContainer">
+      <!--Header component-->
+        <!--StatusBar part -->
+        <!--<div class='status_bar'></div>-->
+      <div id="header_panel">
+
+        <div id="logo_panel"></div>
+        <div id="message_panel">
+          <div class='message_label device_ssid'></div>
+          <div class='message_label status'></div>
+        </div>
+
+        <div id="window_panel">
+          <div class="window_btn close"></div>
+          <div class="window_btn minimize"></div>
+        </div>
+        <div class="window_btn option"></div>
+        <div class='status_bar'></div>
+      </div>
+
+      <!--Control component -->
+      <div id="control_panel">
+        <div id='bar_container'>
+          <div id= "device_bar">
+            <div class="bar_btn btn_expand">
+              <div class="bar_btn_light"></div>
+            </div>
+            <div class="bar_btn btn_list list_all">
+              <div class="bar_btn_light"></div>
+            </div>
+            <div class="bar_btn btn_favorite list_fav">
+              <div class="bar_btn_light"></div>
+            </div>
+            <div class="bar_btn btn_refresh">
+              <div class="bar_btn_light"></div>
+            </div>
+            <div class="bar_btn btn_search list_search">
+              <div class="bar_btn_light"></div>
+            </div>
+          </div>
+          <div id= "control_bar">
+            <div class="bar_btn control btn_expand"></div>
+            <div class="bar_btn control btn_split full_screen"></div>
+            <div class="bar_btn control btn_ratio scaleToFill"></div>
+            <div id="play_panel">
+              <div class="bar_btn btn_play"></div>
+              <div class="bar_btn btn_pause"></div>
+              <div class="bar_btn btn_stop"></div>
+            </div>
+            <div id= "split_bar" class='split_bar'>
+              <div class='btn_split full_screen'></div>
+              <div class='btn_split top_left'></div>
+              <div class='btn_split top_right'></div>
+              <div class='btn_split bottom_left'></div>
+              <div class='btn_split bottom_right'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--DeviceList component -->
+      <div id="device_list_panel" class='dropdown'>
+        <div id="device_search_bar">
+          <div id='search_bar_input_container'>
+            <input class='device_search_input search' placeholder='Input device name to find'></input>
+            <div class='search_bar_btn search'></div>
+            <div class='search_bar_btn clear'></div>
+          </div>
+        </div>
+
+        <div id="manual_connection">
+          <div id='manual_icon' class='manual_btn icon'></div>
+          <input id="manual_input" class='manual_input' maxlength='30' placeholder='Manual Connection'></input>
+          <div id='manual_connect' class='manual_btn connect'>
+            <div class='manual_label connect'>Connect</div>
+          </div>
+        </div>
+
+        <div id='device_list_message' class='device_list_message'>
+          <div class='message_box'>No device had been found</div>
+        </div>
+
+        <div id="device_list_table" class='device_list_table'>
+          <div id="scroll-content">
+            <!-- Using list.min.js requires class='list' -->
+            <ul id="device_list" class='list'>
+              <!--<li class='device_cell'>-->
+              <!--  <div class='device_attrs'>-->
+              <!--    <div id='device_icon' class='device_btn icon'></div>-->
+              <!--    <div id='device_favorite' class='device_btn favorite'></div>-->
+              <!--    <div id='device_control' class='device_btn control'></div>-->
+              <!--    <div id='device_connect' class='device_btn connect'>-->
+              <!--      <div class='device_label connect'>Connect</div>-->
+              <!--    </div>-->
+              <!--    <div id='device_name' class='device_label name'>-->
+              <!--      <p> "frwjfghuirwhgiuewhgiuewhrgiluehwg" </p>-->
+              <!--    </div>-->
+              <!--  </div>-->
+              <!--</li>-->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end of main container-->
+
+    <div id='passwordContainer'>
+      <div class='password_panel dialogBox'>
+        <div class='password_label title_box'>
+          <p> Passcode </p>
+        </div>
+        <div class='password_label message_box'></div>
+        <div class='password_input_container'>
+          <input class='password_input digit_1' maxlength='1' pattern="[0-9]"></input>
+          <input class='password_input digit_2' maxlength='1' pattern="[0-9]"></input>
+          <input class='password_input digit_3' maxlength='1' pattern="[0-9]"></input>
+          <input class='password_input digit_4' maxlength='1' pattern="[0-9]"></input>
+        </div>
+        <div class='password_btn_container'>
+          <div class='password_btn cancel enabled'>
+            CANCEL
+          </div>
+          <div class='password_btn confirm'>
+            OK
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id='errorContainer'>
+      <div class='dialogBox'>
+        <div class='msg_container'>
+          <div class='spinning icon'></div>
+          <div class='message_box'></div>
+        </div>
+        <div class='btn_container'>
+          <div class='btn_cancel'>
+            Cancel
+          </div>
+          <div class='btn_confirm'>
+            OK
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

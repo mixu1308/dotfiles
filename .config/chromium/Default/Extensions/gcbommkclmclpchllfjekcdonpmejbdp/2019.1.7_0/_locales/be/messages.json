@@ -1,0 +1,149 @@
+{
+   "about_add_new_rule": {
+      "message": "Дадаць новая правіла"
+   },
+   "about_ext_description": {
+      "message": "Шыфраванне Сеціва! Аўтаматычнае выкарыстанне бяспекі HTTPS на розных сайтах"
+   },
+   "about_ext_name": {
+      "message": "HTTPS Everywhere"
+   },
+   "about_rulesets_version": {
+      "message": "Версія набораў правілаў для "
+   },
+   "about_title": {
+      "message": "Пра HTTPS Everywhere"
+   },
+   "about_version": {
+      "message": "Версія"
+   },
+   "cancel_he_blocking_explainer": {
+      "message": "HTTPS Everywhere звярнула ўвагу, што вы перайшлі на старонку без HTTPS, і паспрабавала даслаць вам версію HTTPS. На жаль, версія HTTPS недаступная. Хутчэй за ўсё, гэты сайт не падтрымоўвае HTTPS, але таксама магчыма, што злоўмыснік блакуе версію HTTPS. Калі вы хочаце паглядзець незашыфраваную версію гэтай старонкі, вы можаце зрабіць гэта, адключыўшы параметр «Блакаваць усе незашыфраваныя запыты» у сваім пашырэнні HTTPS Everywhere. Майце на ўвазе, што адключэнне гэтай опцыі можа зрабіць ваш браузэр уразлівым для сеткавых атак на вэб-сайтах, якія вы наведваеце."
+   },
+   "cancel_he_blocking_network": {
+      "message": "сеткавыя атакі паніжэння"
+   },
+   "chrome_add_new_rule": {
+      "message": "Дадаць новае правіла для гэтага сайту"
+   },
+   "chrome_add_rule": {
+      "message": "Дадаць правіла для гэтага сайту"
+   },
+   "chrome_always_https_for_host": {
+      "message": "Заўсёды выкарыстоўваць https для гэтага хосту"
+   },
+   "chrome_disable_on_this_site": {
+      "message": "Адключыць HTTPS Everywhere на гэтым сайце"
+   },
+   "chrome_enable_on_this_site": {
+      "message": "Уключыць HTTPS Everywhere на гэтым сайце"
+   },
+   "chrome_experimental_rules": {
+      "message": "Эксперыментальныя правілы"
+   },
+   "chrome_experimental_rules_description": {
+      "message": "Можа выклікаць папярэджанні або прывесці да паломкі. Па змоўчанні адключанае. "
+   },
+   "chrome_hide_advanced": {
+      "message": "Схаваць пашыраныя"
+   },
+   "chrome_host": {
+      "message": "Хост:"
+   },
+   "chrome_redirect_to": {
+      "message": "Перанакіраванне на"
+   },
+   "chrome_regex": {
+      "message": "Адпаведнасць regex"
+   },
+   "chrome_rule_name": {
+      "message": "Імя правіла"
+   },
+   "chrome_show_advanced": {
+      "message": "Паказаць пашыраныя"
+   },
+   "chrome_stable_rules": {
+      "message": "Стабільныя правілы"
+   },
+   "chrome_stable_rules_description": {
+      "message": "Прымусовае шыфраванне для гэтых сайтаў:"
+   },
+   "chrome_status_cancel_button": {
+      "message": "Скасаваць"
+   },
+   "menu_blockUnencryptedRequests": {
+      "message": "Блакаваць усе незашыфраваныя запыты"
+   },
+   "menu_donate_eff_imperative": {
+      "message": "Падтрымаць EFF"
+   },
+   "menu_globalEnable": {
+      "message": "Уключыць HTTPS Everywhere"
+   },
+   "menu_observatory": {
+      "message": "Настáўленні SSL Observatory"
+   },
+   "menu_showCounter": {
+      "message": "Паказаць лічыльнік"
+   },
+   "menu_viewAllRules": {
+      "message": "Праглядзець усе правілы"
+   },
+   "options_addUpdateChannel": {
+      "message": "Дадаць канал абнаўлення "
+   },
+   "options_advancedSettings": {
+      "message": "Дадатковыя налады"
+   },
+   "options_autoUpdateRulesets": {
+      "message": "Аўтаматычнае абнаўленне набораў правілаў"
+   },
+   "options_delete": {
+      "message": "Delete"
+   },
+   "options_disabledUrlsListed": {
+      "message": "Сайты з адключанным HTTPS Everywhere"
+   },
+   "options_enableMixedRulesets": {
+      "message": "Уключыць наборы правілаў для змяшанага кантэнту"
+   },
+   "options_enterUpdateChannelName": {
+      "message": "Увядзіце імя канала абнаўлення "
+   },
+   "options_generalSettings": {
+      "message": "Агульныя налады"
+   },
+   "options_showDevtoolsTab": {
+      "message": "Паказаць укладку інструментаў распрацоўшчыка"
+   },
+   "options_storedRulesetsVersion": {
+      "message": "Захаваная версія набора правілаў: "
+   },
+   "options_update": {
+      "message": "Абнаўленне"
+   },
+   "options_updateChannels": {
+      "message": "Каналы абнаўленняў"
+   },
+   "options_updateChannelsWarning": {
+      "message": "Папярэджанне: даданне каналаў абнаўлення можа спрычыніць атакі злоўмыснікаў на ваш браўзэр. Рэдагуйце гэты падзел, толькі калі ведаеце, што робіце!"
+   },
+   "options_updatesLastChecked": {
+      "message": "Апошняя праверка абнаўленняў:"
+   },
+   "options_updatesLastCheckedNever": {
+      "message": "ніколі"
+   },
+   "options_userRulesListed": {
+      "message": "Карыстальніцкія правілы HTTPS Everywhere"
+   },
+   "prefs_export_settings": {
+      "message": "Экспарт наладаў"
+   },
+   "prefs_reset_defaults": {
+      "message": "Скінуць да стандартных"
+   },
+   "prefs_reset_defaults_message": {
+      "message": "Так вы скініце кожны набор правілаў да стану «па змоўчанні». Працягнуць?"
+   }
+}

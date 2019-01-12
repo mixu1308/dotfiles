@@ -1,0 +1,12 @@
+{
+  "program": {
+    "portable": {
+      "pnacl-translate": {
+        "url": "mirror_op_client.pexe"
+      },
+      "pnacl-debug": {
+        "url": "mirror_op_client_unstripped.bc"
+      }
+    }
+  }
+}
