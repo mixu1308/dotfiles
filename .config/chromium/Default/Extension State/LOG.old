@@ -1,6 +1,6 @@
-2019/01/12-20:20:34.335 896 Reusing MANIFEST /home/max/.config/chromium/Default/Extension State/MANIFEST-000001
-2019/01/12-20:20:34.335 896 Recovering log #3
-2019/01/12-20:20:34.345 896 Reusing old log /home/max/.config/chromium/Default/Extension State/000003.log 
-2019/01/12-19:22:43.938 1200 Level-0 table #5: started
-2019/01/12-19:22:43.971 1200 Level-0 table #5: 1818726 bytes OK
-2019/01/12-19:22:43.975 1200 Delete type=0 #3
+2019/02/25-01:50:33.103 83e Reusing MANIFEST /home/max/.config/chromium/Default/Extension State/MANIFEST-000001
+2019/02/25-01:50:33.104 83e Recovering log #111
+2019/02/25-01:50:33.109 83e Reusing old log /home/max/.config/chromium/Default/Extension State/000111.log 
+2019/02/25-10:28:07.262 ead Level-0 table #116: started
+2019/02/25-10:28:07.348 ead Level-0 table #116: 1811672 bytes OK
+2019/02/25-10:28:07.354 ead Delete type=0 #111

@@ -1,0 +1,24 @@
+
+
+-------session starts-------
+
+[2-25 9:53:53.388] INFO: MediaGallery: name=/home/max/Music, galleryId=1, isMediaDevice=false, deviceId=undefined
+[2-25 9:53:53.389] INFO: MediaGallery: name=/home/max/Pictures, galleryId=2, isMediaDevice=false, deviceId=undefined
+[2-25 9:53:53.390] INFO: Starts a quick scan on /home/max/Music
+[2-25 9:53:53.390] INFO: Iterating over dir / from source /home/max/Music
+[2-25 9:53:53.391] INFO: Starts a quick scan on /home/max/Pictures
+[2-25 9:53:53.391] INFO: Iterating over dir / from source /home/max/Pictures
+[2-25 9:53:53.417] INFO: /home/max/Music contains music file
+[2-25 9:53:53.419] INFO: Got the drag_and_drop directory
+[2-25 9:53:53.422] INFO: Iterating over dir /Wallpapers from source /home/max/Pictures
+[2-25 9:53:53.465] INFO: Iterating over dir /Wallpapers/Regular from source /home/max/Pictures
+[2-25 9:53:53.496] INFO: Iterating over dir /Wallpapers/Fun Papes from source /home/max/Pictures
+[2-25 9:53:53.509] INFO: Iterating over dir /Wallpapers/4K Papes from source /home/max/Pictures
+[2-25 9:53:53.516] INFO: Error fetching features, backoff count: 1
+[2-25 9:53:53.522] INFO: /home/max/Pictures does not contain music file
+[2-25 9:53:54.222] INFO: lsUserAddedMusicSourceIds=null
+[2-25 9:53:54.222] INFO: lsLastTrackFailureLoggingTime=null
+[2-25 9:53:54.223] INFO: lsUserSelectedDownloadDirId=null
+[2-25 9:53:54.226] INFO: lsDefaultDownloadLocationId=null
+[2-25 9:53:54.226] INFO: Setting is already: lsAlwaysUseDefaultDownloadLocation = false
+[2-25 9:53:54.226] INFO: Setting is already: lsDefaultDownloadLocationId = null

@@ -1,0 +1,9 @@
+2019/01/23-13:03:51.809 3323 Reusing MANIFEST /home/max/.config/chromium/Default/IndexedDB/https_yggtorrent.gg_0.indexeddb.leveldb/MANIFEST-000001
+2019/01/23-13:04:29.990 3f7d Current memtable full; waiting...
+2019/01/23-13:04:29.990 3eab Level-0 table #5: started
+2019/01/23-13:04:29.991 3eab Level-0 table #5: 438 bytes OK
+2019/01/23-13:04:29.992 3eab Delete type=0 #3
+2019/01/23-13:04:29.993 3eab Level-0 table #7: started
+2019/01/23-13:04:29.993 3eab Level-0 table #7: 0 bytes OK
+2019/01/23-13:04:29.994 3eab Delete type=0 #4
+2019/01/23-13:04:29.994 3eab Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)

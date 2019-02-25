@@ -1,0 +1,6 @@
+2019/02/24-12:29:49.469 36f0 Reusing MANIFEST /home/max/.config/chromium/Default/IndexedDB/https_drive.google.com_0.indexeddb.leveldb/MANIFEST-000001
+2019/02/24-12:29:49.469 36f0 Recovering log #158
+2019/02/24-12:29:49.475 36f0 Reusing old log /home/max/.config/chromium/Default/IndexedDB/https_drive.google.com_0.indexeddb.leveldb/000158.log 
+2019/02/24-12:32:23.811 4c58 Level-0 table #167: started
+2019/02/24-12:32:23.827 4c58 Level-0 table #167: 4430468 bytes OK
+2019/02/24-12:32:23.829 4c58 Delete type=0 #158

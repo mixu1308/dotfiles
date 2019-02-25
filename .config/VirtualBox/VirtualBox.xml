@@ -9,20 +9,23 @@
   <Global>
     <ExtraData>
       <ExtraDataItem name="GUI/Details/Elements" value="general,system,preview,display,storage,audio,network,usb,sharedFolders,description"/>
-      <ExtraDataItem name="GUI/GroupDefinitions/" value="m=8bd95c80-6fed-4f22-a95d-99649ff12dc8"/>
+      <ExtraDataItem name="GUI/GroupDefinitions/" value="m=86089edd-e3ac-4bd5-8a6e-f21820fced40"/>
       <ExtraDataItem name="GUI/HideDescriptionForWizards" value="ImportAppliance"/>
       <ExtraDataItem name="GUI/LastItemSelected" value="m=Windows 10"/>
-      <ExtraDataItem name="GUI/LastWindowPosition" value="32,67,1856,952"/>
+      <ExtraDataItem name="GUI/LastWindowPosition" value="19,53,1882,1008"/>
+      <ExtraDataItem name="GUI/RecentFolderCD" value="/home/max/archlive/out"/>
       <ExtraDataItem name="GUI/RecentFolderHD" value="/home/max"/>
-      <ExtraDataItem name="GUI/RecentListHD" value="/home/max/win10.vmdk,/home/max/sda1.vmdk"/>
-      <ExtraDataItem name="GUI/SplitterSizes" value="597,1258"/>
+      <ExtraDataItem name="GUI/RecentListCD" value="/home/max/archlive/out/archlinux-2019.02.14-zfs-GIT.iso,/home/max/Downloads/CloverISO-4871/Clover-v2.4k-4871-X64.iso"/>
+      <ExtraDataItem name="GUI/RecentListHD" value="/home/max/Win10_raw.vmdk,/home/max/Win10_raw-pt.vmdk,/home/max/win10.vmdk,/home/max/sda1.vmdk"/>
+      <ExtraDataItem name="GUI/SplitterSizes" value="605,1276"/>
+      <ExtraDataItem name="GUI/SuppressMessages" value="confirmResetMachine"/>
       <ExtraDataItem name="GUI/Toolbar" value="false"/>
       <ExtraDataItem name="GUI/Tools/LastItemsSelected" value="Welcome,Details"/>
-      <ExtraDataItem name="GUI/UpdateCheckCount" value="3"/>
-      <ExtraDataItem name="GUI/UpdateDate" value="1 d, 2019-01-08, stable, 6.0.0"/>
+      <ExtraDataItem name="GUI/UpdateCheckCount" value="6"/>
+      <ExtraDataItem name="GUI/UpdateDate" value="1 d, 2019-02-20, stable, 6.0.4"/>
     </ExtraData>
     <MachineRegistry>
-      <MachineEntry uuid="{8bd95c80-6fed-4f22-a95d-99649ff12dc8}" src="/home/max/VirtualBox VMs/Windows 10/Windows 10.vbox"/>
+      <MachineEntry uuid="{86089edd-e3ac-4bd5-8a6e-f21820fced40}" src="/home/max/VirtualBox VMs/Windows 10/Windows 10.vbox"/>
     </MachineRegistry>
     <NetserviceRegistry>
       <DHCPServers>

@@ -1,48 +1,30 @@
-2019/01/12-20:26:39.970 5e1 Reusing MANIFEST /home/max/.config/chromium/Default/Session Storage/MANIFEST-000001
-2019/01/12-20:26:39.971 5e1 Recovering log #38
-2019/01/12-20:26:39.972 5e1 Reusing old log /home/max/.config/chromium/Default/Session Storage/000038.log 
-2019/01/12-20:57:34.838 15c3 Level-0 table #42: started
-2019/01/12-20:57:34.845 15c3 Level-0 table #42: 18870 bytes OK
-2019/01/12-20:57:34.846 15c3 Delete type=0 #38
-2019/01/12-20:01:39.634 15c3 Level-0 table #44: started
-2019/01/12-20:01:39.641 15c3 Level-0 table #44: 18869 bytes OK
-2019/01/12-20:01:39.642 15c3 Delete type=0 #41
-2019/01/12-20:06:02.007 15c3 Level-0 table #46: started
-2019/01/12-20:06:02.015 15c3 Level-0 table #46: 18950 bytes OK
-2019/01/12-20:06:02.017 15c3 Delete type=0 #43
-2019/01/12-20:06:02.018 15c3 Compacting 4@0 + 1@1 files
-2019/01/12-20:06:02.028 15c3 Generated table #47@0: 890 keys, 122397 bytes
-2019/01/12-20:06:02.029 15c3 Compacted 4@0 + 1@1 files => 122397 bytes
-2019/01/12-20:06:02.029 15c3 compacted to: files[ 0 1 1 0 0 0 0 ]
-2019/01/12-20:06:02.030 15c3 Delete type=2 #46
-2019/01/12-20:06:02.030 15c3 Delete type=2 #36
-2019/01/12-20:06:02.030 15c3 Delete type=2 #44
-2019/01/12-20:06:02.030 15c3 Delete type=2 #42
-2019/01/12-20:06:02.030 15c3 Delete type=2 #39
-2019/01/12-20:30:55.310 15c3 Level-0 table #49: started
-2019/01/12-20:30:55.319 15c3 Level-0 table #49: 20383 bytes OK
-2019/01/12-20:30:55.320 15c3 Delete type=0 #45
-2019/01/12-21:00:17.345 15c3 Level-0 table #51: started
-2019/01/12-21:00:17.353 15c3 Level-0 table #51: 18340 bytes OK
-2019/01/12-21:00:17.357 15c3 Delete type=0 #48
-2019/01/12-21:25:47.838 15c3 Level-0 table #53: started
-2019/01/12-21:25:47.844 15c3 Level-0 table #53: 20279 bytes OK
-2019/01/12-21:25:47.846 15c3 Delete type=0 #50
-2019/01/12-21:51:19.750 15c3 Level-0 table #55: started
-2019/01/12-21:51:19.754 15c3 Level-0 table #55: 17485 bytes OK
-2019/01/12-21:51:19.755 15c3 Delete type=0 #52
-2019/01/12-21:51:19.755 15c3 Compacting 4@0 + 1@1 files
-2019/01/12-21:51:19.759 15c3 Generated table #56@0: 1124 keys, 93710 bytes
-2019/01/12-21:51:19.759 15c3 Compacted 4@0 + 1@1 files => 93710 bytes
-2019/01/12-21:51:19.760 15c3 compacted to: files[ 0 1 1 0 0 0 0 ]
-2019/01/12-21:51:19.760 15c3 Delete type=2 #49
-2019/01/12-21:51:19.760 15c3 Delete type=2 #47
-2019/01/12-21:51:19.760 15c3 Delete type=2 #51
-2019/01/12-21:51:19.763 15c3 Delete type=2 #55
-2019/01/12-21:51:19.764 15c3 Delete type=2 #53
-2019/01/12-21:53:52.113 15c3 Level-0 table #58: started
-2019/01/12-21:53:52.122 15c3 Level-0 table #58: 16144 bytes OK
-2019/01/12-21:53:52.124 15c3 Delete type=0 #54
-2019/01/12-22:00:53.708 15c3 Level-0 table #60: started
-2019/01/12-22:00:53.715 15c3 Level-0 table #60: 16197 bytes OK
-2019/01/12-22:00:53.717 15c3 Delete type=0 #57
+2019/02/25-10:53:58.461 708 Reusing MANIFEST /home/max/.config/chromium/Default/Session Storage/MANIFEST-000001
+2019/02/25-10:53:58.461 708 Recovering log #224
+2019/02/25-10:53:58.461 708 Reusing old log /home/max/.config/chromium/Default/Session Storage/000224.log 
+2019/02/25-10:54:17.623 777 Level-0 table #228: started
+2019/02/25-10:54:17.630 777 Level-0 table #228: 17868 bytes OK
+2019/02/25-10:54:17.633 777 Delete type=0 #224
+2019/02/25-10:58:13.670 777 Level-0 table #230: started
+2019/02/25-10:58:13.677 777 Level-0 table #230: 17364 bytes OK
+2019/02/25-10:58:13.678 777 Delete type=0 #227
+2019/02/25-11:15:02.470 777 Level-0 table #232: started
+2019/02/25-11:15:02.478 777 Level-0 table #232: 16734 bytes OK
+2019/02/25-11:15:02.479 777 Delete type=0 #229
+2019/02/25-11:15:02.479 777 Compacting 4@0 + 1@1 files
+2019/02/25-11:15:02.488 777 Generated table #233@0: 3993 keys, 133048 bytes
+2019/02/25-11:15:02.488 777 Compacted 4@0 + 1@1 files => 133048 bytes
+2019/02/25-11:15:02.489 777 compacted to: files[ 0 1 1 0 0 0 0 ]
+2019/02/25-11:15:02.489 777 Delete type=2 #230
+2019/02/25-11:15:02.489 777 Delete type=2 #228
+2019/02/25-11:15:02.489 777 Delete type=2 #223
+2019/02/25-11:15:02.489 777 Delete type=2 #232
+2019/02/25-11:15:02.490 777 Delete type=2 #225
+2019/02/25-11:21:26.023 777 Level-0 table #235: started
+2019/02/25-11:21:26.030 777 Level-0 table #235: 14859 bytes OK
+2019/02/25-11:21:26.031 777 Delete type=0 #231
+2019/02/25-11:31:16.256 777 Level-0 table #237: started
+2019/02/25-11:31:16.264 777 Level-0 table #237: 16330 bytes OK
+2019/02/25-11:31:16.266 777 Delete type=0 #234
+2019/02/25-11:32:31.055 777 Level-0 table #239: started
+2019/02/25-11:32:31.058 777 Level-0 table #239: 16839 bytes OK
+2019/02/25-11:32:31.060 777 Delete type=0 #236

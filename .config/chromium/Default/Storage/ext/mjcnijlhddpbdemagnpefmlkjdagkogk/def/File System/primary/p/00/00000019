@@ -1,0 +1,174 @@
+<div  lang="en"><h1 class=" _RIL_KEEPER_CLASS_" nodeIndex="171"><a id="user-content-gpu-passthrough-from-arch-linux" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#gpu-passthrough-from-arch-linux" nodeIndex="359"></a>GPU Passthrough from Arch Linux</h1><ol class=" _RIL_KEEPER_CLASS_" nodeIndex="174">
+
+
+
+</ol><h5 nodeIndex="362"><a id="user-content-when-to-do-this" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#when-to-do-this" nodeIndex="363"></a>When to do this:</h5>
+<p nodeIndex="182">When you want to play windows 10 video games from your arch box because:</p>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="184"><li nodeIndex="183">
+<p nodeIndex="185">wangblows and you have access to a windows 10 iso</p>
+</li>
+<li nodeIndex="186">
+<p nodeIndex="187">you don't want to read mountains of text because you just want to play gaems.</p>
+</li>
+</ol><h5 nodeIndex="364"><a id="user-content-required-downloads" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#required-downloads" nodeIndex="365"></a>Required downloads:</h5>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="189"><li nodeIndex="188">a Windows 10 installation iso</li>
+</ol><p nodeIndex="190"><strong nodeIndex="366">Link</strong>: <a href="https://www.microsoft.com/en-us/software-download/windows10ISO" rel="nofollow" nodeIndex="367">here</a></p>
+<p nodeIndex="191"><strong nodeIndex="368">Direct Download</strong>: <a href="https://software-download.microsoft.com/pr/Win10_1809Oct_English_x64.iso?t=673fe9a0-8692-49ba-b0e0-e8ca7d314fdc&amp;e=1544486586&amp;h=9bb1b05b0fe6d83b41a5e8780a406244" rel="nofollow" nodeIndex="369">here</a></p>
+<ol start="2" class=" _RIL_KEEPER_CLASS_" nodeIndex="193"><li nodeIndex="192">virtio* drivers for windows10</li>
+</ol><p nodeIndex="194"><strong nodeIndex="370">Link</strong>: <a href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.160-1/" rel="nofollow" nodeIndex="371">here</a></p>
+<p nodeIndex="195"><strong nodeIndex="372">Direct Download</strong>: <a href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.160-1/virtio-win-0.1.160.iso" rel="nofollow" nodeIndex="373">here</a></p>
+<h5 nodeIndex="374"><a id="user-content-disclamer" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#disclamer" nodeIndex="375"></a>Disclamer:</h5>
+<p nodeIndex="196">Most of this stuff is in the archlinux guide at the top, read more of that if any of this is confusing or something terribly goes wrong. This is my rig: <div id="RIL_IMG_1" class="RIL_IMG"></div></p>
+<hr nodeIndex="376"><h2 nodeIndex="197"><a id="user-content-pci-passthrough-via-ovmf-gpu" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#pci-passthrough-via-ovmf-gpu" nodeIndex="377"></a>PCI passthrough via OVMF (GPU)</h2>
+<h3 nodeIndex="198"><a id="user-content-initialization" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#initialization" nodeIndex="378"></a>Initialization</h3>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="200"><li nodeIndex="199">
+<p nodeIndex="201">Make sure that you have already enabled IOMMU via AMD-Vi or Intel Vt-d in your motherboard's BIOS HIT F10 or del or whatever the key is for your motherboard during bios initialization at beginning of startup, enable either VT-d if you have an Intel CPU or AMD-vi if you have an AMD CPU</p>
+</li>
+<li nodeIndex="202">
+<p nodeIndex="203">edit <code nodeIndex="379">/etc/default/grub</code> and add intel_iommu=on to GRUB_CMDLINE_LINUX_DEFAULT</p>
+</li>
+</ol><p nodeIndex="204"><code nodeIndex="380">$ sudo nvim /etc/default/grub</code></p>
+<pre nodeIndex="205">
+<code nodeIndex="381">GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"
+</code>
+</pre>
+<ol start="3" class=" _RIL_KEEPER_CLASS_" nodeIndex="207"><li nodeIndex="206">re-configure your grub:</li>
+</ol><p nodeIndex="208"><code nodeIndex="382">$ sudo grub-mkconfig -o /boot/grub/grub.cfg</code></p>
+<ol start="4" class=" _RIL_KEEPER_CLASS_" nodeIndex="210"><li nodeIndex="209">reboot</li>
+</ol><p nodeIndex="211"><code nodeIndex="383">$ sudo reboot now</code></p>
+<h3 nodeIndex="212"><a id="user-content-isolating-the-gpu" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#isolating-the-gpu" nodeIndex="384"></a>Isolating the GPU</h3>
+<p nodeIndex="213">One of the first things you will want to do is isolate your GPU. The goal of this is to prevent the Linux kernel from loading drivers that would take control of the GPU. Because of this, it is necessary to have two GPUs installed and functional within your system. One will be used for interacting with your Linux host (just like normal), and the other will be passed-through to your Windows guest. In the past, this had to be achieved through using a driver called pci-stub. While it is still possible to do so, it is older and holds no advantage over its successor &ndash;vfio-pci.</p>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="215"><li nodeIndex="214">find the device ID of the GPU that will be passed through by running lscpi</li>
+</ol><p nodeIndex="216"><code nodeIndex="385">$ lspci -nn</code></p>
+<p nodeIndex="217">and look through the given output until you find your desired GPU, they're <strong nodeIndex="386">bold</strong> in this case:</p>
+<blockquote nodeIndex="218">
+<p nodeIndex="219">01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GM204 [GeForce GTX 980] <strong nodeIndex="387">[10de:13c0]</strong> (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation GM204 High Definition Audio Controller <strong nodeIndex="388">[10de:0fbb]</strong> (rev a1)</p>
+</blockquote>
+<h3 nodeIndex="220"><a id="user-content-configuring-vfio-pci-and-regenerating-your-initramfs" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#configuring-vfio-pci-and-regenerating-your-initramfs" nodeIndex="389"></a>Configuring vfio-pci and Regenerating your Initramfs</h3>
+<p nodeIndex="221">Next, we need to instruct vfio-pci to target the device in question through the ID numbers gathered above.</p>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="223"><li nodeIndex="222">edit <code nodeIndex="390">/etc/modprobe.d/vfio.conffile</code> and adding the following line with <strong nodeIndex="391">your ids from the last step above</strong>:</li>
+</ol><pre nodeIndex="224">
+<code nodeIndex="392">options vfio-pci ids=10de:13c0,10de:0fbb
+</code>
+</pre>
+<p nodeIndex="225">Next, we will need to ensure that vfio-pci is loaded before other graphics drivers.</p>
+<ol start="2" class=" _RIL_KEEPER_CLASS_" nodeIndex="227"><li nodeIndex="226">edit <code nodeIndex="393">/etc/mkinitcpio.conf</code>. At the very top of your file you should see a section titled MODULES. Towards the bottom of this section you should see the uncommented line: MODULES= . Add the in the following order before any other drivers (nouveau, radeon, nvidia, etc) which may be listed: vfio vfio_iommu_type1 vfio_pci vfio_virqfd. The line should look like the following:</li>
+</ol><pre nodeIndex="228">
+<code nodeIndex="394">MODULES="vfio vfio_iommu_type1 vfio_pci vfio_virqfd nouveau"
+</code>
+</pre>
+<p nodeIndex="229">In the same file, also add modconf to the HOOKS line:</p>
+<pre nodeIndex="230">
+<code nodeIndex="395">HOOKS="modconf"
+</code>
+</pre>
+<ol start="3" class=" _RIL_KEEPER_CLASS_" nodeIndex="232"><li nodeIndex="231">rebuild initramfs.</li>
+</ol><p nodeIndex="233"><code nodeIndex="396">mkinitcpio -g /boot/linux-custom.img</code></p>
+<ol start="4" class=" _RIL_KEEPER_CLASS_" nodeIndex="235"><li nodeIndex="234">reboot <code nodeIndex="397">$ sudo reboot now</code></li>
+</ol><h3 nodeIndex="236"><a id="user-content-checking-whether-it-worked" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#checking-whether-it-worked" nodeIndex="398"></a>Checking whether it worked</h3>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="238"><li nodeIndex="237">check pci devices:</li>
+</ol><p nodeIndex="239"><code nodeIndex="399">$ lspci -nnk</code></p>
+<p nodeIndex="240">Find your GPU and ensure that under &ldquo;Kernel driver in use:&rdquo; vfio-pci is displayed:</p>
+<pre nodeIndex="241">
+<code nodeIndex="400">1:00.0 VGA compatible controller [0300]: NVIDIA Corporation GM204 [GeForce GTX 980] [10de:13c0] (rev a1)
+        Subsystem: Micro-Star International Co., Ltd. [MSI] GM204 [GeForce GTX 980] [1462:3177]
+        Kernel driver in use: vfio-pci
+        Kernel modules: nouveau
+01:00.1 Audio device [0403]: NVIDIA Corporation GM204 High Definition Audio Controller [10de:0fbb] (rev a1)
+        Subsystem: Micro-Star International Co., Ltd. [MSI] GM204 High Definition Audio Controller [1462:3177]
+        Kernel driver in use: vfio-pci
+        Kernel modules: snd_hda_intel
+</code>
+</pre>
+<ol start="2" class=" _RIL_KEEPER_CLASS_" nodeIndex="243"><li nodeIndex="242">???</li>
+<li nodeIndex="244">profit</li>
+</ol><hr nodeIndex="401"><h3 nodeIndex="245"><a id="user-content-configuring-ovmf-and-running-libvirt" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#configuring-ovmf-and-running-libvirt" nodeIndex="402"></a>Configuring OVMF and Running libvirt</h3>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="247"><li nodeIndex="246">download libvirt, virt-manager, ovmf, and qemu (these are all available in the AUR). OVMF is an open-source UEFI firmware designed for KVM and QEMU virtual machines. ovmf may be omitted if your hardware does not support it, or if you would prefer to use SeaBIOS. However, configuring it is very simple and typically worth the effort.</li>
+</ol><p nodeIndex="248"><code nodeIndex="403">sudo pacman -S libvirt virt-manager ovmf qemu</code></p>
+<ol start="2" class=" _RIL_KEEPER_CLASS_" nodeIndex="250"><li nodeIndex="249">edit <code nodeIndex="404">/etc/libvirt/qemu.conf</code> and add the path to your OVMF firmware image:</li>
+</ol><pre nodeIndex="251">
+<code nodeIndex="405">nvram = ["/usr/share/ovmf/ovmf_code_x64.bin:/usr/share/ovmf/ovmf_vars_x64.bin"]
+</code>
+</pre>
+<ol start="3" class=" _RIL_KEEPER_CLASS_" nodeIndex="253"><li nodeIndex="252">start and enable both libvirtd and its logger, virtlogd.socket in systemd if you use a different init system, substitute it's commands in for systmectl start</li>
+</ol><pre nodeIndex="254">
+<code nodeIndex="406">$ sudo systemctl start libvirtd.service 
+$ sudo systemctl start virtlogd.socket
+$ sudo systemctl enable libvirtd.service
+$ sudo systemctl enable virtlogd.socket
+</code>
+</pre>
+<p nodeIndex="255">With libvirt running, and your GPU bound, you are now prepared to open up virt-manager and begin configuring your virtual machine.</p>
+<hr nodeIndex="407"><h3 nodeIndex="256"><a id="user-content-virt-manager-a-gui-for-managing-virtual-machines" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#virt-manager-a-gui-for-managing-virtual-machines" nodeIndex="408"></a>virt-manager, a GUI for managing virtual machines</h3>
+<h4 nodeIndex="409"><a id="user-content-setting-up-virt-manager" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#setting-up-virt-manager" nodeIndex="410"></a>setting up virt-manager</h4>
+<p nodeIndex="257"><strong nodeIndex="411">virt-manager</strong> has a fairly comprehensive and intuitive GUI, so you should have little trouble getting your Windows guest up and running.</p>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="259"><li nodeIndex="258">download virt-manager</li>
+</ol><p nodeIndex="260"><code nodeIndex="412">$ sudo pacman -S virt-manager</code></p>
+<ol start="2" class=" _RIL_KEEPER_CLASS_" nodeIndex="262"><li nodeIndex="261">add yourself to the libvirt group (replace vanities with your username)</li>
+</ol><p nodeIndex="263"><code nodeIndex="413">$ sudo usermod -a -G libvirt vanities</code></p>
+<ol start="3" class=" _RIL_KEEPER_CLASS_" nodeIndex="265"><li nodeIndex="264">launch virt-manager</li>
+</ol><p nodeIndex="266"><code nodeIndex="414">$ virt-manager &amp;</code></p>
+<ol start="4" class=" _RIL_KEEPER_CLASS_" nodeIndex="268"><li nodeIndex="267">
+<p nodeIndex="269">when the VM creation wizard asks you to name your VM (final step before clicking "Finish"), check the "Customize before install" checkbox.</p>
+</li>
+<li nodeIndex="270">
+<p nodeIndex="271">in the "Overview" section, set your firmware to "UEFI". If the option is grayed out, make sure that you have correctly specified the location of your firmware in /etc/libvirt/qemu.conf and restart libvirtd.service by running <code nodeIndex="415">sudo systemctl restart libvirtd</code></p>
+</li>
+</ol><div id="RIL_IMG_2" class="RIL_IMG"></div>
+<ol start="6" class=" _RIL_KEEPER_CLASS_" nodeIndex="274"><li nodeIndex="273">
+<p nodeIndex="275">in the "CPUs" section, change your CPU model to "<strong nodeIndex="416">host-passthrough</strong>". If it is not in the list, you will have to type it by hand. This will ensure that your CPU is detected properly, since it causes libvirt to expose your CPU capabilities exactly as they are instead of only those it recognizes (which is the preferred default behavior to make CPU behavior easier to reproduce). Without it, some applications may complain about your CPU being of an unknown model. <div id="RIL_IMG_3" class="RIL_IMG"></div></p>
+</li>
+<li nodeIndex="276">
+<p nodeIndex="277">go into "Add Hardware" and add a Controller for <strong nodeIndex="417">SCSI</strong> drives of the "VirtIO SCSI" model. <div id="RIL_IMG_4" class="RIL_IMG"></div></p>
+</li>
+<li nodeIndex="278">
+<p nodeIndex="279">then change the default IDE disk for a <strong nodeIndex="418">SCSI</strong> disk, which will bind to said controller. <div id="RIL_IMG_5" class="RIL_IMG"></div></p>
+</li>
+</ol><p nodeIndex="280">a. windows VMs will not recognize those drives by default, so you need to download the ISO containing the drivers from <a href="https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.160-1/virtio-win-0.1.160.iso" rel="nofollow" nodeIndex="419">here</a> and add an <strong nodeIndex="420">SATA</strong> CD-ROM storage device linking to said ISO, otherwise you will not be able to get Windows to recognize it during the installation process.</p>
+<ol start="9" class=" _RIL_KEEPER_CLASS_" nodeIndex="282"><li nodeIndex="281">
+<p nodeIndex="283">make sure there is another <strong nodeIndex="421">SATA</strong> CD-ROM device that is handling your windows10 iso from the top links. <div id="RIL_IMG_6" class="RIL_IMG"></div></p>
+</li>
+<li nodeIndex="284">
+<p nodeIndex="285">setup your GPU, navigate to the &ldquo;Add Hardware&rdquo; section and select both the GPU and its sound device that was isolated previously in the <strong nodeIndex="422">PCI</strong> tab <div id="RIL_IMG_7" class="RIL_IMG"></div> <div id="RIL_IMG_8" class="RIL_IMG"></div></p>
+</li>
+<li nodeIndex="286">
+<p nodeIndex="287">lastly, attach your usb keyboard <div id="RIL_IMG_9" class="RIL_IMG"></div> <div id="RIL_IMG_10" class="RIL_IMG"></div></p>
+</li>
+<li nodeIndex="288">
+<p nodeIndex="289">don't forget to pass some good RAM as well <div id="RIL_IMG_11" class="RIL_IMG"></div></p>
+</li>
+</ol><h4 nodeIndex="423"><a id="user-content-installing-windows" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#installing-windows" nodeIndex="424"></a>installing windows</h4>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="291"><li nodeIndex="290">test to see if it works by pressing the <strong nodeIndex="425">play</strong> button after configuring your VM and install windows</li>
+</ol><p nodeIndex="292">You may see this screen, just type <code nodeIndex="426">exit</code> and bo to the BIOs screen. <div id="RIL_IMG_12" class="RIL_IMG"></div></p>
+<p nodeIndex="293">From the BIOs screen, select and <code nodeIndex="427">enter</code> the <strong nodeIndex="428">Boot Manager</strong> <div id="RIL_IMG_13" class="RIL_IMG"></div></p>
+<p nodeIndex="294">Lastly, pick one of the DVD-ROM ones from these menus <div id="RIL_IMG_14" class="RIL_IMG"></div></p>
+<ol start="2" class=" _RIL_KEEPER_CLASS_" nodeIndex="296"><li nodeIndex="295">from here, you should be able to see windows 10 booting up, we need to load the <strong nodeIndex="429">virtio-scsi</strong> drivers</li>
+</ol><p nodeIndex="297">When you get to <strong nodeIndex="430">Windows Setup</strong> click <code nodeIndex="431">Custom: Install windows only (advanced)</code> <div id="RIL_IMG_15" class="RIL_IMG"></div></p>
+<p nodeIndex="298">You should notice that our SCSI hard drive hasn't been detected yet, click <code nodeIndex="432">Load driver</code> <div id="RIL_IMG_16" class="RIL_IMG"></div></p>
+<p nodeIndex="299">Select the correct CD-ROM labled <code nodeIndex="433">virto-win-XXXXX**</code> <div id="RIL_IMG_17" class="RIL_IMG"></div></p>
+<p nodeIndex="300">Finally, select the <code nodeIndex="434">amd64</code> architecture <div id="RIL_IMG_18" class="RIL_IMG"></div></p>
+<ol start="3" class=" _RIL_KEEPER_CLASS_" nodeIndex="302"><li nodeIndex="301">your <strong nodeIndex="435">SCSI</strong> hard drive device should be there and you should be able to contiune the windows10 install</li>
+</ol><hr nodeIndex="436"><h2 nodeIndex="303"><a id="user-content-performance-tuning" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#performance-tuning" nodeIndex="437"></a>Performance Tuning</h2>
+<p nodeIndex="304">Check out my <a href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10/blob/master/virsh-win10.xml" nodeIndex="438">virth xml file</a></p>
+<h3 nodeIndex="305"><a id="user-content-cpu-pinnging" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#cpu-pinnging" nodeIndex="439"></a>CPU pinnging</h3>
+<h4 nodeIndex="440"><a id="user-content-cpu-topology" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#cpu-topology" nodeIndex="441"></a>CPU topology</h4>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="307"><li nodeIndex="306">check your cpu topology by running</li>
+</ol><p nodeIndex="308"><code nodeIndex="442">lscpu -e</code></p>
+<div id="RIL_IMG_19" class="RIL_IMG"></div>
+<h3 nodeIndex="310"><a id="user-content-editing-virsh" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#editing-virsh" nodeIndex="443"></a>editing virsh</h3>
+<p nodeIndex="311">edit by running something similar with your desired editor and VM name:</p>
+<p nodeIndex="312"><code nodeIndex="444">sudo EDITOR=nvim virsh edit win10</code></p>
+<p nodeIndex="313">if this doesn't work, check your VM name:</p>
+<p nodeIndex="314"><code nodeIndex="445">sudo virsh list</code></p>
+<div id="RIL_IMG_20" class="RIL_IMG"></div>
+<p nodeIndex="316">your virsh config file should look something like this if your cpu is like mine, otherwise revert to the arch guide: <a href="https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF#CPU_pinning" rel="nofollow" nodeIndex="446">cpu-pinning guide</a></p>
+<h3 nodeIndex="317"><a id="user-content-enabling-hugepages" class="anchor" aria-hidden="true" href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10#enabling-hugepages" nodeIndex="447"></a>enabling hugepages</h3>
+<ol class=" _RIL_KEEPER_CLASS_" nodeIndex="319"><li nodeIndex="318">edit <code nodeIndex="448">/etc/defualt/grub</code></li>
+</ol><p nodeIndex="320"><code nodeIndex="449">$ sudo nvim /etc/default/grub</code></p>
+<ol start="2" class=" _RIL_KEEPER_CLASS_" nodeIndex="322"><li nodeIndex="321">add <code nodeIndex="450">hugepages=2048</code> to <strong nodeIndex="451">GRUB_COMMAND_LINE_DEFAULT</strong></li>
+</ol><p nodeIndex="323">your final grub should look like this:</p>
+<div id="RIL_IMG_21" class="RIL_IMG"></div>
+<ol start="3" class=" _RIL_KEEPER_CLASS_" nodeIndex="326"><li nodeIndex="325">re-configure your grub:</li>
+</ol><p nodeIndex="327"><code nodeIndex="452">$ sudo grub-mkconfig -o /boot/grub/grub.cfg</code></p>
+<ol start="4" class=" _RIL_KEEPER_CLASS_" nodeIndex="329"><li nodeIndex="328">reboot and test it out</li>
+</ol></div>

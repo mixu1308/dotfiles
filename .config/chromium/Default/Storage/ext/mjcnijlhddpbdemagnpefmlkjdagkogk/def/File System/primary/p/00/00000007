@@ -1,0 +1,146 @@
+<div  lang="en">
+<h3 nodeIndex="56">Preface</h3>
+<p nodeIndex="57">Arch Linux is a general-purpose distribution well-known for its cutting-edge technology and flexible configuration. With Btrfs snapshots, we can take the advantage of its fast-pace while being confident of the system's stability. Let's start.</p>
+<h3 nodeIndex="58">Prerequisites</h3>
+<ul nodeIndex="60"><li nodeIndex="59">A newly-created Vultr instance.</li>
+<li nodeIndex="61">Some free time and patience.</li>
+</ul><h3 nodeIndex="62">Preparations</h3>
+<p nodeIndex="63">You can choose the Arch Linux ISO from the ISO library when creating the instance. If not, you can load that in the machine's settings. As the time of writing the newest (2017.01.01) ISO is available in the library. If that ISO is outdated, I recommend downloading it again.</p>
+<p nodeIndex="64">After the machine starts, click <code nodeIndex="174">View Console</code> and boot the system up. We need to set up a root password for the environment so that we can access it from our working computer:</p>
+<pre nodeIndex="65">
+<code nodeIndex="175">passwd
+systemctl start sshd
+</code>
+</pre>
+<p nodeIndex="66">Close the VNC window and connect to the machine via ssh:</p>
+<pre nodeIndex="67">
+<code nodeIndex="176">ssh root@&lt;your host ip here&gt;
+</code>
+</pre>
+<p nodeIndex="68">Install <code nodeIndex="177">tmux</code> so that we can keep our session across unstable connections:</p>
+<pre nodeIndex="69">
+<code nodeIndex="178">pacman -Sy tmux
+</code>
+</pre>
+<p nodeIndex="70">If the connection accidentally closes during the installation, simply ssh back to the machine and run:</p>
+<pre nodeIndex="71">
+<code nodeIndex="179">tmux attach
+</code>
+</pre>
+<h3 nodeIndex="72">Installation</h3>
+<p nodeIndex="73">First things first, let's partition the disk.</p>
+<pre nodeIndex="74">
+<code nodeIndex="180">lsblk
+mkfs.btrfs -m single -L arch /dev/vda
+mount -o compress=lzo /dev/vda /mnt
+</code>
+</pre>
+<p nodeIndex="75">Next comes the tricky part: creating subvolumes.</p>
+<pre nodeIndex="76">
+<code nodeIndex="181">cd /mnt
+btrfs su cr @
+btrfs su cr @boot
+btrfs su cr @home
+btrfs su cr @log
+btrfs su cr @pkg
+btrfs su cr @srv
+btrfs su cr @tmp
+</code>
+</pre>
+<p nodeIndex="77">Then, mount the subvolumes.</p>
+<pre nodeIndex="78">
+<code nodeIndex="182">cd /
+umount /mnt
+mount -o compress=lzo,subvol=@ /dev/vda /mnt
+cd /mnt
+mkdir -p {boot,home,srv,var/{log,cache/pacman/pkg,tmp}}
+mount -o compress=lzo,subvol=@boot /dev/vda boot
+mount -o compress=lzo,subvol=@home /dev/vda home
+mount -o compress=lzo,subvol=@log /dev/vda var/log
+mount -o compress=lzo,subvol=@pkg /dev/vda var/cache/pacman/pkg
+mount -o compress=lzo,subvol=@srv /dev/vda srv
+mount -o compress=lzo,subvol=@tmp /dev/vda var/tmp
+</code>
+</pre>
+<p nodeIndex="79">Install the base system.</p>
+<pre nodeIndex="80">
+<code nodeIndex="183">pacstrap -i /mnt base base-devel snapper vim
+</code>
+</pre>
+<p nodeIndex="81">Configure the system.</p>
+<pre nodeIndex="82">
+<code nodeIndex="184">genfstab -U /mnt &gt;&gt; /mnt/etc/fstab
+arch-chroot /mnt
+ln -s /usr/share/zoneinfo/Region/City /etc/localtime # Replace Region/City with your value
+hwclock --systohc
+vim /etc/locale.gen # Uncomment en_US.UTF-8 UTF-8 line
+locale-gen
+echo "LANG=en_US.UTF-8" &gt; /etc/locale.conf
+pacman -S networkmanager 
+echo "your-hostname" &gt; /etc/hostname # Replace your-hostname with your value
+vim /etc/hosts # Configure 127.0.0.1 and ::1 lines accordingly
+systemctl enable NetworkManager.service
+</code>
+</pre>
+<p nodeIndex="83">Enable sshd for future remote logins.</p>
+<pre nodeIndex="84">
+<code nodeIndex="185">vim /etc/ssh/sshd_config # Set PermitRootLogin yes
+systemctl enable sshd.service
+</code>
+</pre>
+<p nodeIndex="85">Note that the best practice is putting your public key into the <code nodeIndex="186">~/.ssh/authorized_keys</code> file instead of enabling password login for root.</p>
+<p nodeIndex="86">Configure the initramfs so that it satisfies our need for btrfs.</p>
+<pre nodeIndex="87">
+<code nodeIndex="187">vim /etc/mkinitcpio.conf
+</code>
+</pre>
+<p nodeIndex="88">Locate <code nodeIndex="188">MODULES="..."</code> and add <code nodeIndex="189">btrfs</code> into the list. Re-generate the initramfs:</p>
+<pre nodeIndex="89">
+<code nodeIndex="190">mkinitcpio -p linux
+</code>
+</pre>
+<p nodeIndex="90">Set the root password.</p>
+<pre nodeIndex="91">
+<code nodeIndex="191">passwd
+</code>
+</pre>
+<p nodeIndex="92">Install and configure the bootloader.</p>
+<pre nodeIndex="93">
+<code nodeIndex="192">pacman -S grub
+grub-install /dev/vda
+grub-mkconfig -o /boot/grub/grub.cfg
+</code>
+</pre>
+<p nodeIndex="94">Reboot and remove the ISO in your machine control panel.</p>
+<pre nodeIndex="95">
+<code nodeIndex="193">exit
+reboot
+</code>
+</pre>
+<p nodeIndex="96">Connect to the server again (perhaps after a short while; wait until the boot completes). Note that the server fingerprint has changed, so you may need to alter your <code nodeIndex="194">known_hosts</code> file:</p>
+<pre nodeIndex="97">
+<code nodeIndex="195">vim ~/.ssh/known_hosts
+ssh root@&lt;your host ip here&gt;
+</code>
+</pre>
+<p nodeIndex="98">Let's configure <a href="https://wiki.archlinux.org/index.php/Snapper" nodeIndex="196">snapper</a>, which automates the snapshotting procedure.</p>
+<pre nodeIndex="99">
+<code nodeIndex="197">snapper -c root create-config /
+</code>
+</pre>
+<p nodeIndex="100">Edit the config and alter <code nodeIndex="198">TIMELINE_LIMIT_{HOURLY,DAILY,WEEKLY,MONTHLY,YEARLY}</code> according to your needs.</p>
+<pre nodeIndex="101">
+<code nodeIndex="199">vim /etc/snapper/configs/root
+</code>
+</pre>
+<p nodeIndex="102">Enable the systemd timers.</p>
+<pre nodeIndex="103">
+<code nodeIndex="200">systemctl enable snapper-timeline.timer
+systemctl start snapper-timeline.timer
+systemctl enable snapper-cleanup.timer
+systemctl start snapper-cleanup.timer
+</code>
+</pre>
+<h3 nodeIndex="104">Job's done!</h3>
+<p nodeIndex="105">The configuration of the system is now finished. For more detailed information about how to use <a href="https://wiki.archlinux.org/index.php/Snapper" nodeIndex="201">snapper</a>, consult the wiki page or <code nodeIndex="202">snapper(8)</code> for more information. Enjoy your new Arch Linux with btrfs auto-snapshotting system!</p>
+</div>

@@ -1,0 +1,278 @@
+<div  lang="en">
+<p nodeIndex="15">A guy just forwarded a joke that most of us will already know <a href="https://plus.google.com/+KentonVarda/posts/TSDhe5CvaFe" nodeIndex="345">Jeff Dean Facts</a> (also <a href="http://www.slate.com/articles/technology/doers/2013/01/jeff_dean_facts_how_a_google_programmer_became_the_chuck_norris_of_the_internet.html" nodeIndex="346">here</a> and <a href="http://www.businessinsider.com/astounding-facts-about-googles-most-badass-engineer-jeff-dean-2012-1?op=1" nodeIndex="347">here</a>). Everytime I read that list, this part stands out:</p>
+<blockquote nodeIndex="16">
+<p nodeIndex="17">Jeff Dean once implemented a web server in a single printf() call. Other engineers added thousands of lines of explanatory comments but still don&rsquo;t understand exactly how it works. Today that program is the front-end to Google Search.</p>
+</blockquote>
+<p nodeIndex="18">It is really possible to implement a web server using a single printf call, but I haven&rsquo;t found anyone doing it. So this time after reading the list, I decided to implement it. So here is the code, a pure single printf call, without any extra variables or macros (don&rsquo;t worry, I will explain how to this code works)</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="19">
+#include &lt;stdio.h&gt;
+
+int main(int argc, char *argv[])
+{
+ printf("%*c%hn%*c%hn"
+  "\xeb\x3d\x48\x54\x54\x50\x2f\x31\x2e\x30\x20\x32"
+  "\x30\x30\x0d\x0a\x43\x6f\x6e\x74\x65\x6e\x74\x2d"
+  "\x74\x79\x70\x65\x3a\x74\x65\x78\x74\x2f\x68\x74"
+  "\x6d\x6c\x0d\x0a\x0d\x0a\x3c\x68\x31\x3e\x48\x65"
+  "\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x21\x3c\x2f"
+  "\x68\x31\x3e\x4c\x8d\x2d\xbc\xff\xff\xff\x48\x89"
+  "\xe3\x48\x83\xeb\x10\x48\x31\xc0\x50\x66\xb8\x1f"
+  "\x90\xc1\xe0\x10\xb0\x02\x50\x31\xd2\x31\xf6\xff"
+  "\xc6\x89\xf7\xff\xc7\x31\xc0\xb0\x29\x0f\x05\x49"
+  "\x89\xc2\x31\xd2\xb2\x10\x48\x89\xde\x89\xc7\x31"
+  "\xc0\xb0\x31\x0f\x05\x31\xc0\xb0\x05\x89\xc6\x4c"
+  "\x89\xd0\x89\xc7\x31\xc0\xb0\x32\x0f\x05\x31\xd2"
+  "\x31\xf6\x4c\x89\xd0\x89\xc7\x31\xc0\xb0\x2b\x0f"
+  "\x05\x49\x89\xc4\x48\x31\xd2\xb2\x3d\x4c\x89\xee"
+  "\x4c\x89\xe7\x31\xc0\xff\xc0\x0f\x05\x31\xf6\xff"
+  "\xc6\xff\xc6\x4c\x89\xe7\x31\xc0\xb0\x30\x0f\x05"
+  "\x4c\x89\xe7\x31\xc0\xb0\x03\x0f\x05\xeb\xc3",
+  ((((unsigned long int)0x4005c8 + 12) &gt;&gt; 16) &amp; 0xffff), 
+  0, 0x00000000006007D8 + 2, 
+  (((unsigned long int)0x4005c8 + 12) &amp; 0xffff)-
+  ((((unsigned long int)0x4005c8 + 12) &gt;&gt; 16) &amp; 0xffff), 
+  0, 0x00000000006007D8 );
+}
+</pre>
+<p nodeIndex="20">This code only works on a Linux AMD64 bit system, with a particular compiler (gcc version 4.8.2 (Debian 4.8.2-16) ) And to compile it:</p>
+<p nodeIndex="21"><code nodeIndex="348">gcc -g web1.c -O webserver</code></p>
+<p nodeIndex="22">As some of you may have guessed: I cheated by using a <a href="https://en.wikipedia.org/wiki/Uncontrolled_format_string" nodeIndex="349">special format string</a> . That code may not run on your machine because I have hardcoded two addresses.</p>
+<p nodeIndex="23">The following version is a little bit more user friendly (easier to change), but you are still going to need to change 2 values: FUNCTION_ADDR and DESTADDR which I will explain later:</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="24">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdint.h&gt;
+
+#define FUNCTION_ADDR ((uint64_t)0x4005c8 + 12)
+#define DESTADDR 0x00000000006007D8
+#define a (FUNCTION_ADDR &amp; 0xffff)
+#define b ((FUNCTION_ADDR &gt;&gt; 16) &amp; 0xffff)
+
+int main(int argc, char *argv[])
+{
+        printf("%*c%hn%*c%hn"
+                "\xeb\x3d\x48\x54\x54\x50\x2f\x31\x2e\x30\x20\x32"
+                "\x30\x30\x0d\x0a\x43\x6f\x6e\x74\x65\x6e\x74\x2d"
+                "\x74\x79\x70\x65\x3a\x74\x65\x78\x74\x2f\x68\x74"
+                "\x6d\x6c\x0d\x0a\x0d\x0a\x3c\x68\x31\x3e\x48\x65"
+                "\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x21\x3c\x2f"
+                "\x68\x31\x3e\x4c\x8d\x2d\xbc\xff\xff\xff\x48\x89"
+                "\xe3\x48\x83\xeb\x10\x48\x31\xc0\x50\x66\xb8\x1f"
+                "\x90\xc1\xe0\x10\xb0\x02\x50\x31\xd2\x31\xf6\xff"
+                "\xc6\x89\xf7\xff\xc7\x31\xc0\xb0\x29\x0f\x05\x49"
+                "\x89\xc2\x31\xd2\xb2\x10\x48\x89\xde\x89\xc7\x31"
+                "\xc0\xb0\x31\x0f\x05\x31\xc0\xb0\x05\x89\xc6\x4c"
+                "\x89\xd0\x89\xc7\x31\xc0\xb0\x32\x0f\x05\x31\xd2"
+                "\x31\xf6\x4c\x89\xd0\x89\xc7\x31\xc0\xb0\x2b\x0f"
+                "\x05\x49\x89\xc4\x48\x31\xd2\xb2\x3d\x4c\x89\xee"
+                "\x4c\x89\xe7\x31\xc0\xff\xc0\x0f\x05\x31\xf6\xff"
+                "\xc6\xff\xc6\x4c\x89\xe7\x31\xc0\xb0\x30\x0f\x05"
+                "\x4c\x89\xe7\x31\xc0\xb0\x03\x0f\x05\xeb\xc3"
+        , b, 0, DESTADDR + 2, a-b, 0, DESTADDR );
+}
+
+</pre>
+<p nodeIndex="25">I will explain how the code works through a series of short C codes. The first one is a code that will explain how that we can start another code without function call. See this simple code:</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="26">
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+#define ADDR 0x00000000600720
+
+void hello()
+{
+        printf("hello world\n");
+}
+
+int main(int argc, char *argv[])
+{
+        (*((unsigned long int*)ADDR))= (unsigned long int)hello;
+}
+</pre>
+<p nodeIndex="27">You can compile it, but it many not run on your system. You need to do these steps:</p>
+<p nodeIndex="28">1. Compile the code:</p>
+<p nodeIndex="29"><code nodeIndex="350">gcc run-finalizer.c -o run-finalizer</code></p>
+<p nodeIndex="30">2. Examine the address of fini_array</p>
+<p nodeIndex="31"><code nodeIndex="351">objdump -h -j .fini_array run-finalizer</code></p>
+<p nodeIndex="32">And find the VMA of it:</p>
+<pre nodeIndex="33">
+run-finalizer:     file format elf64-x86-64
+Sections:
+Idx Name          Size      VMA               LMA               File off  Algn
+ 18 .fini_array   00000008  <b nodeIndex="352">0000000000600720</b>  0000000000600720  00000720  2**3
+                  CONTENTS, ALLOC, LOAD, DATA
+</pre>
+<p nodeIndex="34">Note that you need a recent GCC to do this, older version of gcc uses different mechanism of storing finalizers.</p>
+<p nodeIndex="35">3. Change the value of ADDR on the code to the correct address</p>
+<p nodeIndex="36">4. Compile the code again</p>
+<p nodeIndex="37">5. Run it</p>
+<p nodeIndex="38">and now you will see &ldquo;hello world&rdquo; printed to your screen. How does this work exactly?:</p>
+<p nodeIndex="39">According to <a href="http://refspecs.linuxbase.org/LSB_3.1.1/LSB-Core-generic/LSB-Core-generic/specialsections.html" nodeIndex="353">Chapter 11 of Linux Standard Base Core Specification 3.1</a></p>
+<blockquote nodeIndex="40">
+<p nodeIndex="41">.fini_array <br nodeIndex="354">
+This section holds an array of function pointers that contributes to a single termination array for the executable or shared object containing the section.</p>
+</blockquote>
+<p nodeIndex="42">We are overwriting the array so that our <code nodeIndex="355">hello</code> function is called instead of the default handler. If you are trying to compile the webserver code, the value of ADDR is obtained the same way (using objdump).</p>
+<p nodeIndex="43">Ok, now we know how to execute a function by overriding a certain address, we need to know how we can <b nodeIndex="356">overwrite an address using printf</b>. You can find many tutorials on how to exploit format string bugs, but I will try give a short explanation.</p>
+<p nodeIndex="44">The printf function has this feature that enables us to know how many characters has been printed using the &ldquo;%n&rdquo; format:</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="45">
+#include &lt;stdio.h&gt;
+int main(){
+        int count;
+        printf("AB%n", &amp;count);
+        printf("\n%d characters printed\n", count);
+}
+</pre>
+<p nodeIndex="46">You will see that the output is:</p>
+<pre nodeIndex="47">
+AB
+2 characters printed
+</pre>
+<p nodeIndex="48">Of course we can put any address to the <code nodeIndex="357">count</code> pointer to overwrite that address. But to overide an address with a large value we need to print a large amount of text. Fortunately there is another format string &ldquo;%hn&rdquo; that works on short instead of int. We can overwrite the value 2 bytes at a time to form the 4 byte value that we want.</p>
+<p nodeIndex="49">Lets try to use two printf calls to put a&iexcl; value that we want (in this case the pointer to function &ldquo;hello&rdquo;) to the fini_array:</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="50">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdint.h&gt;
+
+#define FUNCTION_ADDR ((uint64_t)hello)
+#define DESTADDR 0x0000000000600948
+
+void hello()
+{
+        printf("\n\n\n\nhello world\n\n");
+}
+
+int main(int argc, char *argv[])
+{
+        short a= FUNCTION_ADDR &amp; 0xffff;
+        short b = (FUNCTION_ADDR &gt;&gt; 16) &amp; 0xffff;
+        printf("a = %04x b = %04x\n", a, b)
+        uint64_t *p = (uint64_t*)DESTADDR;
+        printf("before: %08lx\n", *p);
+        printf("%*c%hn", b, 0, DESTADDR + 2 );
+        printf("after1: %08lx\n", *p); 
+        printf("%*c%hn", a, 0, DESTADDR);
+        printf("after2: %08lx\n", *p);
+        return 0;
+}
+
+</pre>
+<p nodeIndex="51">The important lines are:</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="52">
+ short a= FUNCTION_ADDR &amp; 0xffff;
+        short b = (FUNCTION_ADDR &gt;&gt; 16) &amp; 0xffff;
+        printf("%*c%hn", b, 0, DESTADDR + 2 );
+        printf("%*c%hn", a, 0, DESTADDR);
+</pre>
+<p nodeIndex="53">The a and b are just halves of the function address, we can construct a string of length a and b to be given to printf, but I chose to use the &ldquo;%*&rdquo; formatting which will control the length of the output through parameter.</p>
+<p nodeIndex="54">For example, this code:</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="55">
+   printf("%*c", 10, 'A');
+</pre>
+<p nodeIndex="56">Will print 9 spaces followed by A, so in total, 10 characters will be printed.</p>
+<p nodeIndex="57">If we want to use just one printf, we need to take account that <code nodeIndex="358">b</code> bytes have been printed, and we need to print another <code nodeIndex="359">b-a</code> bytes (the counter is accumulative).</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="58">
+  printf("%*c%hn%*c%hn", b, 0, DESTADDR + 2, b-a, 0, DESTADDR );
+</pre>
+<p nodeIndex="59">Currently we are using the &ldquo;hello&rdquo; function to call, but we can call any function (or any address). I have written a shellcode that acts as a web server that just prints &ldquo;Hello world&rdquo;. This is the shell code that I made:</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="60">
+unsigned char hello[] = 
+                "\xeb\x3d\x48\x54\x54\x50\x2f\x31\x2e\x30\x20\x32"
+                "\x30\x30\x0d\x0a\x43\x6f\x6e\x74\x65\x6e\x74\x2d"
+                "\x74\x79\x70\x65\x3a\x74\x65\x78\x74\x2f\x68\x74"
+                "\x6d\x6c\x0d\x0a\x0d\x0a\x3c\x68\x31\x3e\x48\x65"
+                "\x6c\x6c\x6f\x20\x57\x6f\x72\x6c\x64\x21\x3c\x2f"
+                "\x68\x31\x3e\x4c\x8d\x2d\xbc\xff\xff\xff\x48\x89"
+                "\xe3\x48\x83\xeb\x10\x48\x31\xc0\x50\x66\xb8\x1f"
+                "\x90\xc1\xe0\x10\xb0\x02\x50\x31\xd2\x31\xf6\xff"
+                "\xc6\x89\xf7\xff\xc7\x31\xc0\xb0\x29\x0f\x05\x49"
+                "\x89\xc2\x31\xd2\xb2\x10\x48\x89\xde\x89\xc7\x31"
+                "\xc0\xb0\x31\x0f\x05\x31\xc0\xb0\x05\x89\xc6\x4c"
+                "\x89\xd0\x89\xc7\x31\xc0\xb0\x32\x0f\x05\x31\xd2"
+                "\x31\xf6\x4c\x89\xd0\x89\xc7\x31\xc0\xb0\x2b\x0f"
+                "\x05\x49\x89\xc4\x48\x31\xd2\xb2\x3d\x4c\x89\xee"
+                "\x4c\x89\xe7\x31\xc0\xff\xc0\x0f\x05\x31\xf6\xff"
+                "\xc6\xff\xc6\x4c\x89\xe7\x31\xc0\xb0\x30\x0f\x05"
+                "\x4c\x89\xe7\x31\xc0\xb0\x03\x0f\x05\xeb\xc3";
+</pre>
+<p nodeIndex="61">If we remove the function hello and insert that shell code, that code will be called.</p>
+<p nodeIndex="62">That code is just a string, so we can append it to the &ldquo;%*c%hn%*c%hn&rdquo; format string. This string is unnamed, so we will need to find the address after we compile it. To obtain the address, we need to compile the code, then disassemble it:</p>
+<p nodeIndex="63"><code nodeIndex="360">objdump -d webserver</code></p>
+<pre class="brush: plain; title: ; notranslate" title="" nodeIndex="64">
+00000000004004fd &lt;main&gt;:
+  4004fd:       55                      push   %rbp
+  4004fe:       48 89 e5                mov    %rsp,%rbp
+  400501:       48 83 ec 20             sub    $0x20,%rsp
+  400505:       89 7d fc                mov    %edi,-0x4(%rbp)
+  400508:       48 89 75 f0             mov    %rsi,-0x10(%rbp)
+  40050c:       c7 04 24 d8 07 60 00    movl   $0x6007d8,(%rsp)
+  400513:       41 b9 00 00 00 00       mov    $0x0,%r9d
+  400519:       41 b8 94 05 00 00       mov    $0x594,%r8d
+  40051f:       b9 da 07 60 00          mov    $0x6007da,%ecx
+  400524:       ba 00 00 00 00          mov    $0x0,%edx
+  400529:       be 40 00 00 00          mov    $0x40,%esi
+  40052e:       bf c8 05 40 00          mov    $0x4005c8,%edi
+  400533:       b8 00 00 00 00          mov    $0x0,%eax
+  400538:       e8 a3 fe ff ff          callq  4003e0 &lt;<a href="https://tinyhack.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6b6b4afa8b2a086b6aab2" nodeIndex="361">[email protected]</a>&gt;
+  40053d:       c9                      leaveq 
+  40053e:       c3                      retq   
+  40053f:       90                      nop
+
+</pre>
+<p nodeIndex="65">We only need to care about this line:</p>
+<pre class="brush: plain; title: ; notranslate" title="" nodeIndex="66">
+mov    $0x4005c8,%edi
+</pre>
+<p nodeIndex="67">That is the address that we need in:</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="68">
+#define FUNCTION_ADDR ((uint64_t)0x4005c8 + 12)
+</pre>
+<p nodeIndex="69">The +12 is needed because our shell code starts after the string &ldquo;%*c%hn%*c%hn&rdquo; which is 12 characters long.</p>
+<p nodeIndex="70">If you are curious about the shell code, it was created from the following C code.</p>
+<pre class="brush: cpp; title: ; notranslate" title="" nodeIndex="71">
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;unistd.h&gt;
+#include&lt;sys/types.h&gt;
+#include&lt;sys/stat.h&gt;
+#include&lt;sys/socket.h&gt;
+#include&lt;arpa/inet.h&gt;
+#include&lt;netdb.h&gt;
+#include&lt;signal.h&gt;
+#include&lt;fcntl.h&gt;
+
+int main(int argc, char *argv[])
+{
+        int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+        struct sockaddr_in serv_addr;
+        bzero((char *)&amp;serv_addr, sizeof(serv_addr));
+        serv_addr.sin_family = AF_INET;
+        serv_addr.sin_addr.s_addr = INADDR_ANY;
+        serv_addr.sin_port = htons(8080);
+        bind(sockfd, (struct sockaddr *)&amp;serv_addr, sizeof(serv_addr));
+        listen(sockfd, 5);
+        while (1) {
+                int cfd  = accept(sockfd, 0, 0);
+                char *s = "HTTP/1.0 200\r\nContent-type:text/html\r\n\r\n&lt;h1&gt;Hello world!&lt;/h1&gt;"; 
+                if (fork()==0) {
+                        write(cfd, s, strlen(s));
+                        shutdown(cfd, SHUT_RDWR);
+                        close(cfd);
+                }       
+        }
+
+        return 0;
+}
+
+</pre>
+<p nodeIndex="72">I have done an extra effort (although it is not really necessary in this case) to remove all NUL character from the shell code (since I couldn&rsquo;t find one for X86-64 in the <a href="http://repo.shell-storm.org/shellcode/" nodeIndex="362">Shellcodes database</a>).</p>
+<blockquote nodeIndex="73">
+<p nodeIndex="74">Jeff Dean once implemented a web server in a single printf() call. Other engineers added thousands of lines of explanatory comments but still don&rsquo;t understand exactly how it works. <b nodeIndex="363">Today that program is the front-end to Google Search</b>.</p>
+</blockquote>
+<p nodeIndex="75">It is left as an exercise for the reader to scale the web server to able to handle Google search load.</p>
+<p nodeIndex="76">Source codes for this post is available at <a href="https://github.com/yohanes/printf-webserver" nodeIndex="364">https://github.com/yohanes/printf-webserver</a></p>
+<p nodeIndex="77">For people who thinks that this is useless: yes it is useless. I just happen to like this challenge, and it has refreshed my memory and knowledge for the following topics: shell code writing (haven&rsquo;t done this in years), AMD64 assembly (calling convention, preserved registers, etc), syscalls, objdump, fini_array (last time I checked, gcc still used .dtors), printf format exploiting, gdb tricks (like writing memory block to file), and low level socket code (I have been using boost&rsquo;s for the past few years).</p>
+<p nodeIndex="78"><b nodeIndex="365">Update</b>: Ubuntu <a href="https://wiki.ubuntu.com/ToolChain/CompilerFlags#A-Wl.2C-z.2Crelro" nodeIndex="366">adds a security feature</a> that provides a read-only relocation table area in the final ELF. To be able to run the examples in ubuntu, add this in the command line when compiling</p>
+</div>

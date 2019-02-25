@@ -1,3 +1,6 @@
-2019/01/12-20:20:32.842 897 Reusing MANIFEST /home/max/.config/chromium/Default/Sync Data/LevelDB/MANIFEST-000001
-2019/01/12-20:20:32.842 897 Recovering log #12
-2019/01/12-20:20:32.842 897 Reusing old log /home/max/.config/chromium/Default/Sync Data/LevelDB/000012.log 
+2019/02/25-01:50:30.530 83a Reusing MANIFEST /home/max/.config/chromium/Default/Sync Data/LevelDB/MANIFEST-000001
+2019/02/25-01:50:30.531 83a Recovering log #298
+2019/02/25-01:50:30.532 83a Reusing old log /home/max/.config/chromium/Default/Sync Data/LevelDB/000298.log 
+2019/02/25-09:51:44.952 ead Level-0 table #302: started
+2019/02/25-09:51:44.975 ead Level-0 table #302: 119603 bytes OK
+2019/02/25-09:51:44.978 ead Delete type=0 #298

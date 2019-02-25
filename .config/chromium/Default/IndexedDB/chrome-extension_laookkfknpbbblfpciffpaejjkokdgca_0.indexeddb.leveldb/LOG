@@ -1,3 +1,3 @@
-2019/01/12-22:11:17.544 435f Reusing MANIFEST /home/max/.config/chromium/Default/IndexedDB/chrome-extension_laookkfknpbbblfpciffpaejjkokdgca_0.indexeddb.leveldb/MANIFEST-000001
-2019/01/12-22:11:17.545 435f Recovering log #3
-2019/01/12-22:11:17.549 435f Reusing old log /home/max/.config/chromium/Default/IndexedDB/chrome-extension_laookkfknpbbblfpciffpaejjkokdgca_0.indexeddb.leveldb/000003.log 
+2019/02/25-11:43:27.188 4ee8 Reusing MANIFEST /home/max/.config/chromium/Default/IndexedDB/chrome-extension_laookkfknpbbblfpciffpaejjkokdgca_0.indexeddb.leveldb/MANIFEST-000001
+2019/02/25-11:43:27.188 4ee8 Recovering log #4
+2019/02/25-11:43:27.201 4ee8 Reusing old log /home/max/.config/chromium/Default/IndexedDB/chrome-extension_laookkfknpbbblfpciffpaejjkokdgca_0.indexeddb.leveldb/000004.log 

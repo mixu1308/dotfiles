@@ -1,0 +1,196 @@
+<div  lang="en"><header class="post-header" nodeIndex="7">
+
+</header><div class="post-content" itemprop="articleBody" nodeIndex="9">
+<p nodeIndex="11">Having been introduced to ZFS on my server, I started to feel as though I was somehow using an inferior filesystem on Linux while using ext4. I became used to copy on write features that are part of what make makes filesystems like ZFS so useful and started to realize how useful it could be on the desktop as well. The first thing I did was attempt to setup ZFS on Linux. While it is quite easy to install and use ZFS on an existing Linux system, attempting to run root on ZFS, at least on Archlinux at the time of writing this, proves to be much more difficult. After multiple installation attempts installing with first rEFInd, then grub, then systemd boot - and multiple failed boots and error messages while following the <a href="https://wiki.archlinux.org/index.php/Installing_Arch_Linux_on_ZFS" nodeIndex="122">Archlinux Wiki</a> to the letter, I decided that If I had to battle this hard to get it working, ZFS just didn&rsquo;t have the kind of documentation or adoption on Linux that I was looking for. Fortunately there is a very easy way to set up a copy on write filesystem that can run natively on Linux: use Btrfs&hellip;</p>
+<p nodeIndex="12">While Btrfs hasn&rsquo;t been battle tested in the field for around a decade like ZFS, and some people say it is unstable, the developers of Btrfs have said that <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page#Stability_status" nodeIndex="123">the on disk format of btrfs is stable</a>. Seeing this I decided it was time to give it a try on my own computer, and form my own opinions.</p>
+<h1 id="installing-linux-on-btrfs" nodeIndex="13">Installing Linux on Btrfs</h1>
+<p nodeIndex="14">During the install process it is definitely clear that Btrfs is not a second-class citizen on Linux. The initial process of getting a system up and running was quite similar to what I am used to with other filesystems. Unlike ZFS having a complicated install process due to having to get the code from an unofficial repository, and deal with kernel modules, Btrfs support is already in the kernel.</p>
+<h3 id="setting-up-disks-for-btrfs" nodeIndex="15">Setting up Disks for Btrfs</h3>
+<p nodeIndex="16">To use the userspace facilities the package <a href="https://www.archlinux.org/packages/core/x86_64/btrfs-progs/" nodeIndex="124"><code class="highlighter-rouge" nodeIndex="125">btrfs-progs</code></a> is needed.</p>
+<p nodeIndex="17"><em nodeIndex="126">I did my install on a single ssd but if I wanted to use soft RAID the process would be quite similar and would just involve multiple Btrfs partitions.</em></p>
+<p nodeIndex="18">Partition the disk, make the boot partition and a single partition for Btrfs.</p>
+<figure class="highlight" nodeIndex="127"></figure><pre nodeIndex="19">
+<figure class="highlight" nodeIndex="128"><code class="language-shell" data-lang="shell" nodeIndex="129"><span class="o" nodeIndex="130">[</span><a href="https://ramsdenj.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7d0f1212093d1c0f1e15140e12" nodeIndex="131">[email protected]</a> /] <span class="nv" nodeIndex="132">$ </span>lsblk
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sdb      8:16   0 238.5G  0 disk
+&#9500;&#9472;sdb1   8:17   0   512M  0 part
+&#9492;&#9472;sdb2   8:18   0   238G  0 part</code></figure></pre></div>
+<p nodeIndex="20">Format partitions, I&rsquo;m using a single disk however multiple disk RAID is as easy as listing multiple devices here.</p>
+<figure class="highlight" nodeIndex="133"></figure><pre nodeIndex="21">
+<figure class="highlight" nodeIndex="134"><code class="language-shell" data-lang="shell" nodeIndex="135"><span class="o" nodeIndex="136">[</span><a href="https://ramsdenj.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a6d4c9c9d2e6c7d4c5cecfd5c9" nodeIndex="137">[email protected]</a> ~] <span class="nv" nodeIndex="138">$ </span> mkfs.btrfs <span class="nt" nodeIndex="139">-L</span> Butters /dev/sdb2</code></figure></pre>
+<p nodeIndex="22">I&rsquo;m using a UEFI system so I need an additional partition to boot from.</p>
+<figure class="highlight" nodeIndex="140"></figure><pre nodeIndex="23">
+<figure class="highlight" nodeIndex="141"><code class="language-shell" data-lang="shell" nodeIndex="142"><span class="o" nodeIndex="143">[</span><a href="https://ramsdenj.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="14667b7b60547566777c7d677b" nodeIndex="144">[email protected]</a> ~] mkfs.vfat <span class="nt" nodeIndex="145">-F32</span> /dev/sdb1</code></figure></pre>
+<h3 id="subvolumes" nodeIndex="24">Subvolumes</h3>
+<p nodeIndex="25">Subvolumes can be compared to partitions, and although they are not the same, they are used in a similar way to how partitions are used in a regular install.</p>
+<p nodeIndex="26">First mount the Btrfs partition</p>
+<figure class="highlight" nodeIndex="146"></figure><pre nodeIndex="27">
+<figure class="highlight" nodeIndex="147"><code class="language-shell" data-lang="shell" nodeIndex="148"><span class="o" nodeIndex="149">[</span><a href="https://ramsdenj.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3f4d50504b7f5e4d5c57564c50" nodeIndex="150">[email protected]</a>] ~ <span class="nv" nodeIndex="151">$ </span>mount <span class="nt" nodeIndex="152">-t</span> btrfs /dev/sdb2  /mnt/btrfs</code></figure></pre>
+<p nodeIndex="28">Instead of just installing my system to the root of my Btrfs pool I wanted to use subvolumes so that snapshots could be taken. The decision as to how many subvolumes are made is a difficult one. The argument can be made that it is useful to have a separate partition for <code class="highlighter-rouge" nodeIndex="153">var</code>, <code class="highlighter-rouge" nodeIndex="154">tmp</code>, and other directories, but for sake of easing the ability of restoring the state of the computer from a snapshot and simplifying backup, I chose to have a single <code class="highlighter-rouge" nodeIndex="155">/</code> subvolume &ldquo;<code class="highlighter-rouge" nodeIndex="156">ROOT</code>&rdquo;, a single <code class="highlighter-rouge" nodeIndex="157">/home</code> subvolume &ldquo;<code class="highlighter-rouge" nodeIndex="158">home</code>&rdquo; and a subvolume for storing snapshots &ldquo;<code class="highlighter-rouge" nodeIndex="159">snapshots</code>&rdquo;.</p>
+<p nodeIndex="29">Create the &ldquo;<code class="highlighter-rouge" nodeIndex="160">ROOT</code>&rdquo;, &ldquo;<code class="highlighter-rouge" nodeIndex="161">home</code>&rdquo;, and &ldquo;<code class="highlighter-rouge" nodeIndex="162">snapshots</code>&rdquo; subvolumes.</p>
+<figure class="highlight" nodeIndex="163"></figure>
+<p nodeIndex="31">Btrfs subvolumes have IDs and parent IDs this lets them keep track of their hierarchy. By default the root node ID is &ldquo;5&rdquo;. The command <code class="highlighter-rouge" nodeIndex="175">btrfs subvolume list -p ${directory}</code> shows the three subvolumes, their ID&rsquo;s and their parent ID &ldquo;5&rdquo;.</p>
+<figure class="highlight" nodeIndex="176"></figure><pre nodeIndex="32">
+<figure class="highlight" nodeIndex="177"><code class="language-shell" data-lang="shell" nodeIndex="178"><span class="o" nodeIndex="179">[</span><a href="https://ramsdenj.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8cfee3e3f8ccedfeefe4e5ffe3" nodeIndex="180">[email protected]</a> /mnt/btrfs] <span class="nv" nodeIndex="181">$ </span> btrfs subvolume list <span class="nt" nodeIndex="182">-p</span> <span class="nb" nodeIndex="183">.</span>
+ID 257 gen 8 parent 5 top level 5 path ROOT
+ID 258 gen 9 parent 5 top level 5 path home
+ID 259 gen 10 parent 5 top level 5 path snaps</code></figure></pre>
+<p nodeIndex="33">So my hierarchy tree looks like:</p>
+<figure class="highlight" nodeIndex="184"></figure><pre nodeIndex="34">
+<figure class="highlight" nodeIndex="185"><code class="language-shell" data-lang="shell" nodeIndex="186">Butters <span class="o" nodeIndex="187">(</span>ID 5<span class="o" nodeIndex="188">)</span>
+&#9500;&#9472;&#9472; home
+&#9500;&#9472;&#9472; ROOT
+&#9492;&#9472;&#9472; snapshots</code></figure></pre>
+<p nodeIndex="35">The Btrfs pool at <code class="highlighter-rouge" nodeIndex="189">/mnt/btrfs</code> can now be unmounted.</p>
+<h3 id="install-to-subvolumes" nodeIndex="36">Install to Subvolumes</h3>
+<p nodeIndex="37">In order to install to &ldquo;<code class="highlighter-rouge" nodeIndex="190">ROOT</code>&rdquo; it needs to be mounted in place of the <code class="highlighter-rouge" nodeIndex="191">/</code> directory. It&rsquo;s important to turn compression on here so that the files are compressed during the install.</p>
+<p nodeIndex="38">Select the subvolume to mount with <code class="highlighter-rouge" nodeIndex="192">subvol=${subvolume}</code>.</p>
+<figure class="highlight" nodeIndex="193"></figure>
+<p nodeIndex="40">From here on the install is normal until fstab is configured.</p>
+<h3 id="configure-fstab" nodeIndex="41">Configure fstab</h3>
+<p nodeIndex="42">Again specify subvolume, mount the Btrfs pool somewhere under <code class="highlighter-rouge" nodeIndex="215">/mnt</code>.</p>
+<figure class="highlight" nodeIndex="216"></figure><pre nodeIndex="43">
+<figure class="highlight" nodeIndex="217"><code class="language-shell" data-lang="shell" nodeIndex="218"><span class="c" nodeIndex="219"># /etc/fstab: static file system information</span>
+<span class="c" nodeIndex="220">#</span>
+<span class="c" nodeIndex="221"># &lt;file system&gt; &lt;dir&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span>
+<span class="c" nodeIndex="222"># Btrfs pool</span>
+<span class="nv" nodeIndex="223">UUID</span><span class="o" nodeIndex="224">=</span><span class="k" nodeIndex="225">${</span><span class="nv" nodeIndex="226">drive</span><span class="p" nodeIndex="227">-UUID</span><span class="k" nodeIndex="228">}</span>  /mnt/Butters    btrfs   rw,noatime,discard,ssd,space_cache    0 0
+
+<span class="c" nodeIndex="229"># ROOT</span>
+<span class="nv" nodeIndex="230">UUID</span><span class="o" nodeIndex="231">=</span><span class="k" nodeIndex="232">${</span><span class="nv" nodeIndex="233">drive</span><span class="p" nodeIndex="234">-UUID</span><span class="k" nodeIndex="235">}</span>  /   btrfs   rw,noatime,ssd,discard,space_cache,subvolid<span class="o" nodeIndex="236">=</span>257,subvol<span class="o" nodeIndex="237">=</span>/ROOT   0 0
+
+<span class="c" nodeIndex="238"># home</span>
+<span class="nv" nodeIndex="239">UUID</span><span class="o" nodeIndex="240">=</span><span class="k" nodeIndex="241">${</span><span class="nv" nodeIndex="242">drive</span><span class="p" nodeIndex="243">-UUID</span><span class="k" nodeIndex="244">}</span>  /home   btrfs   rw,noatime,ssd,discard,space_cache,subvolid<span class="o" nodeIndex="245">=</span>258,subvol<span class="o" nodeIndex="246">=</span>/home   0 0
+
+<span class="c" nodeIndex="247"># Boot ond other partitions...</span></code></figure></pre>
+<p nodeIndex="44"><em nodeIndex="248">NOTE: subvolid may not be necessary and will need to be changed during a rollback</em></p>
+<h3 id="configure-bootloader" nodeIndex="45">Configure bootloader</h3>
+<p nodeIndex="46">Setting up the bootloader is easy with systemd-boot. Similarly to the fstab setup, the &ldquo;<code class="highlighter-rouge" nodeIndex="249">ROOT</code>&rdquo; subvolume needs to be specified.</p>
+<figure class="highlight" nodeIndex="250"></figure><pre nodeIndex="47">
+</pre>
+<h1 id="snapshots" nodeIndex="48">Snapshots</h1>
+<h3 id="recurring-snapshots" nodeIndex="49">Recurring Snapshots</h3>
+<p nodeIndex="50">After finishing up the rest of the install and rebooting, regular snapshots can be setup with <a href="http://snapper.io/" nodeIndex="251"><code class="highlighter-rouge" nodeIndex="252">snapper</code></a>, a btrfs snapshot utility made by SUSE which does regular snapshot and cleanup.</p>
+<p nodeIndex="51">This is where the subvolume snapshots can now be made use of.</p>
+<p nodeIndex="52">Under Archlinux, <a href="https://www.archlinux.org/packages/community/x86_64/snapper/" nodeIndex="253">Snapper is in the Official Repository</a>. After installing the package create a default configuration with snapper under <code class="highlighter-rouge" nodeIndex="254">/etc/snapper/configs/</code></p>
+<figure class="highlight" nodeIndex="255"></figure><pre nodeIndex="53">
+<figure class="highlight" nodeIndex="256"><code class="language-shell" data-lang="shell" nodeIndex="257">snapper <span class="nt" nodeIndex="258">-c</span> <span class="k" nodeIndex="259">${</span><span class="nv" nodeIndex="260">config</span><span class="p" nodeIndex="261">-name</span><span class="k" nodeIndex="262">}</span> create-config <span class="k" nodeIndex="263">${</span><span class="nv" nodeIndex="264">subvolume</span><span class="p" nodeIndex="265">-mountpoint</span><span class="k" nodeIndex="266">}</span></code></figure></pre>
+<p nodeIndex="54">So for subvolumes &ldquo;<code class="highlighter-rouge" nodeIndex="267">ROOT</code>&rdquo; and &ldquo;<code class="highlighter-rouge" nodeIndex="268">home</code>&rdquo;, run:</p>
+<figure class="highlight" nodeIndex="269"></figure><pre nodeIndex="55">
+<figure class="highlight" nodeIndex="270"><code class="language-shell" data-lang="shell" nodeIndex="271">snapper <span class="nt" nodeIndex="272">-c</span> root create-config /
+snapper <span class="nt" nodeIndex="273">-c</span> home create-config /home</code></figure></pre>
+<p nodeIndex="56">This creates a new subvolume &ldquo;<code class="highlighter-rouge" nodeIndex="274">.snapshots</code>&rdquo; at the root of the specified subvolume. Snapper has a utility to help you roll back; however, it is <a href="https://bbs.archlinux.org/viewtopic.php?id=194491" nodeIndex="275">inherently flawed</a> and can mess up your file system layout due to how it rolls back.</p>
+<p nodeIndex="57">To avoid this issue, delete the new subvolume snapper just made. Instead create a new subvolume under the &ldquo;<code class="highlighter-rouge" nodeIndex="276">snapshots</code>&rdquo; subvolume for whichever subvolumes are being snapshotted by snapper.</p>
+<p nodeIndex="58">Delete snapper subvolumes</p>
+<figure class="highlight" nodeIndex="277"></figure><pre nodeIndex="59">
+<figure class="highlight" nodeIndex="278"><code class="language-shell" data-lang="shell" nodeIndex="279">btrfs subvolume delete /.snapshots
+btrfs subvolume delete /home/.snapshots</code></figure></pre>
+<p nodeIndex="60">Create <code class="highlighter-rouge" nodeIndex="280">snapshots/ROOT_snaps</code> and <code class="highlighter-rouge" nodeIndex="281">snapshots/home_snaps</code>.</p>
+<figure class="highlight" nodeIndex="282"></figure><pre nodeIndex="61">
+<figure class="highlight" nodeIndex="283"><code class="language-shell" data-lang="shell" nodeIndex="284">btrfs subvolume create /mnt/Butters/snapshots/ROOT_snaps
+btrfs subvolume create /mnt/Butters/snapshots/home_snaps</code></figure></pre>
+<p nodeIndex="62">Now these subvolumes can be mounted to the mount location snapper expects.</p>
+<p nodeIndex="63">Make the mountpoints as the root user and mount the subvolumes.</p>
+<figure class="highlight" nodeIndex="285"></figure><pre nodeIndex="64">
+<figure class="highlight" nodeIndex="286"><code class="language-shell" data-lang="shell" nodeIndex="287">mkdir /home/.snapshots
+mkdir /.snapshots</code></figure></pre>
+<figure class="highlight" nodeIndex="288"></figure><pre nodeIndex="65">
+<figure class="highlight" nodeIndex="289"><code class="language-shell" data-lang="shell" nodeIndex="290">mount <span class="nt" nodeIndex="291">-o</span> <span class="nv" nodeIndex="292">compress</span><span class="o" nodeIndex="293">=</span>lzo <span class="nv" nodeIndex="294">subvol</span><span class="o" nodeIndex="295">=</span>snapshots/home_snaps /dev/sdb2 /home/.snapshots
+mount <span class="nt" nodeIndex="296">-o</span> <span class="nv" nodeIndex="297">compress</span><span class="o" nodeIndex="298">=</span>lzo <span class="nv" nodeIndex="299">subvol</span><span class="o" nodeIndex="300">=</span>snapshots/ROOT_snaps /dev/sdb2 /.snapshots</code></figure></pre>
+<p nodeIndex="66">Now that the directories are set up, snapper can be set to run automatic snapshots and clean up. The cleanup removes snapshots based on the config files in <code class="highlighter-rouge" nodeIndex="301">/etc/snapper/configs/</code> and can be changed.</p>
+<figure class="highlight" nodeIndex="302"></figure><pre nodeIndex="67">
+<figure class="highlight" nodeIndex="303"><code class="language-shell" data-lang="shell" nodeIndex="304">systemctl start snapper-timeline.timer snapper-cleanup.timer
+systemctl <span class="nb" nodeIndex="305">enable </span>snapper-timeline.timer snapper-cleanup.timer</code></figure></pre>
+<p nodeIndex="68">The snapper subvolumes should also be added to the fstab</p>
+<figure class="highlight" nodeIndex="306"></figure><pre nodeIndex="69">
+<figure class="highlight" nodeIndex="307"><code class="language-shell" data-lang="shell" nodeIndex="308"><span class="c" nodeIndex="309"># /etc/fstab: static file system information</span>
+<span class="c" nodeIndex="310">#</span>
+<span class="c" nodeIndex="311"># &lt;file system&gt; &lt;dir&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span>
+
+<span class="c" nodeIndex="312"># Other drives...</span>
+
+<span class="nv" nodeIndex="313">UUID</span><span class="o" nodeIndex="314">=</span><span class="k" nodeIndex="315">${</span><span class="nv" nodeIndex="316">drive</span><span class="p" nodeIndex="317">-UUID</span><span class="k" nodeIndex="318">}</span>  /.snapshots    btrfs rw,noatime,compress<span class="o" nodeIndex="319">=</span>lzo,ssd,discard,space_cache,subvolid<span class="o" nodeIndex="320">=</span>420,subvol<span class="o" nodeIndex="321">=</span>snapshots/ROOT_snaps   0 0
+<span class="nv" nodeIndex="322">UUID</span><span class="o" nodeIndex="323">=</span><span class="k" nodeIndex="324">${</span><span class="nv" nodeIndex="325">drive</span><span class="p" nodeIndex="326">-UUID</span><span class="k" nodeIndex="327">}</span>  /home/.snapshots    btrfs rw,noatime,compress<span class="o" nodeIndex="328">=</span>lzo,ssd,discard,space_cache,subvolid<span class="o" nodeIndex="329">=</span>421,subvol<span class="o" nodeIndex="330">=</span>snapshots/home_snaps   0 0</code></figure></pre>
+<h3 id="rollback-snapshots" nodeIndex="70">Rollback Snapshots</h3>
+<p nodeIndex="71">To rollback to an old snapshot; boot into a restore medium (like the arch installer) and mount the Btrfs pool.</p>
+<p nodeIndex="72">To rollback &ldquo;<code class="highlighter-rouge" nodeIndex="331">ROOT</code>&rdquo;, first delete or move the unwanted subvolume.</p>
+<figure class="highlight" nodeIndex="332"></figure><pre nodeIndex="73">
+<figure class="highlight" nodeIndex="333"><code class="language-shell" data-lang="shell" nodeIndex="334">btrfs subvolume delete /mnt/Butters/ROOT</code></figure></pre>
+<p nodeIndex="74">The dates of the snapshot are stored under <code class="highlighter-rouge" nodeIndex="335">${snapshot-number}/info.xml</code> if the date needs to be checked.</p>
+<p nodeIndex="75">Checking the snapshot info</p>
+<figure class="highlight" nodeIndex="336"></figure><pre nodeIndex="76">
+<figure class="highlight" nodeIndex="337"><code class="language-xml" data-lang="xml" nodeIndex="338">[<a href="https://ramsdenj.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3a1bcbca79391a6a7a7b6a1a0" nodeIndex="339">[email protected]</a> /mnt/Butters]$ cat snapshots/ROOT_snaps/995/info.xml
+<span class="cp" nodeIndex="340">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt" nodeIndex="341">&lt;snapshot&gt;</span>
+  <span class="nt" nodeIndex="342">&lt;type&gt;</span>single<span class="nt" nodeIndex="343">&lt;/type&gt;</span>
+  <span class="nt" nodeIndex="344">&lt;num&gt;</span>995<span class="nt" nodeIndex="345">&lt;/num&gt;</span>
+  <span class="nt" nodeIndex="346">&lt;date&gt;</span>2016-04-03 07:00:05<span class="nt" nodeIndex="347">&lt;/date&gt;</span>
+  <span class="nt" nodeIndex="348">&lt;description&gt;</span>timeline<span class="nt" nodeIndex="349">&lt;/description&gt;</span>
+  <span class="nt" nodeIndex="350">&lt;cleanup&gt;</span>timeline<span class="nt" nodeIndex="351">&lt;/cleanup&gt;</span>
+<span class="nt" nodeIndex="352">&lt;/snapshot&gt;</span></code></figure></pre>
+<p nodeIndex="77">Snapshots are read only so after selecting the right snapshot, take a read-write snapshot of it under the location of the old subvolume.</p>
+<figure class="highlight" nodeIndex="353"></figure><pre nodeIndex="78">
+<figure class="highlight" nodeIndex="354"><code class="language-shell" data-lang="shell" nodeIndex="355">btrfs subvol snapshot /mnt/Butters/snapshots/ROOT_snaps/<span class="k" nodeIndex="356">${</span><span class="nv" nodeIndex="357">snapshot</span><span class="k" nodeIndex="358">}</span> /mnt/Butters/ROOT</code></figure></pre>
+<p nodeIndex="79">After that the system can be rebooted.</p>
+<h1 id="backups" nodeIndex="80">Backups</h1>
+<p nodeIndex="81">Since snapshots are not backups it&rsquo;s also important a good backup is in place in addition to having snapshots. The backup solution I found is <a href="https://github.com/digint/btrbk" nodeIndex="359">Btrbk</a>, a very configurable backup solution written in perl. Btrbk was an easy install for me as it was in the Arch User Repository, <a href="https://aur.archlinux.org/packages/btrbk/" nodeIndex="360">Btrbk (AUR)</a>. It came with great documentation, as well as systemd timers and services. Btrbk takes snapshots and then backs up the selected snapshot to a variety of backup locations. The snapshots can then be chosen to be kept or deleted based on a set amount of time.</p>
+<h3 id="backup-configuration" nodeIndex="82">Backup Configuration</h3>
+<p nodeIndex="83">After installing Btrbk, an example configuration file can be found at <code class="highlighter-rouge" nodeIndex="361">/etc/btrbk/btrbk.conf.example</code>. Copy the example config to <code class="highlighter-rouge" nodeIndex="362">/etc/btrbk/btrbk.conf</code>.</p>
+<p nodeIndex="84">The configuration options I changed were</p>
+<ol nodeIndex="86"><li nodeIndex="85"><code class="highlighter-rouge" nodeIndex="363">snapshot_dir</code> - The location for the initial snapshot, if left as default it will make the snapshot in the &ldquo;volume&rdquo; directory.</li>
+<li nodeIndex="87"><code class="highlighter-rouge" nodeIndex="364">volume</code> - The pool that the subvolume being backed up is in.</li>
+<li nodeIndex="88"><code class="highlighter-rouge" nodeIndex="365">subvolume</code> - The subvolume that is going to be backed up.</li>
+<li nodeIndex="89"><code class="highlighter-rouge" nodeIndex="366">target</code> - Location where the backup will be placed.</li>
+<li nodeIndex="90"><code class="highlighter-rouge" nodeIndex="367">snapshot_preserve_daily, snapshot_preserve_weekly, snapshot_preserve_monthly</code> - Amount of time to keep snapshots. I already keep snapshots from snapper so I set all my snapshot preserve settings to zero.</li>
+<li nodeIndex="91"><code class="highlighter-rouge" nodeIndex="368">target_preserve_daily, target_preserve_weekly, target_preserve_monthly</code> - Amount of time to keep backups.</li>
+</ol><p nodeIndex="92">For a basic backup everything else can be left as default.</p>
+<p nodeIndex="93">I chose to create a new subvolume under <code class="highlighter-rouge" nodeIndex="369">snapshots/btrbk_snaps</code> to keep things organized; however, there should only ever be one snapshot here so this is not really necessary.</p>
+<p nodeIndex="94">Options correspond to the last section encountered so global options must be set before each volume.</p>
+<p nodeIndex="95">My basic configuration ended up as</p>
+<figure class="highlight" nodeIndex="370"></figure><pre nodeIndex="96">
+<figure class="highlight" nodeIndex="371"><code class="language-shell" data-lang="shell" nodeIndex="372">snapshot_preserve_daily    0
+snapshot_preserve_weekly   0
+snapshot_preserve_monthly  0
+
+target_preserve_daily      20
+target_preserve_weekly     10
+target_preserve_monthly    all
+
+snapshot_dir               snapshots/btrbk_snaps
+
+volume /mnt/Butters
+  subvolume ROOT
+    target send-receive    /mnt/ButterBackup/ROOT
+
+  subvolume home
+    target send-receive    /mnt/ButterBackup/home</code></figure></pre>
+<p nodeIndex="97"><em nodeIndex="373">Note: Indentation in the config is for readability purposes only , it does not change the results.</em></p>
+<p nodeIndex="98">This configuration is for sending backups somewhere else on the same system, in my case to another drive, but it can easily be configured to send backups over SSH to another computer or server.</p>
+<h3 id="directory-structure" nodeIndex="99">Directory Structure</h3>
+<p nodeIndex="100">So this is what my directory structure ended up looking like</p>
+<figure class="highlight" nodeIndex="374"></figure><pre nodeIndex="101">
+<figure class="highlight" nodeIndex="375"><code class="language-shell" data-lang="shell" nodeIndex="376"><span class="nb" nodeIndex="377">.</span>
+&#9500;&#9472;&#9472; ButterBackup <span class="o" nodeIndex="378">[</span>POOL ONE]
+|   &#9500;&#9472;&#9472; home
+|   |   &#9492;&#9472;&#9472; <span class="o" nodeIndex="379">(</span>btrbk home pool backups...<span class="o" nodeIndex="380">)</span>
+|   &#9492;&#9472;&#9472; ROOT
+|       &#9492;&#9472;&#9472; <span class="o" nodeIndex="381">(</span>btrbk ROOT pool backups...<span class="o" nodeIndex="382">)</span>
+|
+&#9492;&#9472;&#9472;&#9472;&#9472; Butters <span class="o" nodeIndex="383">[</span>POOL TWO]
+    &#9500;&#9472;&#9472; home
+    &#9474;   &#9492;&#9472;&#9472; <span class="o" nodeIndex="384">(</span>home directories...<span class="o" nodeIndex="385">)</span>
+    &#9500;&#9472;&#9472; ROOT
+    &#9474;   &#9492;&#9472;&#9472; <span class="o" nodeIndex="386">(</span>root directories...<span class="o" nodeIndex="387">)</span>
+    &#9492;&#9472;&#9472; snapshots
+        &#9500;&#9472;&#9472; btrbk_snaps
+        |   &#9500;&#9472;&#9472; <span class="o" nodeIndex="388">(</span>btrbk home pool backups...<span class="o" nodeIndex="389">)</span>
+        |   &#9492;&#9472;&#9472; <span class="o" nodeIndex="390">(</span>btrbk ROOT pool backups...<span class="o" nodeIndex="391">)</span>
+        &#9500;&#9472;&#9472; home_snaps
+        |   &#9492;&#9472;&#9472; <span class="o" nodeIndex="392">(</span>Snapper home pool snapshots....<span class="o" nodeIndex="393">)</span>
+        &#9492;&#9472;&#9472; ROOT_snaps
+            &#9492;&#9472;&#9472; <span class="o" nodeIndex="394">(</span>Snapper ROOT pool snapshots....<span class="o" nodeIndex="395">)</span></code></figure></pre>
+<h1 id="conclusion" nodeIndex="102">Conclusion</h1>
+<p nodeIndex="103">I&rsquo;ve been using this system for several months with no problems. I have rolled back several times and it has been as easy as booting into another Linux distro on my computer, and moving around snapshots. This could probably be automated in such a way that at boot a subvolume is chosen to be the volume booted into. This is what Snapper tried to achieve but the way it does it is <a href="https://bbs.archlinux.org/viewtopic.php?id=194491" nodeIndex="396">very messy</a> as the resulting subvolume ends up being in the wrong place. This problem is not simple to fix as snapshots are read-only so somewhere along the line another snapshot has to be taken that is read-write for the system to be usable. Once a solution arrives for this Btrfs will have a feature similar to ZFS boot environments. I&rsquo;m looking forward to this.</p>
+<p nodeIndex="104">Thus far I have not had any file corruption that I am aware of and I am happy with the resulting system. I have yet to use ZFS on Linux as my system root, but I&rsquo;m looking forward to comparing the two when I finally get my problems ironed out.</p>
+<p nodeIndex="105">Overall the future with btrfs looks interesting and I will be keeping an eye on it.</p>
+</div>

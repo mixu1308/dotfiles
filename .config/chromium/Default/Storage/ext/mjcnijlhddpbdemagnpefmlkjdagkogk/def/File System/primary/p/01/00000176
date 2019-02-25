@@ -1,0 +1,48 @@
+<div  lang="en">
+
+<div nodeIndex="10">
+<div nodeIndex="11">
+
+<div nodeIndex="28">
+<div nodeIndex="29">
+<div nodeIndex="30" childisonlyalink="1"><a href="https://peach.win.tue.nl/oldui" nodeIndex="64"> Switch to teacher interface</a>
+
+</div>
+<div nodeIndex="32">
+<div nodeIndex="33">
+<div nodeIndex="34">
+<p nodeIndex="35">Stand alone user accounts</p>
+<p nodeIndex="36">This service is no longer connected to the TU/e account database. You can set a password for your account by using the 'forgot password' link on the login form. Students need to log in using their 7-digit id number, not the Windows/network login that starts with an 's'.</p>
+</div>
+<div nodeIndex="37">
+<p nodeIndex="38">Peach&sup3; has been replaced with a Canvas App: Momotor LTI Tool Provider</p>
+<p nodeIndex="39">This makes the automated checking of submissions as done by peach&sup3; available in Canvas. All other peach&sup3; functionality, including peer reviews and plagiarism detection, is not part of the Momotor App since these functionalities either already exist in Canvas or other Canvas add-ons.</p>
+<p nodeIndex="40">Documentation on how to enable Momotor for a course can be found in the <a href="https://momotor.org/doc/lti/canvas/index.html?from=peach3" target="_blank" nodeIndex="65">"Momotor LTI Tool Provider" online documentation</a> and on the <a href="https://momotor.org/?from=peach3" target="_blank" nodeIndex="66">Momotor project website</a>.</p>
+<p nodeIndex="41">For more information please see the announcement page: <a href="https://peach.win.tue.nl/wiki/Documentation/FAQ/eol/" nodeIndex="67">Peach&sup3; phased out, replaced by Momotor plug-in for Canvas</a>.</p>
+</div>
+<div nodeIndex="42">
+<h1 nodeIndex="43">Frequently Asked Questions</h1>
+<p nodeIndex="44">We have two FAQs available:</p>
+<div nodeIndex="48">
+<h2 nodeIndex="49">Welcome</h2>
+<div nodeIndex="50">
+<h3 nodeIndex="51">peach&sup3;</h3>
+<p nodeIndex="52">peach&sup3; is a system for the presentation of assignments, the collection, storage, and automated and/or manual evaluation of work submitted for assignments, and the administration of results. Originally, the system was developed with a focus on programming education assignments and programming contest problems, but nowadays it can be used for any kind of assignments that require submission of work in the form of one or more files.</p>
+<p nodeIndex="53">If you are interested in peach&sup3; itself, please see the peach&sup3; website at <a href="http://peach3.nl/" target="_blank" nodeIndex="68">http://peach3.nl/</a></p>
+</div>
+<div nodeIndex="54">
+<h3 nodeIndex="55">peach&sup3; at the TU/e</h3>
+<p nodeIndex="56">This installation of peach&sup3; is for use by students and faculty of the <a href="http://www.tue.nl/" target="_blank" nodeIndex="69">Technische Universiteit Eindhoven</a>. Registration for peach&sup3; is not required for TU/e students and staff. They can log in using their central TU/e "NT-account", the username and password that is used to log in into the university's central services.</p>
+<p nodeIndex="57">If you are a teacher at the TU/e and want to use peach&sup3; for your course, please <a href="https://peach.win.tue.nl/wiki/Contact" nodeIndex="70">contact</a> us.</p>
+</div>
+</div>
+</div>
+</div>
+<div nodeIndex="58">
+<hr nodeIndex="71"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

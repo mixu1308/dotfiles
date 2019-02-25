@@ -7,7 +7,6 @@ set $term i3-sensible-terminal
 for_window [class="^.*"] border pixel 2
 gaps inner 5
 gaps outer 5
-
 font pango:DejaVu Sans Mono 8
 
 
@@ -16,7 +15,8 @@ font pango:DejaVu Sans Mono 8
 
 exec_always nm-applet
 exec --no-startup-id redshift -l 51.515278:5.514366
-exec wal -i ~/Pictures/wall.jpg
+exec_always wal -c
+exec_always wal -i ~/Pictures/wall.jpg 
 #exec_always compton  -bcCGf
 exec compton --config ~/.config/compton/compton.conf -bcCGf
 exec polybar example
@@ -46,25 +46,27 @@ bindsym $mod+Shift+s 	gaps inner current minus 5
 bindsym $mod+h		    focus left
 bindsym $mod+Shift+h	move left 30
 
-bindsym $mod+j		focus down
+bindsym $mod+j		    focus down
 bindsym $mod+Shift+j	move down 30
 
-bindsym $mod+k		focus up
+bindsym $mod+k		    focus up
 bindsym $mod+Shift+k	move up 30
 
-bindsym $mod+l		focus right
+bindsym $mod+l		    focus right
 bindsym $mod+Shift+l	move right 30
 
-bindsym $mod+z		gaps outer current plus 5
-bindsym $mod+Shift+z	gaps outer current minus 5
+bindsym $mod+z		    gaps outer current plus 5
+#bindsym $mod+Shift+z	gaps outer current minus 5
+bindsym $mod+Shift+z exec scrot  -s -e 'xclip -selection clipboard -t "image/png" < $f' 
+ 
 
+bindsym $mod+c          exec i3lock -i ~/Pictures/lock.png -e
 
 floating_modifier $mod
 
 
 # kill focused window
 bindsym $mod+q 		kill
-
 
 # #---Media Keys---# #
 # Change Volume
