@@ -15,8 +15,6 @@ font pango:DejaVu Sans Mono 8
 
 exec_always nm-applet
 exec --no-startup-id redshift -l 51.515278:5.514366
-exec_always wal -c
-exec_always wal -i ~/Pictures/wall.jpg 
 #exec_always compton  -bcCGf
 exec compton --config ~/.config/compton/compton.conf -bcCGf
 exec polybar example
@@ -57,7 +55,9 @@ bindsym $mod+Shift+l	move right 30
 
 bindsym $mod+z		    gaps outer current plus 5
 #bindsym $mod+Shift+z	gaps outer current minus 5
-bindsym $mod+Shift+z exec scrot  -s -e 'xclip -selection clipboard -t "image/png" < $f' 
+bindsym --release $mod+Shift+z    exec scrot  -s -e 'xclip -selection clipboard -t "image/png" < $f' 
+#bindsym --release $mod+Shift+z    exec maim -s | xclip -selection clipboard -t image/png
+
  
 
 bindsym $mod+c          exec i3lock -i ~/Pictures/lock.png -e
@@ -75,8 +75,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #d
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 #change brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec light -U 5 # decrease screen brightness
 
 
 # enter fullscreen mode for the focused container
@@ -84,11 +84,12 @@ bindsym $mod+f fullscreen toggle
 
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+space floating toggle
 
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+space focus mode_toggle
+
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -141,6 +142,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
+#
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
