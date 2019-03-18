@@ -28,16 +28,16 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/example]
-;monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:HDMI-0}
 width = 100%
-height = 34
+height = 24
 
 
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
 
-background = #00000000
+background = #66000000
 foreground = #ccffffff
 
 line-size = 16
@@ -57,13 +57,13 @@ tray-padding = 2
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = wuncon siji:pixelsize=10;1
+font-0 = Noto Sans:pixelsize=12;1
+font-1 = Hack Nerd Font:style=Regular:size=12:antialias=false;1
+font-2 = Hack Nerd Font:style=Regular:size=12;1
 
-modules-left = bspwm i3
+modules-left =  i3
 modules-center = 
-modules-right = filesystem xbacklight pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
+modules-right = filesystem  pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 
 
 
@@ -148,11 +148,7 @@ label-song-maxlen = 25
 label-song-ellipsis = true
 
 [module/xbacklight]
-type = custom/script
-exec = light -G
-scroll-up = light -A 5
-scroll-down = light -U 5
-interval = 0.1
+type = internal/xbacklight
 
 format = <label> <bar>
 label = BL

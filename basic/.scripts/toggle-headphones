@@ -1,0 +1,11 @@
+#! /bin/bash 
+#amixer -c 0 get 'Auto-Mute Mode' | awk '/Item0/ {print $2}'
+
+amixer -c 0 get 'Auto-Mute Mode' | awk '/Item0/ {print $2}'
+
+if amixer -c 0 get 'Auto-Mute Mode' | grep -q -F "Item0: 'Enabled'" 
+then
+	amixer -c 0 set 'Auto-Mute Mode' Disabled
+else	
+	amixer -c 0 set 'Auto-Mute Mode' Enabled
+fi

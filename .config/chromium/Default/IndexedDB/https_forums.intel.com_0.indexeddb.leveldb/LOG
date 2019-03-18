@@ -1,9 +1,0 @@
-2019/01/25-21:52:38.282 22ec Reusing MANIFEST /home/max/.config/chromium/Default/IndexedDB/https_forums.intel.com_0.indexeddb.leveldb/MANIFEST-000001
-2019/01/25-21:52:43.656 2576 Current memtable full; waiting...
-2019/01/25-21:52:43.657 3984 Level-0 table #5: started
-2019/01/25-21:52:43.661 3984 Level-0 table #5: 821064 bytes OK
-2019/01/25-21:52:43.662 3984 Delete type=0 #3
-2019/01/25-21:52:43.662 3984 Level-0 table #7: started
-2019/01/25-21:52:43.662 3984 Level-0 table #7: 0 bytes OK
-2019/01/25-21:52:43.663 3984 Delete type=0 #4
-2019/01/25-21:52:43.663 3984 Manual compaction at level-0 from '\x00\x05\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x06\x00\x00\x00' @ 0 : 0; will stop at (end)

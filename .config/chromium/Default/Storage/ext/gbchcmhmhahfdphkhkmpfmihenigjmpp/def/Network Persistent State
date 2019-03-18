@@ -1,1 +1,0 @@
-{"net":{"http_server_properties":{"servers":[{"https://www.gstatic.com":{"supports_spdy":true}},{"https://chromoting-client.talkgadget.google.com":{"supports_spdy":true}},{"https://www.googleapis.com":{"supports_spdy":true}}],"version":5}}}

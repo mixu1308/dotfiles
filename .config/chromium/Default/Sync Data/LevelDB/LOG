@@ -1,6 +1,0 @@
-2019/02/25-10:53:52.563 707 Reusing MANIFEST /home/max/.config/chromium/Default/Sync Data/LevelDB/MANIFEST-000001
-2019/02/25-10:53:52.564 707 Recovering log #301
-2019/02/25-10:53:52.566 707 Reusing old log /home/max/.config/chromium/Default/Sync Data/LevelDB/000301.log 
-2019/02/25-11:47:44.404 777 Level-0 table #305: started
-2019/02/25-11:47:44.411 777 Level-0 table #305: 97885 bytes OK
-2019/02/25-11:47:44.413 777 Delete type=0 #301
