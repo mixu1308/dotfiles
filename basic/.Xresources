@@ -71,3 +71,8 @@ URxvt.perl-ext-common:	default,clipboard,url-select,keyboard-select,font-size
 ! macros for clipboard and selection
 URxvt.copyCommand:	xclip -i -selection clipboard
 URxvt.pasteCommand:	xclip -o -selection clipboard
+
+
+
+Xcursor.size: 16
+
