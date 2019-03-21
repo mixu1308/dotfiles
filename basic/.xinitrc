@@ -1,7 +1,6 @@
 #! /bin/bash
 xrdb -merge ~/.Xresources &
 
-stalonetray &
 
 setxkbmap -option caps:escape
 
