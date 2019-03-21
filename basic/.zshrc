@@ -7,6 +7,12 @@ export ZSH="/home/max/.oh-my-zsh"
 # Add Anaconda to path
 export PATH="/home/max/anaconda3/bin:$PATH"
 
+# Add scripts directory to path
+if [ -d "$HOME/.scripts" ] ; then
+    PATH="$PATH:$HOME/.scripts"
+fi
+
+
 # Set the Theme
 ZSH_THEME="pygmalion"
 #ZSH_THEME="agnoster"
