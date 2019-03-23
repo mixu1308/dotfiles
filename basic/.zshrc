@@ -62,3 +62,16 @@ source $ZSH/oh-my-zsh.sh
 alias -g G='| grep '
 alias mk='ssh mkabel@mkabel.me'
 alias -s pdf='zathura'
+
+
+
+gitall() {
+    git add .
+    if [ "$1" != "" ] # or better, if [ -n "$1" ]
+    then
+        git commit -m "$1"
+    else
+        git commit -m update
+    fi
+    git push
+}
