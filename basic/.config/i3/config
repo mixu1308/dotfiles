@@ -15,8 +15,8 @@ font pango:DejaVu Sans Mono 8
 
 #exec_always nm-applet
 ##exec_always compton  -bcCGf
-exec_always compton --config ~/.config/compton/compton.conf -bcCGf
-exec_always polybar example
+exec compton --config ~/.config/compton/compton.conf -bcCGf
+exec polybar example
  #---Basic Bindings---# #
 
 # start a terminal
