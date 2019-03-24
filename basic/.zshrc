@@ -62,7 +62,7 @@ source $ZSH/oh-my-zsh.sh
 alias -g G='| grep '
 alias mk='ssh mkabel@mkabel.me'
 alias -s pdf='zathura'
-
+alias pia='/opt/piavpn/bin/pia-client'
 
 
 gitall() {
