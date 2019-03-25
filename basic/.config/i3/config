@@ -25,6 +25,8 @@ bindsym $mod+Return exec $term
 bindsym $alt+Return move workspace to output primary
 bindsym $alt+l move workspace to output right
 bindsym $alt+h move workspace to output left
+bindsym $mod+semicolon exec i3-msg border pixel 3
+bindsym --release $mod+semicolon exec i3-msg border pixel 0
 
 
 # #---Letter Key Bindings---# #
@@ -75,7 +77,7 @@ bindsym $mod+q 		kill
 # Change Volume
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 1%+ #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 1%- #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id amixer -q sset Master toggle # mute sound
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 1 toggle    # mute sound
 
 #change brightness
 bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
