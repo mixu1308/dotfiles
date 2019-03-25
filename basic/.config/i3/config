@@ -1,6 +1,7 @@
 # #---Basic Definitions---# #
 
 set $mod Mod4
+set $alt Mod1
 set $term st
 
 #required for gaps
@@ -21,7 +22,9 @@ exec polybar example
 
 # start a terminal
 bindsym $mod+Return exec $term
-
+bindsym $alt+Return move workspace to output primary
+bindsym $alt+l move workspace to output right
+bindsym $alt+h move workspace to output left
 
 
 # #---Letter Key Bindings---# #
