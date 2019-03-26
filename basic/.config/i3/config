@@ -39,6 +39,8 @@ bindsym $mod+e exec 	$term -e ranger
 
 bindsym $mod+t		    split toggle
 
+bindsym $mod+a          layout toggle tabbed splith
+
 
 bindsym $mod+d          exec dmenu_run
 
@@ -59,9 +61,13 @@ bindsym $mod+Shift+l	move right 30
 
 bindsym $mod+z		    gaps outer current plus 5
 bindsym $mod+Shift+z	gaps outer current minus 5
+
+
 bindsym --release Shift+Print    exec scrot  -s -e 'xclip -selection clipboard -t "image/png" < $f' 
 bindsym --release Print    exec scrot  -s -e 'xclip clipboard -t "image/png" < $f' 
+
 #bindsym --release $mod+Shift+z    exec maim -s | xclip -selection clipboard -t image/png
+
 
  
 
@@ -97,7 +103,7 @@ bindsym $mod+Shift+space focus mode_toggle
 
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
