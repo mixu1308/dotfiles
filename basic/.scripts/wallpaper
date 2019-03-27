@@ -1,6 +1,6 @@
 #!/bin/bash
 feh --bg-fill ~/Pictures/wall.jpg 
-wal -cn
-wal -n -i ~/Pictures/wall.jpg 
+#wal -cn
+#wal -n -i ~/Pictures/wall.jpg 
 i3-msg restart
 xrdb ~/.Xresources 
