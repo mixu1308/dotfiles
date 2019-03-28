@@ -5,7 +5,7 @@
 export ZSH="/home/max/.oh-my-zsh"
 
 # Add Anaconda to path
-export PATH="/home/max/anaconda3/bin:$PATH"
+#export PATH="/home/max/anaconda3/bin:$PATH"
 
 # Add scripts directory to path
 if [ -d "$HOME/.scripts" ] ; then
@@ -63,7 +63,7 @@ alias -g G='| grep '
 alias mk='ssh mkabel@mkabel.me'
 alias -s pdf='zathura'
 alias pia='/opt/piavpn/bin/pia-client'
-
+alias vim='nvim'
 
 gitall() {
     git add .
