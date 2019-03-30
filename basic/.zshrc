@@ -1,19 +1,24 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+
+
+
 # Path to your oh-my-zsh installation.
 export ZSH="/home/max/.oh-my-zsh"
 
-# Add Anaconda to path
-#export PATH="/home/max/anaconda3/bin:$PATH"
+
 
 # Add scripts directory to path
 if [ -d "$HOME/.scripts" ] ; then
     PATH="$PATH:$HOME/.scripts"
 fi
 
+#decreases the delay of going into vim mode
+export KEYTIMEOUT=1
 
-# Set the Theme
+
+ #Set the Theme
 ZSH_THEME="pygmalion"
 #ZSH_THEME="agnoster"
 
@@ -58,13 +63,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+bindkey -v
 
 alias -g G='| grep '
 alias mk='ssh mkabel@mkabel.me'
 alias -s pdf='zathura'
 alias pia='/opt/piavpn/bin/pia-client'
 alias vim='nvim'
-
+alias da='nohup /home/max/anaconda3/bin/jupyter-notebook &'
 gitall() {
     git add .
     if [ "$1" != "" ] # or better, if [ -n "$1" ]
