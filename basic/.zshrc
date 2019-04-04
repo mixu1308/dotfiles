@@ -63,7 +63,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-bindkey -v
+#bindkey -v
 
 alias -g G='| grep '
 alias mk='ssh mkabel@mkabel.me'

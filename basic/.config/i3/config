@@ -18,6 +18,7 @@ font pango:DejaVu Sans Mono 8
 ##exec_always compton  -bcCGf
 exec compton --config ~/.config/compton/compton.conf 
 exec polybar example
+exec --no-startup-id dunst
  #---Basic Bindings---# #
 
 # start a terminal
@@ -63,10 +64,12 @@ bindsym $mod+z		    gaps outer current plus 5
 bindsym $mod+Shift+z	gaps outer current minus 5
 
 
-bindsym --release Shift+Print    exec scrot  -s -e 'xclip -selection clipboard -t "image/png" < $f' 
-bindsym --release Print    exec scrot  -s -e 'xclip clipboard -t "image/png" < $f' 
+#bindsym --release Shift+Print    exec scrot  ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s -e 'xclip -selection clipboard -t "image/png" < $f' 
+#bindsym --release Print    exec scrot  -s -e 'xclip clipboard -t "image/png" < $f' 
 
-#bindsym --release $mod+Shift+z    exec maim -s | xclip -selection clipboard -t image/png
+bindsym --release Print   exec maim ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s | xclip -selection clipboard -t image/png
+bindsym --release Shift+Print   exec maim ~/Pictures/Screenshots/%b%d-%H:%M:%S.png | xclip -selection clipboard -t image/png
+
 
 
  
