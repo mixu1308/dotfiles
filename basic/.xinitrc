@@ -9,6 +9,8 @@ setxkbmap -option caps:escape
 
 ~/.scripts/wallpaper
 
+compton --config ~/.config/compton/compton.conf &
+
 redshift &
 
 ckb-next -b &

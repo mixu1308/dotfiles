@@ -15,10 +15,11 @@ font pango:DejaVu Sans Mono 8
 # #---Starting External Scripts---# #
 
 #exec_always nm-applet
-##exec_always compton  -bcCGf
-exec compton --config ~/.config/compton/compton.conf 
-exec polybar example
+#exec compton --config ~/.config/compton/compton.conf 
+exec_always ~/.scripts/launch-polybar.sh
 exec --no-startup-id dunst
+
+
  #---Basic Bindings---# #
 
 # start a terminal
