@@ -3,7 +3,7 @@ xrdb -merge ~/.Xresources &
 
 
 setxkbmap -option caps:escape
-
+xbindkeys
 
 .screenlayout/Dual-monitor.sh
 

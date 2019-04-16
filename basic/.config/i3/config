@@ -68,8 +68,8 @@ bindsym $mod+Shift+z	gaps outer current minus 5
 #bindsym --release Shift+Print    exec scrot  ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s -e 'xclip -selection clipboard -t "image/png" < $f' 
 #bindsym --release Print    exec scrot  -s -e 'xclip clipboard -t "image/png" < $f' 
 
-bindsym --release Print   exec maim ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s | xclip -selection clipboard -t image/png
-bindsym --release Shift+Print   exec maim ~/Pictures/Screenshots/%b%d-%H:%M:%S.png | xclip -selection clipboard -t image/png
+bindsym --release Print   exec maim  -sou | xclip -selection clipboard -t "image/png"
+bindsym --release Shift+Print   exec maim ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png
 
 
 
