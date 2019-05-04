@@ -11,7 +11,7 @@ xbindkeys
 
 compton --config ~/.config/compton/compton.conf &
 
-redshift &
+redshift -c .config/redshift.conf -l manual &
 
 ckb-next -b &
 

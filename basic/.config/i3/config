@@ -20,6 +20,14 @@ exec_always ~/.scripts/launch-polybar.sh
 exec --no-startup-id dunst
 
 
+#---Dropdown/Scratchpad Windows---#
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 1200 800
+for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] border pixel 5
+
+exec --no-startup-id st -n dropdown -e tmux
+
  #---Basic Bindings---# #
 
 # start a terminal
@@ -40,6 +48,8 @@ bindsym $mod+Shift+w 	exec chromium
 bindsym $mod+e exec 	$term -e ranger
 
 bindsym $mod+t		    split toggle
+
+bindsym $mod+u          [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 
 bindsym $mod+a          layout toggle tabbed splith
 
@@ -64,6 +74,7 @@ bindsym $mod+Shift+l	move right 30
 bindsym $mod+z		    gaps outer current plus 5
 bindsym $mod+Shift+z	gaps outer current minus 5
 
+bindsym $mod+Shift+m    chromium www.soundcloud.com
 
 #bindsym --release Shift+Print    exec scrot  ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s -e 'xclip -selection clipboard -t "image/png" < $f' 
 #bindsym --release Print    exec scrot  -s -e 'xclip clipboard -t "image/png" < $f' 
