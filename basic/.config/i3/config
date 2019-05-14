@@ -41,7 +41,6 @@ bindsym --release $mod+semicolon exec i3-msg border pixel 0
 
 # #---Letter Key Bindings---# #
 
-# start dmenu (a program launcher)
 
 bindsym $mod+Shift+w 	exec chromium
 
@@ -50,11 +49,13 @@ bindsym $mod+e exec 	$term -e ranger
 bindsym $mod+t		    split toggle
 
 bindsym $mod+u          [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+bindsym $mod+Shift+u    exec --no-startup-id st -n dropdown -e tmux
 
 bindsym $mod+a          layout toggle tabbed splith
 
 
-bindsym $mod+d          exec dmenu_run
+bindsym $mod+d          exec "rofi -show run -modi run,window -show-icons -sidebar-mode -terminal st" 
+bindsym $mod+Shift+d    exec dmenu_run
 
 bindsym $mod+s		    gaps inner current plus 5
 bindsym $mod+Shift+s 	gaps inner current minus 5
@@ -74,7 +75,6 @@ bindsym $mod+Shift+l	move right 30
 bindsym $mod+z		    gaps outer current plus 5
 bindsym $mod+Shift+z	gaps outer current minus 5
 
-bindsym $mod+Shift+m    chromium www.soundcloud.com
 
 #bindsym --release Shift+Print    exec scrot  ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s -e 'xclip -selection clipboard -t "image/png" < $f' 
 #bindsym --release Print    exec scrot  -s -e 'xclip clipboard -t "image/png" < $f' 

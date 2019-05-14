@@ -15,4 +15,6 @@ redshift -c .config/redshift.conf -l manual &
 
 ckb-next -b &
 
+unclutter &
+
 exec i3

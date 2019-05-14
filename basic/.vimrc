@@ -28,3 +28,9 @@ nnoremap <space> za
 nnoremap <leader>u :GundoToggle<CR>
 
 autocmd BufWritePost config.h,config.def.h !sudo make install
+
+
+"Vim-Plug
+call plug#begin('~/.vim/plugged')
+Plug 'lervag/vimtex'
+call plug#end()
