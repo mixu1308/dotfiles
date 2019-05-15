@@ -51,6 +51,9 @@ bindsym $mod+t		    split toggle
 bindsym $mod+u          [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+Shift+u    exec --no-startup-id st -n dropdown -e tmux
 
+bindsym $mod+BackSpace  exec sh ~/.scripts/power-menu.sh
+bindsym $mod+Delete     exec sh ~/.scripts/power-menu.sh
+
 bindsym $mod+a          layout toggle tabbed splith
 
 
