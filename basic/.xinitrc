@@ -1,6 +1,7 @@
 #! /bin/bash
 xrdb -merge ~/.Xresources &
 
+nm-applet &
 
 setxkbmap -option caps:escape
 xbindkeys

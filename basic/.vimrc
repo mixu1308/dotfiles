@@ -32,5 +32,6 @@ autocmd BufWritePost config.h,config.def.h !sudo make install
 
 "Vim-Plug
 call plug#begin('~/.vim/plugged')
+Plug 'vim-airline/vim-airline'
 Plug 'lervag/vimtex'
 call plug#end()

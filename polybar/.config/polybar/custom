@@ -1,0 +1,39 @@
+; ________  ________  ___           ___    ___ ________  ________  ________         
+;|\   __  \|\   __  \|\  \         |\  \  /  /|\   __  \|\   __  \|\   __  \        
+;\ \  \|\  \ \  \|\  \ \  \        \ \  \/  / | \  \|\ /\ \  \|\  \ \  \|\  \       
+; \ \   ____\ \  \\\  \ \  \        \ \    / / \ \   __  \ \   __  \ \   _  _\      
+;  \ \  \___|\ \  \\\  \ \  \____    \/  /  /   \ \  \|\  \ \  \ \  \ \  \\  \|     
+;   \ \__\    \ \_______\ \_______\__/  / /      \ \_______\ \__\ \__\ \__\\ _\     
+;    \|__|     \|_______|\|_______|\___/ /        \|_______|\|__|\|__|\|__|\|__|    
+;                                 \|___|/                                           
+;                                                                                   
+;
+
+
+[colors]
+Background =  #2f3243
+Foreground =  #bacfdc
+Black =  #292b3a
+BrightBlack =  #9a9adb
+Red =  #f58484
+Green =  #aff9c6
+Yellow =  #f3f4ab
+Blue =  #a3d6f7
+Magenta =  #f69dbf
+Cyan =  #aff9f5
+LightGray =  #bacfdc
+White =  #dcdcdc
+[bar/main]
+
+monitor = ${env:MONITOR:HDMI-0}
+
+width = 98%
+height = 30
+fixed-center = true
+radius = 0.0
+offset-x = 1%
+offset-y = 1%
+
+background = ${colors. }
+foreground = ${colors. }
+

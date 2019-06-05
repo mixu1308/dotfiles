@@ -44,7 +44,8 @@ bindsym --release $mod+semicolon exec i3-msg border pixel 0
 
 bindsym $mod+Shift+w 	exec chromium
 
-bindsym $mod+e exec 	$term -e ranger
+bindsym $mod+e          exec $term -e ranger
+bindsym $mod+Shift+e    exec chromium --new-window soundcloud.com
 
 bindsym $mod+t		    split toggle
 

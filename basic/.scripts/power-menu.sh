@@ -5,7 +5,7 @@
 
 # 2016 Oliver Kraitschy - http://okraits.de
 
-OPTIONS="Reboot system\nPower-off system\nSuspend system\nHibernate system"
+OPTIONS="Power-off system\nReboot system\nSuspend system\nHibernate system"
 
 # source configuration or use default values
 if [ -f $HOME/.config/rofi-power/config ]; then
