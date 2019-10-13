@@ -57,12 +57,13 @@
 !*color15:               S_base3
 
 ! special
-*.forground:    #c5c8c6
+*.foreground:    #c5c8c6
 *.background:   #1d1f21
 *.cursorColor:  #c5c8c6
 
 ! black
-*.color0:       #282a2e
+!*.color0:       #282a2e
+*.color0:       #ffffff
 *.color8:       #373b41
 
 ! red
@@ -93,11 +94,11 @@
 *.color7:       #707880
 *.color15:      #c5c8c6
 
-*fading:                40
+*fading:        15
 
-URxvt.font:		xft:Hack-Regular:pixelsize=14,xft:FontAwesome
-URxvt.boldFont:		xft:Hack-Bold:pixelsize=14:weight=bold,xft:Symbola
-URxvt.italicFont:	xft:Hack-RegularOblique:pixelsize=14:slant=italic,xft:Symbola
+URxvt.font:		xft:Hack-Regular:pixelsize=16,xft:FontAwesome
+URxvt.boldFont:		xft:Hack-Bold:pixelsize=16:weight=bold,xft:Symbola
+URxvt.italicFont:	xft:Hack-RegularOblique:pixelsize=16:slant=italic,xft:Symbola
 URxvt.letterSpace: 1
 URxvt.transparent:  	true
 URxvt.shading: 		40

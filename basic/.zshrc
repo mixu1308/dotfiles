@@ -66,7 +66,7 @@ source $ZSH/oh-my-zsh.sh
 #bindkey -v
 
 alias -g G='| grep '
-alias mk='ssh mkabel@mkabel.me'
+alias mk='ssh mkabel@192.168.2.11'
 alias -s pdf='zathura'
 alias pia='/opt/piavpn/bin/pia-client'
 alias vim='nvim'

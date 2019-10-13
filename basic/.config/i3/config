@@ -2,7 +2,9 @@
 
 set $mod Mod4
 set $alt Mod1
-set $term st
+set $term urxvt
+
+#set $term st
 
 #required for gaps
 for_window [class="^.*"] border pixel 2
@@ -11,13 +13,16 @@ gaps outer 5
 font pango:DejaVu Sans Mono 8
 
 
+for_window [class="Overwatch"] floating enable 
+for_window [class="Overwatch"] resize set 1920px 1080px
 
 # #---Starting External Scripts---# #
 
 #exec_always nm-applet
 #exec compton --config ~/.config/compton/compton.conf 
-exec_always ~/.scripts/launch-polybar.sh
+#exec_always ~/.scripts/launch-polybar.sh
 exec --no-startup-id dunst
+exec --no-startup-id clipster -d
 
 
 #---Dropdown/Scratchpad Windows---#
@@ -26,7 +31,7 @@ for_window [instance="dropdown"] resize set 1200 800
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 5
 
-exec --no-startup-id st -n dropdown -e tmux
+exec --no-startup-id $term -n dropdown -e tmux
 
  #---Basic Bindings---# #
 
@@ -51,6 +56,10 @@ bindsym $mod+t		    split toggle
 
 bindsym $mod+u          [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+Shift+u    exec --no-startup-id st -n dropdown -e tmux
+
+bindsym $mod+Shift+i    exec chromium --new-window web.whatsapp.com
+
+bindsym $mod+o          exec --no-startup-id roficlip
 
 bindsym $mod+BackSpace  exec sh ~/.scripts/power-menu.sh
 bindsym $mod+Delete     exec sh ~/.scripts/power-menu.sh
@@ -198,4 +207,30 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+
+
+
+
+bar {
+        font pango:Inconsolata 12
+        position top
+        status_command bumblebee-status \
+                -m hostname arch-update weather spacer sensors cpu memory spacer pasink date time \
+                -p interval=0.5 weather.location="Eindhoven" \
+                weather.showcity=true date.format="%a, %d %b '%y" \
+                time.format="%H:%M:%S" -t wal-powerline
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
