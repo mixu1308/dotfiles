@@ -1,116 +1,90 @@
-
-!#define S_base03        #002b36
-!#define S_base02        #073642
-!#define S_base01        #586e75
-!#define S_base00        #657b83
-!#define S_base0         #839496
-!#define S_base1         #93a1a1
-!#define S_base2         #eee8d5
-!#define S_base3         #fdf6e3
-!#define S_yellow        #b58900
-!#define S_orange        #cb4b16
-!#define S_red           #dc322f
-!#define S_magenta       #d33682
-!#define S_violet        #6c71c4
-!#define S_blue          #268bd2
-!#define S_cyan          #2aa198
-!#define S_green         #859900
-!
-!*background:            S_base03
-!*foreground:            S_base00
-!*fading:                40
-!*fadeColor:             S_base03
-!*cursorColor:           S_base1
-!*pointerColorBackground:S_base01
-!*pointerColorForeground:S_base1
-!
-!!! black dark/light
-!*color0:                S_base02
-!*color8:                S_base03
-!
-!!! red dark/light
-!*color1:                S_red
-!*color9:                S_orange
-!
-!!! green dark/light
-!*color2:                S_green
-!*color10:               S_base01
-!
-!!! yellow dark/light
-!*color3:                S_yellow
-!*color11:               S_base00
-!
-!!! blue dark/light
-!*color4:                S_blue
-!*color12:               S_base0
-!
-!!! magenta dark/light
-!*color5:                S_magenta
-!*color13:               S_violet
-!
-!!! cyan dark/light
-!*color6:                S_cyan
-!*color14:               S_base1
-!
-!!! white dark/light
-!*color7:                S_base2
-!*color15:               S_base3
-
 ! special
-*.forground:    #c5c8c6
-*.background:   #1d1f21
-*.cursorColor:  #c5c8c6
+*.foreground:   #ffffff
+*.background:   [70]#0d0f31
+*.cursorColor:  #ffffff
 
 ! black
-*.color0:       #282a2e
-*.color8:       #373b41
+*.color0:       #000000
+*.color8:       #000000
 
 ! red
-*.color1:       #a54242
-*.color9:       #cc6666
+*.color1:       #ff16b0
+*.color9:       #ff16b0
 
 ! green
-*.color2:       #8c9440
-*.color10:      #b5bd68
+*.color2:       #b3f361
+*.color10:      #b3f361
 
 ! yellow
-*.color3:       #de935f
-*.color11:      #f0c674
+*.color3:       #ffea16
+*.color11:      #ffea16
 
 ! blue
-*.color4:       #5f819d
-*.color12:      #81a2be
+*.color4:       #46bdff
+*.color12:      #46bdff
 
 ! magenta
-*.color5:       #85678f
-*.color13:      #b294bb
+*.color5:       #f806fa
+*.color13:      #f806fa
 
 ! cyan
-*.color6:       #5e8d87
-*.color14:      #8abeb7
+*.color6:       #59e1e3
+*.color14:      #6be4e6
 
 ! white
-*.color7:       #707880
-*.color15:      #c5c8c6
+*.color7:       #ffffff
+*.color15:      #ffffff
 
-*fading:                40
-
-URxvt.font:		xft:Hack-Regular:pixelsize=14,xft:FontAwesome
-URxvt.boldFont:		xft:Hack-Bold:pixelsize=14:weight=bold,xft:Symbola
-URxvt.italicFont:	xft:Hack-RegularOblique:pixelsize=14:slant=italic,xft:Symbola
-URxvt.letterSpace: 1
-URxvt.transparent:  	true
-URxvt.shading: 		40
-
-URxvt.scrollBar: 	false
-! perl extensions
-URxvt.perl-ext-common:	default,clipboard,url-select,keyboard-select,font-size
-
-! macros for clipboard and selection
-URxvt.copyCommand:	xclip -i -selection clipboard
-URxvt.pasteCommand:	xclip -o -selection clipboard
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
 
 
+URxvt.iconName:          urxvt
+URxvt.iconFile:          /usr/share/icons/Papirus-Dark/48x48/apps/urxvt.svg
+URxvt.internalBorder:    3
+URxvt.externalBorder:    1
+!URxvt.lineSpace:        0
+!URxvt*shading:          30
+URxvt.depth:             32
+URxvt.saveLines:         10000
+URxvt*geometry:          80x25
+URxvt*terminalName:      rxvt-unicode-256color
+URxvt*visualBell:        false
 
-Xcursor.size: 16
+!! Scrollbar
+!URxvt.scrollStyle:      rxvt
+URxvt.scrollBar:         false
+URxvt*scrollTtyOutput:   false
+URxvt*scrollWithBuffer:  true
+URxvt*scrollTtyKeypress: true
+URxvt*.transparent: true
+URxvt*.shading: 40
+URxvt*.blurRadius: 12
 
+
+
+!! Fonts
+
+URxvt*font:              xft:Hack Nerd Font Mono:size=12
+!URxvt*boldFont:          xft:FantasqueSansMono Nerd Font Mono:Bold:size=10
+!URxvt*italicFont:        xft:FantasqueSansMono Nerd Font Mono:Regular:size=10
+!URxvt*boldItalicFont:    xft:FantasqueSansMono Nerd Font Mono:Regular:size=10
+URxvt.letterSpace:0 
+
+
+!! Disable the stupid ctrl+shift 'feature'
+URxvt.iso14755:            false
+URxvt.iso14755_52:         false
+
+!! Cursor
+URxvt.cursorBlink:         1
+URxvt.colorUL:             #83a598
+Xcursor.theme:             La Captaine
+
+!! Pointer
+!URxvt.pointerBlank: true
