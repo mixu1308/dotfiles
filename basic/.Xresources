@@ -1,4 +1,5 @@
 ! special
+<<<<<<< HEAD
 *.foreground:   #ffffff
 *.background:   [70]#0d0f31
 *.cursorColor:  #ffffff
@@ -6,6 +7,16 @@
 ! black
 *.color0:       #000000
 *.color8:       #000000
+=======
+*.foreground:    #c5c8c6
+*.background:   #1d1f21
+*.cursorColor:  #c5c8c6
+
+! black
+!*.color0:       #282a2e
+*.color0:       #ffffff
+*.color8:       #373b41
+>>>>>>> 08770b6ecff20e8ba75c3046c23e7cd975e8db65
 
 ! red
 *.color1:       #ff16b0
@@ -32,6 +43,7 @@
 *.color14:      #6be4e6
 
 ! white
+<<<<<<< HEAD
 *.color7:       #ffffff
 *.color15:      #ffffff
 
@@ -88,3 +100,29 @@ Xcursor.theme:             La Captaine
 
 !! Pointer
 !URxvt.pointerBlank: true
+=======
+*.color7:       #707880
+*.color15:      #c5c8c6
+
+*fading:        15
+
+URxvt.font:		xft:Hack-Regular:pixelsize=16,xft:FontAwesome
+URxvt.boldFont:		xft:Hack-Bold:pixelsize=16:weight=bold,xft:Symbola
+URxvt.italicFont:	xft:Hack-RegularOblique:pixelsize=16:slant=italic,xft:Symbola
+URxvt.letterSpace: 1
+URxvt.transparent:  	true
+URxvt.shading: 		40
+
+URxvt.scrollBar: 	false
+! perl extensions
+URxvt.perl-ext-common:	default,clipboard,url-select,keyboard-select,font-size
+
+! macros for clipboard and selection
+URxvt.copyCommand:	xclip -i -selection clipboard
+URxvt.pasteCommand:	xclip -o -selection clipboard
+
+
+
+Xcursor.size: 16
+
+>>>>>>> 08770b6ecff20e8ba75c3046c23e7cd975e8db65
