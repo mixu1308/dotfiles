@@ -1,13 +1,4 @@
 ! special
-<<<<<<< HEAD
-*.foreground:   #ffffff
-*.background:   [70]#0d0f31
-*.cursorColor:  #ffffff
-
-! black
-*.color0:       #000000
-*.color8:       #000000
-=======
 *.foreground:    #c5c8c6
 *.background:   #1d1f21
 *.cursorColor:  #c5c8c6
@@ -16,7 +7,6 @@
 !*.color0:       #282a2e
 *.color0:       #ffffff
 *.color8:       #373b41
->>>>>>> 08770b6ecff20e8ba75c3046c23e7cd975e8db65
 
 ! red
 *.color1:       #ff16b0
@@ -43,66 +33,10 @@
 *.color14:      #6be4e6
 
 ! white
-<<<<<<< HEAD
 *.color7:       #ffffff
 *.color15:      #ffffff
 
-Xft.dpi: 96
-Xft.antialias: true
-Xft.hinting: true
-Xft.rgba: rgb
-Xft.autohint: false
-Xft.hintstyle: hintslight
-Xft.lcdfilter: lcddefault
 
-
-URxvt.iconName:          urxvt
-URxvt.iconFile:          /usr/share/icons/Papirus-Dark/48x48/apps/urxvt.svg
-URxvt.internalBorder:    3
-URxvt.externalBorder:    1
-!URxvt.lineSpace:        0
-!URxvt*shading:          30
-URxvt.depth:             32
-URxvt.saveLines:         10000
-URxvt*geometry:          80x25
-URxvt*terminalName:      rxvt-unicode-256color
-URxvt*visualBell:        false
-
-!! Scrollbar
-!URxvt.scrollStyle:      rxvt
-URxvt.scrollBar:         false
-URxvt*scrollTtyOutput:   false
-URxvt*scrollWithBuffer:  true
-URxvt*scrollTtyKeypress: true
-URxvt*.transparent: true
-URxvt*.shading: 40
-URxvt*.blurRadius: 12
-
-
-
-!! Fonts
-
-URxvt*font:              xft:Hack Nerd Font Mono:size=12
-!URxvt*boldFont:          xft:FantasqueSansMono Nerd Font Mono:Bold:size=10
-!URxvt*italicFont:        xft:FantasqueSansMono Nerd Font Mono:Regular:size=10
-!URxvt*boldItalicFont:    xft:FantasqueSansMono Nerd Font Mono:Regular:size=10
-URxvt.letterSpace:0 
-
-
-!! Disable the stupid ctrl+shift 'feature'
-URxvt.iso14755:            false
-URxvt.iso14755_52:         false
-
-!! Cursor
-URxvt.cursorBlink:         1
-URxvt.colorUL:             #83a598
-Xcursor.theme:             La Captaine
-
-!! Pointer
-!URxvt.pointerBlank: true
-=======
-*.color7:       #707880
-*.color15:      #c5c8c6
 
 *fading:        15
 
@@ -112,8 +46,24 @@ URxvt.italicFont:	xft:Hack-RegularOblique:pixelsize=16:slant=italic,xft:Symbola
 URxvt.letterSpace: 1
 URxvt.transparent:  	true
 URxvt.shading: 		40
+URxvt*.blurRadius: 12
+
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
 
 URxvt.scrollBar: 	false
+
+!! Cursor
+URxvt.cursorBlink:         1
+URxvt.colorUL:             #83a598
+Xcursor.theme:             La Captaine
+
+
 ! perl extensions
 URxvt.perl-ext-common:	default,clipboard,url-select,keyboard-select,font-size
 
@@ -121,8 +71,10 @@ URxvt.perl-ext-common:	default,clipboard,url-select,keyboard-select,font-size
 URxvt.copyCommand:	xclip -i -selection clipboard
 URxvt.pasteCommand:	xclip -o -selection clipboard
 
+!! Disable the stupid ctrl+shift 'feature'
+URxvt.iso14755:            false
+URxvt.iso14755_52:         false
+
 
 
 Xcursor.size: 16
-
->>>>>>> 08770b6ecff20e8ba75c3046c23e7cd975e8db65
