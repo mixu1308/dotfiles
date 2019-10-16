@@ -214,7 +214,7 @@ bindsym $mod+r mode "resize"
 
 
 bar {
-        tray_output HDMI-0
+        #tray_output HDMI-0
         font pango:Inconsolata 12
         position top
         status_command bumblebee-status \
