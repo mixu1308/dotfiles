@@ -1,5 +1,5 @@
 # #---Basic Definitions---# #
-
+#Comment
 set $mod Mod4
 set $alt Mod1
 set $term urxvt
@@ -218,7 +218,7 @@ bar {
         font pango:Inconsolata 12
         position top
         status_command bumblebee-status \
-                -m hostname arch-update weather spacer sensors cpu memory spacer brightness pasink date time \
+                -m hostname arch-update weather spacer sensors cpu memory spacer battery brightness pasink date time \
                 -p interval=0.5 weather.location="Eindhoven" \
                 weather.showcity=true date.format="%a, %d %b '%y" \
                 time.format="%H:%M:%S" -t wal-powerline
