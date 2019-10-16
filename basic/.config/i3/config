@@ -218,19 +218,19 @@ bar {
         position top
         status_command bumblebee-status \
                 -m hostname arch-update weather spacer sensors cpu memory spacer pasink date time \
-                -p interval=0.5 weather.location="Eindhoven" \
+                -p interval=1 weather.location="Eindhoven" \
                 weather.showcity=true date.format="%a, %d %b '%y" \
-                time.format="%H:%M:%S" -t wal-powerline
- colors {
-                                #border background text
-        focused_workspace       #1D1D1D #409AF5 #1D1D1D 
-        active_workspace        #1D1D1D #1D1D1D #FFFFFF
-        inactive_workspace      #1D1D1D #1D1D1D #FFFFFF
-        urgent_workspace        #B13F47 #1D1D1D #47665A
-        #background              #1D1D1D
-        #statusline              #3C3C3C
-        separator               #3C3C3C
-    }
+                time.format="%H:%M" -t wal-powerline
+         colors {
+                                        #border background text
+                focused_workspace       #1D1D1D #409AF5 #1D1D1D 
+                active_workspace        #1D1D1D #1D1D1D #FFFFFF
+                inactive_workspace      #1D1D1D #1D1D1D #FFFFFF
+                urgent_workspace        #B13F47 #1D1D1D #47665A
+                background              #1D1D1D
+                statusline              #3C3C3C
+                separator               #3C3C3C
+            }
 }
 
 
