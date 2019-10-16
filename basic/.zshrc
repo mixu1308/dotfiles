@@ -19,8 +19,8 @@ export KEYTIMEOUT=1
 
 
  #Set the Theme
-ZSH_THEME="pygmalion"
-#ZSH_THEME="agnoster"
+#ZSH_THEME="pygmalion"
+ZSH_THEME="agnoster"
 
 
 # Uncomment the following line to use hyphen-insensitive completion.
@@ -81,3 +81,6 @@ gitall() {
     fi
     git push
 }
+
+
+cat ~/.cache/wal/sequences 

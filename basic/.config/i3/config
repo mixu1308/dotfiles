@@ -4,7 +4,6 @@ set $mod Mod4
 set $alt Mod1
 set $term urxvt
 
-#set $term st
 
 #required for gaps
 for_window [class="^.*"] border pixel 2
@@ -13,13 +12,13 @@ gaps outer 5
 font pango:DejaVu Sans Mono 8
 
 
-for_window [class="Overwatch"] floating enable 
+for_window [class="Overwatch"] floating enable
 for_window [class="Overwatch"] resize set 1920px 1080px
 
 # #---Starting External Scripts---# #
 
 #exec_always nm-applet
-#exec compton --config ~/.config/compton/compton.conf 
+#exec compton --config ~/.config/compton/compton.conf
 #exec_always ~/.scripts/launch-polybar.sh
 exec --no-startup-id dunst
 exec --no-startup-id clipster -d
@@ -67,7 +66,7 @@ bindsym $mod+Delete     exec sh ~/.scripts/power-menu.sh
 bindsym $mod+a          layout toggle tabbed splith
 
 
-bindsym $mod+d          exec "rofi -show run -modi run,window -show-icons -sidebar-mode -terminal st" 
+bindsym $mod+d          exec "rofi -show run -modi run,window -show-icons -sidebar-mode -terminal st"
 bindsym $mod+Shift+d    exec dmenu_run
 
 bindsym $mod+s		    gaps inner current plus 5
@@ -89,17 +88,18 @@ bindsym $mod+z		    gaps outer current plus 5
 bindsym $mod+Shift+z	gaps outer current minus 5
 
 
-#bindsym --release Shift+Print    exec scrot  ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s -e 'xclip -selection clipboard -t "image/png" < $f' 
-#bindsym --release Print    exec scrot  -s -e 'xclip clipboard -t "image/png" < $f' 
+#bindsym --release Shift+Print    exec scrot  ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s -e 'xclip -selection clipboard -t "image/png" < $f'
+#bindsym --release Print    exec scrot  -s -e 'xclip clipboard -t "image/png" < $f'
 
 bindsym --release Print   exec maim  -sou | xclip -selection clipboard -t "image/png"
 bindsym --release Shift+Print   exec maim ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png
 
 
 
- 
+
 
 bindsym $mod+c          exec i3lock -i ~/Pictures/lock.png -e
+#bindsym $mod+Shift+c    exec ~/.scripts/scrlock.sh
 
 floating_modifier $mod
 
@@ -111,7 +111,7 @@ bindsym $mod+q 		kill
 # Change Volume
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 1%+ #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 1%- #decrease sound volume
-bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 1 toggle    # mute sound
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle    # mute sound
 
 #change brightness
 bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
@@ -212,11 +212,13 @@ bindsym $mod+r mode "resize"
 
 
 
+
 bar {
-        tray_output HDMI-0
+        #tray_output HDMI-0
         font pango:Inconsolata 12
         position top
         status_command bumblebee-status \
+<<<<<<< HEAD
                 -m hostname arch-update weather spacer sensors cpu memory spacer pasink date time \
                 -p interval=1 weather.location="Eindhoven" \
                 weather.showcity=true date.format="%a, %d %b '%y" \
@@ -231,16 +233,20 @@ bar {
                 statusline              #3C3C3C
                 separator               #3C3C3C
             }
+=======
+                -m hostname arch-update weather spacer sensors cpu memory spacer brightness pasink date time \
+                -p interval=0.5 weather.location="Eindhoven" \
+                weather.showcity=true date.format="%a, %d %b '%y" \
+                time.format="%H:%M:%S" -t wal-powerline
+ colors {
+                                #border background text
+        focused_workspace       #1D1D1D #409AF5 #1D1D1D
+        active_workspace        #1D1D1D #1D1D1D #FFFFFF
+        inactive_workspace      #1D1D1D #1D1D1D #FFFFFF
+        urgent_workspace        #B13F47 #1D1D1D #47665A
+        #background              #1D1D1D
+        #statusline              #3C3C3C
+        separator               #3C3C3C
+    }
+>>>>>>> b3b8d61a95d31b1e1fae076deb299d973b83554a
 }
-
-
-
-
-
-
-
-
-
-
-
-
