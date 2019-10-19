@@ -189,10 +189,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -218,14 +218,13 @@ bar {
         font pango:Inconsolata 12
         position top
         status_command bumblebee-status \
-<<<<<<< HEAD
                 -m hostname arch-update weather spacer sensors cpu memory spacer pasink date time \
                 -p interval=1 weather.location="Eindhoven" \
                 weather.showcity=true date.format="%a, %d %b '%y" \
                 time.format="%H:%M" -t wal-powerline
          colors {
                                         #border background text
-                focused_workspace       #1D1D1D #409AF5 #1D1D1D 
+                focused_workspace       #1D1D1D #409AF5 #1D1D1D
                 active_workspace        #1D1D1D #1D1D1D #FFFFFF
                 inactive_workspace      #1D1D1D #1D1D1D #FFFFFF
                 urgent_workspace        #B13F47 #1D1D1D #47665A
@@ -233,20 +232,4 @@ bar {
                 statusline              #3C3C3C
                 separator               #3C3C3C
             }
-=======
-                -m hostname arch-update weather spacer sensors cpu memory spacer brightness pasink date time \
-                -p interval=0.5 weather.location="Eindhoven" \
-                weather.showcity=true date.format="%a, %d %b '%y" \
-                time.format="%H:%M:%S" -t wal-powerline
- colors {
-                                #border background text
-        focused_workspace       #1D1D1D #409AF5 #1D1D1D
-        active_workspace        #1D1D1D #1D1D1D #FFFFFF
-        inactive_workspace      #1D1D1D #1D1D1D #FFFFFF
-        urgent_workspace        #B13F47 #1D1D1D #47665A
-        #background              #1D1D1D
-        #statusline              #3C3C3C
-        separator               #3C3C3C
-    }
->>>>>>> b3b8d61a95d31b1e1fae076deb299d973b83554a
 }
