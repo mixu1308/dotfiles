@@ -24,6 +24,13 @@ exec --no-startup-id dunst
 exec --no-startup-id clipster -d
 
 
+## Exec on startup and go to right workspace
+assign [class="TelegramDesktop"] → 7
+assign [class="discord"] → 9
+exec telegram-desktop
+exec discord
+#exec_always --no-startup-id i3-msg 'workspace 7; exec telegram-desktop; workspace 1'
+
 #---Dropdown/Scratchpad Windows---#
 for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 1200 800
