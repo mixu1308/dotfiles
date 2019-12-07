@@ -66,11 +66,16 @@ source $ZSH/oh-my-zsh.sh
 #bindkey -v
 
 alias -g G='| grep '
+
+
 alias mk='ssh mkabel@192.168.2.11'
+alias tsln='ssh maxime@131.155.126.195' 
+
+alias xclip="xclip -selection c"
 alias -s pdf='zathura'
 alias pia='/opt/piavpn/bin/pia-client'
 alias vim='nvim'
-alias da='nohup /home/max/anaconda3/bin/jupyter-notebook &'
+
 gitall() {
     git add .
     if [ "$1" != "" ] # or better, if [ -n "$1" ]

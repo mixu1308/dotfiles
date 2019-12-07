@@ -40,7 +40,7 @@
 
 *fading:        15
 
-URxvt.font:		xft:Hack-Regular:pixelsize=16,xft:FontAwesome
+URxvt.font:		xft:Hack-Regular:pixelsize=12,xft:FontAwesome
 URxvt.boldFont:		xft:Hack-Bold:pixelsize=16:weight=bold,xft:Symbola
 URxvt.italicFont:	xft:Hack-RegularOblique:pixelsize=16:slant=italic,xft:Symbola
 URxvt.letterSpace: 1
