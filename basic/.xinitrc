@@ -7,6 +7,8 @@ setxkbmap -option caps:escape
 xbindkeys
 
 .screenlayout/Dual-monitor.sh
+##TESLAN
+#.screenlayout/DVI-right.sh
 
 ~/.scripts/wallpaper
 
@@ -17,5 +19,5 @@ redshift -c .config/redshift.conf -l manual &
 ckb-next -b &
 
 unclutter &
-
+xscreensaver -no-splash &
 exec i3
