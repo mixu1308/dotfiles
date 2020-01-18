@@ -38,7 +38,13 @@ for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 5
 
 exec --no-startup-id $term -name dropdown -e tmux
+#---Dropdown Ranger ---###
+for_window [instance="explorer"] floating enable
+for_window [instance="explorer"] resize set 1920 500
+for_window [instance="explorer"] move scratchpad
+for_window [instance="explorer"] border pixel 5
 
+exec --no-startup-id $term -name explorer -e ranger
  #---Basic Bindings---# #
 
 # start a terminal
@@ -55,8 +61,8 @@ bindsym --release $mod+semicolon exec i3-msg border pixel 0
 
 bindsym $mod+Shift+w 	exec chromium
 
-bindsym $mod+e          exec $term -e ranger
-bindsym $mod+Shift+e    exec chromium --new-window soundcloud.com
+bindsym $mod+e          [instance="explorer"] scratchpad show; [instance="explorer"] move position center
+bindsym $mod+Shift+e    exec --no-startup-id $term -name explorer -e ranger
 
 bindsym $mod+t		    split toggle
 
@@ -94,6 +100,7 @@ bindsym $mod+Shift+l	move right 30
 bindsym $mod+z		    gaps outer current plus 5
 bindsym $mod+Shift+z	gaps outer current minus 5
 
+bindsym $mod+Shift+m    exec chromium --new-window soundcloud.com
 
 #bindsym --release Shift+Print    exec scrot  ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s -e 'xclip -selection clipboard -t "image/png" < $f'
 #bindsym --release Print    exec scrot  -s -e 'xclip clipboard -t "image/png" < $f'
@@ -105,7 +112,8 @@ bindsym --release Shift+Print   exec maim ~/Pictures/Screenshots/$(date +%s).png
 
 
 
-bindsym $mod+c          exec i3lock -i ~/Pictures/lock.png -e
+#bindsym $mod+c          exec i3lock -i ~/Pictures/lock.png -e
+bindsym $mod+c          exec xscreensaver-command -lock
 bindsym $mod+Shift+c    exec ~/.scripts/scrlock.sh
 
 floating_modifier $mod

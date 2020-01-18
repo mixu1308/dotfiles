@@ -68,13 +68,14 @@ source $ZSH/oh-my-zsh.sh
 alias -g G='| grep '
 
 
-alias mk='ssh mkabel@192.168.2.11'
-alias tsln='ssh maxime@131.155.126.195' 
+alias mk='ssh mkabel'
+alias tsln='ssh teslan' 
 
 alias xclip="xclip -selection c"
 alias -s pdf='zathura'
 alias pia='/opt/piavpn/bin/pia-client'
 alias vim='nvim'
+alias ivim='vim /home/max/.config/i3/config'
 
 gitall() {
     git add .

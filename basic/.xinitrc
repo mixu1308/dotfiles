@@ -18,4 +18,7 @@ ckb-next -b &
 
 unclutter &
 
+xscreensaver -no-splash &
+
 exec i3
+
