@@ -68,8 +68,13 @@ source $ZSH/oh-my-zsh.sh
 alias -g G='| grep '
 
 
+<<<<<<< HEAD
 alias mk='ssh mkabel'
 alias tsln='ssh teslan' 
+=======
+alias mk='ssh mkabel@192.168.2.11'
+alias tsln='ssh maxime@10.0.0.7' 
+>>>>>>> 049f88c96910d2f9389649de797f0a94ee4d862d
 
 alias xclip="xclip -selection c"
 alias -s pdf='zathura'
