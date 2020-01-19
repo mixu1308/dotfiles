@@ -53,7 +53,7 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-
+cat ~/.cache/wal/sequences
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -68,13 +68,8 @@ source $ZSH/oh-my-zsh.sh
 alias -g G='| grep '
 
 
-<<<<<<< HEAD
 alias mk='ssh mkabel'
 alias tsln='ssh teslan' 
-=======
-alias mk='ssh mkabel@192.168.2.11'
-alias tsln='ssh maxime@10.0.0.7' 
->>>>>>> 049f88c96910d2f9389649de797f0a94ee4d862d
 
 alias xclip="xclip -selection c"
 alias -s pdf='zathura'
