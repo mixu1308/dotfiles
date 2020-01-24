@@ -24,3 +24,4 @@ xscreensaver -no-splash &
 
 exec i3
 
+wal -R

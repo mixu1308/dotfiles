@@ -45,6 +45,10 @@ ZSH_THEME="agnoster"
 plugins=(
   git
   archlinux
+  sudo
+  dirhistory
+  systemd
+  tmux
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -89,4 +93,3 @@ gitall() {
 }
 
 
-cat ~/.cache/wal/sequences 
