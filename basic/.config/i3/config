@@ -79,7 +79,7 @@ bindsym $mod+Delete     exec sh ~/.scripts/power-menu.sh
 bindsym $mod+a          layout toggle tabbed splith
 
 
-bindsym $mod+d          exec "rofi -show run -modi run,window -show-icons -sidebar-mode -terminal st"
+bindsym $mod+d          exec "rofi -show drun -modi drun,window -show-icons -sidebar-mode -terminal st"
 bindsym $mod+Shift+d    exec dmenu_run
 
 bindsym $mod+s		    gaps inner current plus 5
