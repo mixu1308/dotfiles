@@ -29,7 +29,9 @@ assign [class="TelegramDesktop"] → 7
 assign [class="discord"] → 9
 exec telegram-desktop
 exec discord
-#exec_always --no-startup-id i3-msg 'workspace 7; exec telegram-desktop; workspace 1'
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
 
 #---Dropdown/Scratchpad Windows---#
 for_window [instance="dropdown"] floating enable
@@ -100,6 +102,12 @@ bindsym $mod+Shift+l	move right 30
 bindsym $mod+z		    gaps outer current plus 5
 bindsym $mod+Shift+z	gaps outer current minus 5
 
+bindsym $mod+Shift+x    --release exec --no-startup-id xkill
+
+#bindsym $mod+c          exec i3lock -i ~/Pictures/lock.png -e
+bindsym $mod+c          exec xscreensaver-command -lock
+bindsym $mod+Shift+c    exec ~/.scripts/scrlock.sh
+
 bindsym $mod+Shift+m    exec chromium --new-window soundcloud.com
 
 #bindsym --release Shift+Print    exec scrot  ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s -e 'xclip -selection clipboard -t "image/png" < $f'
@@ -109,18 +117,13 @@ bindsym --release Print   exec maim  -sou | xclip -selection clipboard -t "image
 bindsym --release Shift+Print   exec maim ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png
 
 
-
-
-
-#bindsym $mod+c          exec i3lock -i ~/Pictures/lock.png -e
-bindsym $mod+c          exec xscreensaver-command -lock
-bindsym $mod+Shift+c    exec ~/.scripts/scrlock.sh
-
 floating_modifier $mod
 
 
 # kill focused window
 bindsym $mod+q 		kill
+
+
 
 # #---Media Keys---# #
 # Change Volume
