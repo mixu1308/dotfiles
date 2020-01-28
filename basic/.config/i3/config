@@ -22,9 +22,9 @@ for_window [class="Overwatch"] resize set 1920px 1080px
 #exec_always ~/.scripts/launch-polybar.sh
 exec --no-startup-id dunst
 exec --no-startup-id clipster -d
+exec wal -R
 
-
-## Exec on startup and go to right workspace
+# Exec on startup and go to right workspace
 assign [class="TelegramDesktop"] → 7
 assign [class="discord"] → 9
 exec telegram-desktop
@@ -79,7 +79,7 @@ bindsym $mod+Delete     exec sh ~/.scripts/power-menu.sh
 bindsym $mod+a          layout toggle tabbed splith
 
 
-bindsym $mod+d          exec "rofi -show drun -modi drun,window -show-icons -sidebar-mode -terminal st"
+bindsym $mod+d          exec "rofi -show drun -modi drun,run -show-icons -sidebar-mode -terminal st"
 bindsym $mod+Shift+d    exec dmenu_run
 
 bindsym $mod+s		    gaps inner current plus 5
@@ -248,3 +248,4 @@ bar {
                 separator               #3C3C3C
             }
 }
+
