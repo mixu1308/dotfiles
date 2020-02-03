@@ -3,10 +3,11 @@
 set $mod Mod4
 set $alt Mod1
 set $term urxvt
+set $browser brave
 
 
 #required for gaps
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 0
 gaps inner 15
 gaps outer 5
 font pango:DejaVu Sans Mono 8
@@ -37,7 +38,7 @@ for_window [urgent=latest] focus
 for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 1200 800
 for_window [instance="dropdown"] move scratchpad
-for_window [instance="dropdown"] border pixel 5
+#for_window [instance="dropdown"] border pixel 5
 
 exec --no-startup-id $term -name dropdown -e tmux
 #---Dropdown Ranger ---###
@@ -61,7 +62,7 @@ bindsym --release $mod+semicolon exec i3-msg border pixel 0
 # #---Letter Key Bindings---# #
 
 
-bindsym $mod+Shift+w 	exec chromium
+bindsym $mod+Shift+w 	exec $browser
 
 bindsym $mod+e          [instance="explorer"] scratchpad show; [instance="explorer"] move position center
 bindsym $mod+Shift+e    exec --no-startup-id $term -name explorer -e ranger
@@ -71,7 +72,7 @@ bindsym $mod+t		    split toggle
 bindsym $mod+u          [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+Shift+u    exec --no-startup-id $term -name dropdown -e tmux
 
-bindsym $mod+Shift+i    exec chromium --new-window web.whatsapp.com
+bindsym $mod+Shift+i    exec $browser --new-window web.whatsapp.com
 
 bindsym $mod+o          exec --no-startup-id roficlip
 
@@ -108,7 +109,7 @@ bindsym $mod+Shift+x    --release exec --no-startup-id xkill
 bindsym $mod+c          exec xscreensaver-command -lock
 bindsym $mod+Shift+c    exec ~/.scripts/scrlock.sh
 
-bindsym $mod+Shift+m    exec chromium --new-window soundcloud.com
+bindsym $mod+Shift+m    exec $browser --new-window soundcloud.com
 
 #bindsym --release Shift+Print    exec scrot  ~/Pictures/Screenshots/%b%d-%H:%M:%S.png -s -e 'xclip -selection clipboard -t "image/png" < $f'
 #bindsym --release Print    exec scrot  -s -e 'xclip clipboard -t "image/png" < $f'
