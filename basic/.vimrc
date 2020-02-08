@@ -5,6 +5,7 @@ syntax on
 set number
 set relativenumber
 set tabstop=4		"Tabs turn into 4 space when opening file 
+set expandtab ts=4 sw=4 ai "Tabs are 4 spaces
 set expandtab		"Tabs become just 4 spaces
 set cursorline		"Sets a horizontal line where the cursor is 
 filetype indent on      " load filetype-specific indent files
