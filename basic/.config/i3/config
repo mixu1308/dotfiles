@@ -23,7 +23,7 @@ for_window [class="Overwatch"] resize set 1920px 1080px
 #exec_always ~/.scripts/launch-polybar.sh
 exec --no-startup-id dunst
 exec --no-startup-id clipster -d
-exec wal -R
+exec_always wal -R
 
 # Exec on startup and go to right workspace
 assign [class="TelegramDesktop"] → 7
@@ -128,8 +128,10 @@ bindsym $mod+q 		kill
 
 # #---Media Keys---# #
 # Change Volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 1%+ #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 1%- #decrease sound volume
+#bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 1%+ #increase sound volume
+#bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 1%- #decrease sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +2%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -2%
 bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle    # mute sound
 
 #change brightness

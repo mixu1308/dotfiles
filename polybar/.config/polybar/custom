@@ -11,19 +11,21 @@
 
 
 [colors]
-Background =  #2f3243
-Foreground =  #bacfdc
-Black =  #292b3a
-BrightBlack =  #9a9adb
-Red =  #f58484
-Green =  #aff9c6
-Yellow =  #f3f4ab
-Blue =  #a3d6f7
-Magenta =  #f69dbf
-Cyan =  #aff9f5
-LightGray =  #bacfdc
-White =  #dcdcdc
-[bar/main]
+
+background =  #2f3243
+foreground =  #bacfdc
+black =  #292b3a
+brightBlack =  #9a9adb
+red =  #f58484
+green =  #aff9c6
+yellow =  #f3f4ab
+blue =  #a3d6f7
+magenta =  #f69dbf
+cyan =  #aff9f5
+lightGray =  #bacfdc
+white =  #dcdcdc
+
+[bar/custom]
 
 monitor = ${env:MONITOR:HDMI-0}
 
@@ -34,6 +36,7 @@ radius = 0.0
 offset-x = 1%
 offset-y = 1%
 
-background = ${colors. }
-foreground = ${colors. }
+background = ${colors.background}
+foreground = ${colors.foreground}
+
 
