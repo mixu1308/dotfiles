@@ -2,8 +2,8 @@
 #Comment
 set $mod Mod4
 set $alt Mod1
-set $term urxvt
-set $browser brave
+set $term termite
+set $browser chromium
 
 
 #required for gaps
@@ -40,14 +40,14 @@ for_window [instance="dropdown"] resize set 1200 800
 for_window [instance="dropdown"] move scratchpad
 #for_window [instance="dropdown"] border pixel 5
 
-exec --no-startup-id $term -name dropdown -e tmux
+exec --no-startup-id $term --name=dropdown -e tmux
 #---Dropdown Ranger ---###
 for_window [instance="explorer"] floating enable
 for_window [instance="explorer"] resize set 1920 500
 for_window [instance="explorer"] move scratchpad
 for_window [instance="explorer"] border pixel 5
 
-exec --no-startup-id $term -name explorer -e ranger
+exec --no-startup-id $term --name=explorer -e ranger
  #---Basic Bindings---# #
 
 # start a terminal
@@ -65,12 +65,12 @@ bindsym --release $mod+semicolon exec i3-msg border pixel 0
 bindsym $mod+Shift+w 	exec $browser
 
 bindsym $mod+e          [instance="explorer"] scratchpad show; [instance="explorer"] move position center
-bindsym $mod+Shift+e    exec --no-startup-id $term -name explorer -e ranger
+bindsym $mod+Shift+e    exec --no-startup-id $term --name=explorer -e ranger
 
 bindsym $mod+t		    split toggle
 
 bindsym $mod+u          [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
-bindsym $mod+Shift+u    exec --no-startup-id $term -name dropdown -e tmux
+bindsym $mod+Shift+u    exec --no-startup-id $term --name=dropdown -e tmux
 
 bindsym $mod+Shift+i    exec $browser --new-window web.whatsapp.com
 
@@ -130,9 +130,9 @@ bindsym $mod+q 		kill
 # Change Volume
 #bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 1%+ #increase sound volume
 #bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 1%- #decrease sound volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +2%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -2%
-bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 0 toggle    # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +2%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -2%
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute 1 toggle    # mute sound
 
 #change brightness
 bindsym XF86MonBrightnessUp exec light -A 5 # increase screen brightness
