@@ -12,7 +12,7 @@ urgent_on_bell = true
 [colors]
 cursor = {cursor}
 foreground = {foreground}
-background = {background.rgba}
+background = rgba(8,8,13,0.5)
 
 color0 = {color0}
 color1 = {color1}

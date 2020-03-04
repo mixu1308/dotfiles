@@ -80,6 +80,7 @@ alias -s pdf='zathura'
 alias pia='/opt/piavpn/bin/pia-client'
 alias vim='nvim'
 alias ivim='vim /home/max/.config/i3/config'
+alias ssys='sudo systemctl'
 
 gitall() {
     git add .

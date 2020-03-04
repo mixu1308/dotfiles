@@ -12,6 +12,9 @@ ln -sf    "${HOME}/.cache/wal/termite"    "${HOME}/.config/termite/config"
 pkill dunst
 dunst &
 
+# restart picom
+pkill picom
+picom --experimental-backends &
 
 #restart polybar
 $HOME/.scripts/launch-polybar.sh

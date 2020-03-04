@@ -10,7 +10,7 @@ xbindkeys
 
 ~/.scripts/wallpaper
 
-picom &
+picom --experimental-backends &
 
 redshift -c .config/redshift.conf -l manual &
 
