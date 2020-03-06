@@ -1,5 +1,5 @@
 [options]
-font = Monospace 10
+font = Monospace 12
 allow_bold = true
 bold_is_bright = true
 scroll_on_keystroke = true

@@ -19,8 +19,7 @@ export KEYTIMEOUT=1
 
 
  #Set the Theme
-#ZSH_THEME="pygmalion"
-ZSH_THEME="agnoster"
+ZSH_THEME="alanpeabody"
 
 
 # Uncomment the following line to use hyphen-insensitive completion.
@@ -94,3 +93,4 @@ gitall() {
 }
 
 
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
