@@ -43,7 +43,7 @@ for_window [instance="dropdown"] move scratchpad
 exec --no-startup-id $term --name=dropdown -e tmux
 #---Dropdown Ranger ---###
 for_window [instance="explorer"] floating enable
-for_window [instance="explorer"] resize set 1920 500
+for_window [instance="explorer"] resize set 1800 500
 for_window [instance="explorer"] move scratchpad
 for_window [instance="explorer"] border pixel 5
 
