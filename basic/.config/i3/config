@@ -43,7 +43,7 @@ for_window [instance="dropdown"] move scratchpad
 exec --no-startup-id $term --name=dropdown -e tmux
 #---Dropdown Ranger ---###
 for_window [instance="explorer"] floating enable
-for_window [instance="explorer"] resize set 1920 500
+for_window [instance="explorer"] resize set 1800 500
 for_window [instance="explorer"] move scratchpad
 for_window [instance="explorer"] border pixel 5
 
@@ -235,7 +235,7 @@ bindsym $mod+r mode "resize"
 
 
 bar {
-        #tray_output HDMI-0
+        #tray_output HDMI-1
         font pango:Inconsolata Nerd Font 12
         position top
         status_command bumblebee-status \
