@@ -1,0 +1,33 @@
+#!/bin/bash
+
+declare -i active_sink_index=`pacmd list-sinks | sed -n -e 's/\*[[:space:]]index:[[:space:]]\([[:digit:]]\)/\1/p'`
+echo $active_sink_index
+
+if [ $active_sink_index -eq 3 ] ; then
+	next_sink_index=13
+fi
+if [ $active_sink_index -eq 13 ] ; then
+	next_sink_index=3
+fi
+
+echo $next_sink_index
+
+#change the default sink
+pacmd "set-default-sink ${next_sink_index}"
+
+#move all inputs to the new sink
+for app in $(pacmd list-sink-inputs | sed -n -e 's/index:[[:space:]]\([[:digit:]]\)/\1/p');
+do
+	pacmd "move-sink-input $app $next_sink_index"
+done
+
+#display notification
+declare -i ndx=0
+pacmd list-sinks | sed -n -e 's/device.description[[:space:]]=[[:space:]]"\(.*\)"/\1/p' | while read line;
+do
+	if [ $next_sink_index -eq $ndx ] ; then
+		notify-send -i notification-audio-volume-high "Sound output switched to" "$next_sink_index"
+		exit
+	fi
+	ndx+=1
+done;

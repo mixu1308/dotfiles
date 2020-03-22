@@ -20,7 +20,7 @@ for_window [class="Overwatch"] resize set 1920px 1080px
 
 #exec_always nm-applet
 #exec compton --config ~/.config/compton/compton.conf
-#exec_always ~/.scripts/launch-polybar.sh
+exec_always picom --experimental-backends
 exec --no-startup-id dunst
 exec --no-startup-id clipster -d
 exec_always wal -R
@@ -236,7 +236,7 @@ bindsym $mod+r mode "resize"
 
 bar {
         #tray_output HDMI-0
-        font pango:Inconsolata 12
+        font pango:Inconsolata Nerd Font 12
         position top
         status_command bumblebee-status \
                 -m hostname arch-update weather spacer sensors cpu memory spacer battery pasink date time \
