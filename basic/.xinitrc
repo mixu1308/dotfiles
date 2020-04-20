@@ -10,7 +10,6 @@ xbindkeys
 
 ~/.scripts/wallpaper
 
-picom --experimental-backends &
 
 redshift -c .config/redshift.conf -l manual &
 
@@ -22,5 +21,7 @@ dunst &
 
 xscreensaver -no-splash &
 
-exec i3
+picom --experimental-backends &
+
+exec i3 
 

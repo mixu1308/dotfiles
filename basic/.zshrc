@@ -80,6 +80,7 @@ alias pia='/opt/piavpn/bin/pia-client'
 alias vim='nvim'
 alias ivim='vim /home/max/.config/i3/config'
 alias ssys='sudo systemctl'
+alias cp='rsync -avh'
 
 gitall() {
     git add .
@@ -94,3 +95,5 @@ gitall() {
 
 
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+export VISUAL=nvim;
+export EDITOR=nvim;
