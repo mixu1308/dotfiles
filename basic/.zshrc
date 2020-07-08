@@ -78,7 +78,7 @@ alias xclip="xclip -selection c"
 alias -s pdf='zathura'
 alias pia='/opt/piavpn/bin/pia-client'
 alias vim='nvim'
-alias ivim='vim /home/max/.config/i3/config'
+alias ivim='vim /home/max/.xmonad/xmonad.hs'
 alias ssys='sudo systemctl'
 alias cp='rsync -avh'
 

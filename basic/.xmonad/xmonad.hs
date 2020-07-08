@@ -3,9 +3,15 @@ import XMonad
 import Data.Monoid
 import System.Exit
 import XMonad.Hooks.ManageDocks
-import XMonad.Util.SpawnOnce
-import XMonad.Util.Run
-import XMonad.Actions.SpawnOn
+import XMonad.Util.SpawnOnce            --SpawnOnOnce
+import XMonad.Actions.SpawnOn           --SpawnOn
+import XMonad.Util.Run                  -- Used for xmproc xmobar
+import XMonad.Hooks.SetWMName           -- fixes hava issues with tiling WM
+import XMonad.Hooks.EwmhDesktops        -- fixes fullscreen issues
+
+-- Layout Imports
+import XMonad.Layout.Spacing            --Adds gaps
+import XMonad.Layout.NoBorders          -- makes it possible to remove borders for fullscreen
 
 
 import qualified XMonad.StackSet as W
@@ -59,6 +65,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
+    -- Application Keybindings
+    --Chromium
+    , ((modm .|. shiftMask, xK_w     ), spawn "chromium")
+
     -- launch dmenu
     , ((modm,               xK_d     ), spawn "dmenu_run")
 
@@ -66,7 +76,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
 
     -- close focused window
-    , ((modm .|. shiftMask, xK_c     ), kill)
+    , ((modm              , xK_q     ), kill)
 
      -- Rotate through the available layout algorithms
     , ((modm,               xK_space ), sendMessage NextLayout)
@@ -123,7 +133,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
 
     -- Restart xmonad
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
+    , ((modm  .|. shiftMask, xK_c     ), spawn "xmonad --recompile; xmonad --restart")
 
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
@@ -143,9 +153,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     --
-    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+    [((m .|. mod1Mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+
+
 
 
 ------------------------------------------------------------------------
@@ -178,10 +190,10 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
+myLayout = avoidStruts ( tiled ||| Mirror tiled) ||| (noBorders Full)
   where
      -- default tiling algorithm partitions the screen into two panes
-     tiled   = Tall nmaster delta ratio
+     tiled   = spacing 9 $ Tall nmaster delta ratio
 
      -- The default number of windows in the master pane
      nmaster = 1
@@ -246,12 +258,14 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 myStartupHook = do
+        ewmhDesktopsStartup     --might be useless
         spawnOnOnce "1" "chromium &"
         spawnOnOnce "6" "thunderbird &"
         spawnOnOnce "7" "telegram-desktop &"
         spawnOnOnce "8" "chromium --new-window web.whatsapp.com &"
         spawnOnOnce "9" "discord &"
         spawnOnOnce "9" "chromium --new-window soundcloud.com &"
+        setWMName "LG3D"                                            --used to fix java apps
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -259,8 +273,8 @@ myStartupHook = do
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-    xmproc <- spawnPipe "xmobar -x 0"
-    xmonad $ docks defaults
+    xmproc <- spawnPipe "xmobar -x 1"
+    xmonad $ docks $ ewmh defaults
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
