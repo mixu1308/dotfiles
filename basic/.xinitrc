@@ -6,7 +6,7 @@ nm-applet &
 setxkbmap -option caps:escape
 xbindkeys
 
-.screenlayout/home-layout.sh
+#.screenlayout/home-layout.sh
 
 ~/.scripts/wallpaper
 
@@ -21,7 +21,7 @@ dunst &
 
 xscreensaver -no-splash &
 
-picom --experimental-backends &
+#picom --experimental-backends &
 
-exec i3 
+exec xmonad 
 

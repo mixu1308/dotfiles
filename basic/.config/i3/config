@@ -19,7 +19,6 @@ for_window [class="Overwatch"] resize set 1920px 1080px
 # #---Starting External Scripts---# #
 
 #exec_always nm-applet
-#exec compton --config ~/.config/compton/compton.conf
 exec_always picom --experimental-backends
 exec --no-startup-id dunst
 exec --no-startup-id clipster -d
@@ -28,8 +27,10 @@ exec_always wal -R
 # Exec on startup and go to right workspace
 assign [class="TelegramDesktop"] → 7
 assign [class="discord"] → 9
+assign [class="Thunderbird"] → 6
 exec telegram-desktop
 exec discord
+exec thunderbird
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -68,6 +69,8 @@ bindsym $mod+e          [instance="explorer"] scratchpad show; [instance="explor
 bindsym $mod+Shift+e    exec --no-startup-id $term --name=explorer -e ranger
 
 bindsym $mod+t		    split toggle
+
+bindsym $mod+y          exec xclip -sel c < Documents/Other/Condor2Key.txt
 
 bindsym $mod+u          [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+Shift+u    exec --no-startup-id $term --name=dropdown -e tmux
