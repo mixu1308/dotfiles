@@ -8,6 +8,8 @@ import XMonad.Actions.SpawnOn           --SpawnOn
 import XMonad.Util.Run                  -- Used for xmproc xmobar
 import XMonad.Hooks.SetWMName           -- fixes hava issues with tiling WM
 import XMonad.Hooks.EwmhDesktops        -- fixes fullscreen issues
+import XMonad.Util.Cursor               -- set default cursor
+
 
 -- Layout Imports
 import XMonad.Layout.Spacing            --Adds gaps
@@ -67,7 +69,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Application Keybindings
     --Chromium
-    , ((modm .|. shiftMask, xK_w     ), spawn "chromium")
+    , ((modm .|. shiftMask, xK_w     ), spawn "firefox")
 
     -- launch dmenu
     , ((modm,               xK_d     ), spawn "dmenu_run")
@@ -239,7 +241,8 @@ myManageHook =
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = mempty
+myEventHook = docksEventHook
+        <+> handleEventHook def
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -259,13 +262,14 @@ myLogHook = return ()
 -- By default, do nothing.
 myStartupHook = do
         ewmhDesktopsStartup     --might be useless
-        spawnOnOnce "1" "chromium &"
-        spawnOnOnce "6" "thunderbird &"
-        spawnOnOnce "7" "telegram-desktop &"
-        spawnOnOnce "8" "chromium --new-window web.whatsapp.com &"
-        spawnOnOnce "9" "discord &"
-        spawnOnOnce "9" "chromium --new-window soundcloud.com &"
+        spawnOnOnce "1" "chromium; sleep 1 "
+        spawnOnOnce "6" "thunderbird "
+        spawnOnOnce "7" "telegram-desktop "
+        spawnOnOnce "8" "chromium --new-window web.whatsapp.com; sleep 1 "
+        spawnOnOnce "9" "discord "
+        spawnOnOnce "9" "chromium --new-window soundcloud.com; sleep 1"
         setWMName "LG3D"                                            --used to fix java apps
+        setDefaultCursor xC_left_ptr
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.

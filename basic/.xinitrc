@@ -5,6 +5,9 @@ nm-applet &
 
 setxkbmap -option caps:escape
 xbindkeys
+xset r rate 200 30 &
+
+xsetroot -cursor-name left_ptr &
 
 #.screenlayout/home-layout.sh
 
