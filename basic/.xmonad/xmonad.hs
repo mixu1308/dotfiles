@@ -262,12 +262,12 @@ myLogHook = return ()
 -- By default, do nothing.
 myStartupHook = do
         ewmhDesktopsStartup     --might be useless
-        spawnOnOnce "1" "chromium; sleep 1 "
+        spawnOnOnce "1" "firefox; sleep 1 "
         spawnOnOnce "6" "thunderbird "
         spawnOnOnce "7" "telegram-desktop "
-        spawnOnOnce "8" "chromium --new-window web.whatsapp.com; sleep 1 "
+        spawnOnOnce "8" "firefox --new-window web.whatsapp.com; sleep 1 "
         spawnOnOnce "9" "discord "
-        spawnOnOnce "9" "chromium --new-window soundcloud.com; sleep 1"
+        spawnOnOnce "9" "firefox --new-window soundcloud.com; sleep 1"
         setWMName "LG3D"                                            --used to fix java apps
         setDefaultCursor xC_left_ptr
 

@@ -7,6 +7,7 @@ clickable_url = true
 hyperlinks = true
 cursor_shape = block
 urgent_on_bell = true
+scrollback_lines = 10000
 
 
 [colors]
