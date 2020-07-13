@@ -23,6 +23,7 @@ import qualified Data.Map        as M
 -- certain contrib modules.
 --
 myTerminal      = "termite"
+myBrowser       = "firefox"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -68,8 +69,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- Application Keybindings
-    --Chromium
-    , ((modm .|. shiftMask, xK_w     ), spawn "firefox")
+    --Browser
+    , ((modm .|. shiftMask, xK_w     ), spawn myBrowser )
 
     -- launch dmenu
     , ((modm,               xK_d     ), spawn "dmenu_run")
@@ -222,13 +223,14 @@ myLayout = avoidStruts ( tiled ||| Mirror tiled) ||| (noBorders Full)
 -- 'className' and 'resource' are used below.
 --
 myManageHook = 
-        manageSpecific
-    <+> manageSpawn
+        manageSpawn
+     <+>manageSpecific
+
     where
         manageSpecific = composeAll
             [ className =? "MPlayer"        --> doFloat
             , className =? "Gimp"           --> doFloat
-            , className =? "pavucontrol"    --> doFloat
+            , className =? "Pavucontrol"    --> doFloat
             , resource  =? "desktop_window" --> doIgnore
             , resource  =? "kdesktop"       --> doIgnore ]
 
@@ -262,12 +264,12 @@ myLogHook = return ()
 -- By default, do nothing.
 myStartupHook = do
         ewmhDesktopsStartup     --might be useless
-        spawnOnOnce "1" "chromium; sleep 1 "
+        spawnOnOnce "1" myBrowser
         spawnOnOnce "6" "thunderbird "
         spawnOnOnce "7" "telegram-desktop "
-        spawnOnOnce "8" "chromium --new-window web.whatsapp.com; sleep 1 "
+        spawnOnOnce "8" (myBrowser ++ " --new-window web.whatsapp.com")
         spawnOnOnce "9" "discord "
-        spawnOnOnce "9" "chromium --new-window soundcloud.com; sleep 1"
+        spawnOnOnce "9" (myBrowser ++ " --new-window soundcloud.com")
         setWMName "LG3D"                                            --used to fix java apps
         setDefaultCursor xC_left_ptr
 
