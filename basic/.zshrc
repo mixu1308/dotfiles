@@ -7,7 +7,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/home/max/.oh-my-zsh"
 export TERM="xterm-256color"
-
+export FZF_BASE="/usr/bin/fzf"
 
 # Add scripts directory to path
 if [ -d "$HOME/.scripts" ] ; then
@@ -48,6 +48,8 @@ plugins=(
   dirhistory
   systemd
   tmux
+  fzf
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
