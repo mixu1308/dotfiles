@@ -9,6 +9,7 @@ import XMonad.Util.Run                  -- Used for xmproc xmobar
 import XMonad.Hooks.SetWMName           -- fixes hava issues with tiling WM
 import XMonad.Hooks.EwmhDesktops        -- fixes fullscreen issues
 import XMonad.Util.Cursor               -- set default cursor
+import Graphics.X11.ExtraTypes.XF86     -- Adds nonstandard keys (mute, volume,brightness)
 
 
 -- Layout Imports
@@ -23,6 +24,7 @@ import qualified Data.Map        as M
 -- certain contrib modules.
 --
 myTerminal      = "termite"
+myBrowser       = "firefox"
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -68,8 +70,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- Application Keybindings
-    --Chromium
-    , ((modm .|. shiftMask, xK_w     ), spawn "firefox")
+    --Browser
+    , ((modm .|. shiftMask, xK_w     ), spawnHere myBrowser )
 
     -- launch dmenu
     , ((modm,               xK_d     ), spawn "dmenu_run")
@@ -124,6 +126,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Deincrement the number of windows in the master area
     , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
+
+
+    --MEDIA CONTROL
+    , ((0,               xF86XK_AudioRaiseVolume     ), spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
+    , ((0,               xF86XK_AudioLowerVolume     ), spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
+    , ((0,               xF86XK_AudioMute            ), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+
+
 
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
@@ -222,13 +232,14 @@ myLayout = avoidStruts ( tiled ||| Mirror tiled) ||| (noBorders Full)
 -- 'className' and 'resource' are used below.
 --
 myManageHook = 
-        manageSpecific
-    <+> manageSpawn
+        manageSpawn
+     <+>manageSpecific
+
     where
         manageSpecific = composeAll
             [ className =? "MPlayer"        --> doFloat
             , className =? "Gimp"           --> doFloat
-            , className =? "pavucontrol"    --> doFloat
+            , className =? "Pavucontrol"    --> doFloat
             , resource  =? "desktop_window" --> doIgnore
             , resource  =? "kdesktop"       --> doIgnore ]
 
@@ -262,12 +273,12 @@ myLogHook = return ()
 -- By default, do nothing.
 myStartupHook = do
         ewmhDesktopsStartup     --might be useless
-        spawnOnOnce "1" "firefox; sleep 1 "
+        spawnOnOnce "1" myBrowser
         spawnOnOnce "6" "thunderbird "
         spawnOnOnce "7" "telegram-desktop "
-        spawnOnOnce "8" "firefox --new-window web.whatsapp.com; sleep 1 "
+        spawnOnOnce "8" (myBrowser ++ " --new-window web.whatsapp.com")
         spawnOnOnce "9" "discord "
-        spawnOnOnce "9" "firefox --new-window soundcloud.com; sleep 1"
+        spawnOnOnce "9" (myBrowser ++ " --new-window soundcloud.com")
         setWMName "LG3D"                                            --used to fix java apps
         setDefaultCursor xC_left_ptr
 
