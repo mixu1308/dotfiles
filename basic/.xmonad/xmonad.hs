@@ -38,7 +38,8 @@ myClickJustFocuses = False
 
 -- Width of the window border in pixels.
 --
-myBorderWidth   = 1
+myBorderWidth   = 3
+
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -60,8 +61,8 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#ff0000"
+myNormalBorderColor  = "#1b2229"
+myFocusedBorderColor = "#6986a0"
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -209,21 +210,18 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = fullScreenToggle $ avoidStruts $ tiled ||| Mirror tiled
-  where
+myLayout    = fullScreenToggle 
+            $ avoidStruts 
+            $ standardLayout
+    where
+        standardLayout      =   tiled ||| Mirror tiled
     
-    fullScreenToggle    = mkToggle (single NBFULL)
-     -- default tiling algorithm partitions the screen into two panes
-    tiled   = spacing 9 $ Tall nmaster delta ratio
+        fullScreenToggle    = mkToggle (single NBFULL)
 
-     -- The default number of windows in the master pane
-    nmaster = 1
+        -- default tiling algorithm partitions the screen into two panes
+        tiled   = spacing 9 
+                $ Tall 1 (3/100) (1/2)
 
-     -- Default proportion of screen occupied by master pane
-    ratio   = 1/2
-
-     -- Percent of screen to increment by when resizing panes
-    delta   = 3/100
 
 ------------------------------------------------------------------------
 -- Window rules:
