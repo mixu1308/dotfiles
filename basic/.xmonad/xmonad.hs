@@ -15,6 +15,8 @@ import Graphics.X11.ExtraTypes.XF86     -- Adds nonstandard keys (mute, volume,b
 -- Layout Imports
 import XMonad.Layout.Spacing            --Adds gaps
 import XMonad.Layout.NoBorders          -- makes it possible to remove borders for fullscreen
+import XMonad.Layout.MultiToggle        -- Toggle layout
+import XMonad.Layout.MultiToggle.Instances
 
 
 import qualified XMonad.StackSet as W
@@ -132,6 +134,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((0,               xF86XK_AudioRaiseVolume     ), spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
     , ((0,               xF86XK_AudioLowerVolume     ), spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
     , ((0,               xF86XK_AudioMute            ), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+    -- Screenshot
+    , ((0,               xK_Print     ), spawn "maim  -sou | xclip -selection clipboard -t 'image/png'")
+    , ((modm,            xK_f     ), sendMessage $ Toggle NBFULL)
+
+
 
 
 
@@ -202,19 +209,21 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts ( tiled ||| Mirror tiled) ||| (noBorders Full)
+myLayout = fullScreenToggle $ avoidStruts $ tiled ||| Mirror tiled
   where
+    
+    fullScreenToggle    = mkToggle (single NBFULL)
      -- default tiling algorithm partitions the screen into two panes
-     tiled   = spacing 9 $ Tall nmaster delta ratio
+    tiled   = spacing 9 $ Tall nmaster delta ratio
 
      -- The default number of windows in the master pane
-     nmaster = 1
+    nmaster = 1
 
      -- Default proportion of screen occupied by master pane
-     ratio   = 1/2
+    ratio   = 1/2
 
      -- Percent of screen to increment by when resizing panes
-     delta   = 3/100
+    delta   = 3/100
 
 ------------------------------------------------------------------------
 -- Window rules:
