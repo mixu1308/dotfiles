@@ -113,7 +113,10 @@ shortKeys c = mkKeymap c $
     --, ("M-S-<Space>"        , setLayout $ XMonad.layoutHook conf)
 
     -- Resize viewed windows to the correct size
-    , ("M-n"                , refresh)
+    , ("M-S-n"                , refresh)
+    -- Dmenu mount and unmount disks
+    , ("M-m"                , spawn "./.scripts/dmenu-mount.sh")
+    , ("M-S-m"              , spawn "./.scripts/dmenu-umount.sh")
 
     -- Move focus to the next window
     , ("M-<Tab>"            , windows W.focusDown)
@@ -125,7 +128,7 @@ shortKeys c = mkKeymap c $
     , ("M-k"                , windows W.focusUp  )
 
     -- Move focus to the master window
-    , ("M-m"                , windows W.focusMaster  )
+    , ("M-n"                , windows W.focusMaster  )
 
     -- Swap the focused window and the master window
     , ("M-<Return>"         , windows W.swapMaster)
@@ -201,13 +204,15 @@ longKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. mod1Mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-    ++ 
+
+
    --check xmonad arch wiki for how to ,cause this shit don't work and I don't know why
-    [((modm, key), windows $ W.greedyView ws)
-        | (key,ws) <- myExtraWorkspaces]
-    ++ 
-    [((modm .|. shiftMask, key), windows $ W.shift ws)
-        | (key,ws) <- myExtraWorkspaces]
+   -- ++
+   -- [((modm, key), windows $ W.greedyView ws)
+   --     | (key,ws) <- myExtraWorkspaces]
+   -- ++ 
+   -- [((modm .|. shiftMask, key), windows $ W.shift ws)
+   --     | (key,ws) <- myExtraWorkspaces]
 
 
 
