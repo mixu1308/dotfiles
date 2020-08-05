@@ -10,6 +10,8 @@ import XMonad.Hooks.SetWMName           -- fixes hava issues with tiling WM
 import XMonad.Hooks.EwmhDesktops        -- fixes fullscreen issues
 import XMonad.Util.Cursor               -- set default cursor
 import Graphics.X11.ExtraTypes.XF86     -- Adds nonstandard keys (mute, volume,brightness)
+import XMonad.Util.EZConfig             -- makes config of keys ez
+import XMonad.Util.NamedScratchpad      -- Adds named scratchpad support
 
 
 -- Layout Imports
@@ -57,7 +59,8 @@ myModMask       = mod4Mask
 --
 -- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
 --
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
+myWorkspaces    = ["1","2","3","4","5","6","7","8","9"] ++ (map snd myExtraWorkspaces)
+myExtraWorkspaces = [("xK_0","0")]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
@@ -65,80 +68,102 @@ myNormalBorderColor  = "#1b2229"
 myFocusedBorderColor = "#6986a0"
 
 ------------------------------------------------------------------------
+--Scratchpads
+
+scratchpads = 
+    [   NS "ranger" spawnRanger findRanger dropdownPosition
+    ,   NS "terminal" spawnTerminal findTerminal centerFloatPos
+    ]
+
+    where
+    spawnRanger     = "termite --name=ranger -e ranger"
+    findRanger      = resource =? "ranger"
+
+    spawnTerminal   = "termite --name=scratchpad -e tmux"
+    findTerminal    = resource =? "scratchpad"
+
+    dropdownPosition= customFloating $ W.RationalRect 0 0 1 0.4
+    centerFloatPos  = customFloating $ W.RationalRect (1/4) (1/11) (1/2) (4/5)
+
+------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+shortKeys c = mkKeymap c $
 
     -- launch a terminal
-    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    [ ("M-S-<Return>"       , spawn myTerminal)
 
-    -- Application Keybindings
-    --Browser
-    , ((modm .|. shiftMask, xK_w     ), spawnHere myBrowser )
+    -- application keybindings
+    --browser
+    , ("M-S-w"              , spawnHere myBrowser )
 
     -- launch dmenu
-    , ((modm,               xK_d     ), spawn "dmenu_run")
+    , ("M-d"                , spawn "dmenu_run")
 
     -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
+    , ("M-S-p"              , spawn "gmrun")
 
     -- close focused window
-    , ((modm              , xK_q     ), kill)
+    , ("M-q"                , kill)
 
      -- Rotate through the available layout algorithms
-    , ((modm,               xK_space ), sendMessage NextLayout)
+    , ("M-<Space>"          , sendMessage NextLayout)
 
     --  Reset the layouts on the current workspace to default
-    , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
+    --, ("M-S-<Space>"        , setLayout $ XMonad.layoutHook conf)
 
     -- Resize viewed windows to the correct size
-    , ((modm,               xK_n     ), refresh)
+    , ("M-n"                , refresh)
 
     -- Move focus to the next window
-    , ((modm,               xK_Tab   ), windows W.focusDown)
+    , ("M-<Tab>"            , windows W.focusDown)
 
     -- Move focus to the next window
-    , ((modm,               xK_j     ), windows W.focusDown)
+    , ("M-j"                , windows W.focusDown)
 
     -- Move focus to the previous window
-    , ((modm,               xK_k     ), windows W.focusUp  )
+    , ("M-k"                , windows W.focusUp  )
 
     -- Move focus to the master window
-    , ((modm,               xK_m     ), windows W.focusMaster  )
+    , ("M-m"                , windows W.focusMaster  )
 
     -- Swap the focused window and the master window
-    , ((modm,               xK_Return), windows W.swapMaster)
+    , ("M-<Return>"         , windows W.swapMaster)
 
     -- Swap the focused window with the next window
-    , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
+    , ("M-S-j"              , windows W.swapDown  )
 
     -- Swap the focused window with the previous window
-    , ((modm .|. shiftMask, xK_k     ), windows W.swapUp    )
+    , ("M-S-k"              , windows W.swapUp    )
 
     -- Shrink the master area
-    , ((modm,               xK_h     ), sendMessage Shrink)
+    , ("M-h"                , sendMessage Shrink)
 
     -- Expand the master area
-    , ((modm,               xK_l     ), sendMessage Expand)
+    , ("M-l"                , sendMessage Expand)
 
     -- Push window back into tiling
-    , ((modm,               xK_t     ), withFocused $ windows . W.sink)
+    , ("M-t"                , withFocused $ windows . W.sink)
 
     -- Increment the number of windows in the master area
-    , ((modm              , xK_comma ), sendMessage (IncMasterN 1))
+    , ("M-,"                , sendMessage (IncMasterN 1))
 
     -- Deincrement the number of windows in the master area
-    , ((modm              , xK_period), sendMessage (IncMasterN (-1)))
+    , ("M-."                , sendMessage (IncMasterN (-1)))
 
 
     --MEDIA CONTROL
-    , ((0,               xF86XK_AudioRaiseVolume     ), spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
-    , ((0,               xF86XK_AudioLowerVolume     ), spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
-    , ((0,               xF86XK_AudioMute            ), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+    , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
+    , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
+    , ("<XF86AudioMute>"       , spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
     -- Screenshot
-    , ((0,               xK_Print     ), spawn "maim  -sou | xclip -selection clipboard -t 'image/png'")
-    , ((modm,            xK_f     ), sendMessage $ Toggle NBFULL)
+    , ("<Print>"              , spawn "maim  -sou | xclip -selection clipboard -t 'image/png'")
+    , ("M-f"                , sendMessage $ Toggle NBFULL)
 
+
+    -- SCRATCHPADS
+    , ("M-e"                , namedScratchpadAction scratchpads "ranger")
+    , ("M-u"                , namedScratchpadAction scratchpads "terminal")
 
 
 
@@ -150,16 +175,16 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
 
     -- Quit xmonad
-    , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
+    , ("M-S-q", io (exitWith ExitSuccess))
 
     -- Restart xmonad
-    , ((modm  .|. shiftMask, xK_c     ), spawn "xmonad --recompile; xmonad --restart")
+    , ("M-S-c", spawn "xmonad --recompile; xmonad --restart")
 
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
-    , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
+    , ("M-S-/", spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
     ]
-    ++
 
+longKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     --
     -- mod-[1..9], Switch to workspace N
     -- mod-shift-[1..9], Move client to workspace N
@@ -176,7 +201,17 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. mod1Mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+    ++ 
+   --check xmonad arch wiki for how to ,cause this shit don't work and I don't know why
+    [((modm, key), windows $ W.greedyView ws)
+        | (key,ws) <- myExtraWorkspaces]
+    ++ 
+    [((modm .|. shiftMask, key), windows $ W.shift ws)
+        | (key,ws) <- myExtraWorkspaces]
 
+
+
+myKeys  conf             = (shortKeys conf) <+> (longKeys conf)
 
 
 
@@ -199,7 +234,6 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
 
-------------------------------------------------------------------------
 -- Layouts:
 
 -- You can specify and transform your layouts by modifying these values.
@@ -239,8 +273,9 @@ myLayout    = fullScreenToggle
 -- 'className' and 'resource' are used below.
 --
 myManageHook = 
-        manageSpawn
-     <+>manageSpecific
+            manageSpawn
+     <+>    manageSpecific
+     <+>    (namedScratchpadManageHook scratchpads)
 
     where
         manageSpecific = composeAll
