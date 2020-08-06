@@ -93,6 +93,8 @@ shortKeys c = mkKeymap c $
     -- launch a terminal
     [ ("M-S-<Return>"       , spawn myTerminal)
 
+    , ("M-<Backspace>"      , spawn "./.scripts/power-menu.sh")
+
     -- application keybindings
     --browser
     , ("M-S-w"              , spawnHere myBrowser )
@@ -325,7 +327,7 @@ myStartupHook = do
         spawnOnOnce "7" "telegram-desktop "
         spawnOnOnce "8" (myBrowser ++ " --new-window web.whatsapp.com")
         spawnOnOnce "9" "discord "
-        spawnOnOnce "9" (myBrowser ++ " --new-window soundcloud.com")
+        spawnOnOnce "9" ("chromium --new-window soundcloud.com")
         setWMName "LG3D"                                            --used to fix java apps
         setDefaultCursor xC_left_ptr
 
