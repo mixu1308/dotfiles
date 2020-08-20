@@ -12,6 +12,7 @@ import XMonad.Util.Cursor               -- set default cursor
 import Graphics.X11.ExtraTypes.XF86     -- Adds nonstandard keys (mute, volume,brightness)
 import XMonad.Util.EZConfig             -- makes config of keys ez
 import XMonad.Util.NamedScratchpad      -- Adds named scratchpad support
+import XMonad.Actions.CopyWindow        -- Adds option to pin window to all workspaces
 
 
 -- Layout Imports
@@ -150,6 +151,10 @@ shortKeys c = mkKeymap c $
     -- Push window back into tiling
     , ("M-t"                , withFocused $ windows . W.sink)
 
+    -- Pin window to all workspaces
+    , ("M-p"                , windows copyToAll)
+    , ("M-S-p"              , killAllOtherCopies)
+
     -- Increment the number of windows in the master area
     , ("M-,"                , sendMessage (IncMasterN 1))
 
@@ -196,7 +201,7 @@ longKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     --
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
     ++
 
     --
@@ -337,7 +342,7 @@ myStartupHook = do
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-    xmproc <- spawnPipe "xmobar -x 1"
+    xmproc <- spawnPipe "xmobar -x 0"
     xmonad $ docks $ ewmh defaults
 
 -- A structure containing your configuration settings, overriding
