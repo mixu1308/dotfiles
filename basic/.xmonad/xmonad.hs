@@ -166,6 +166,9 @@ shortKeys c = mkKeymap c $
     , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
     , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
     , ("<XF86AudioMute>"       , spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+
+    , ("<XF86MonBrightnessUp>" , spawn "light -A 5 -s 'sysfs/backlight/auto'")
+    , ("<XF86MonBrightnessDown>", spawn "light -U 5 -s 'sysfs/backlight/auto'")
     -- Screenshot
     , ("<Print>"              , spawn "maim  -sou | xclip -selection clipboard -t 'image/png'")
     , ("M-f"                , sendMessage $ Toggle NBFULL)
@@ -294,6 +297,7 @@ myManageHook =
             [ className =? "MPlayer"        --> doFloat
             , className =? "Gimp"           --> doFloat
             , className =? "Pavucontrol"    --> doFloat
+            , className =? "discord"        --> doShift "9"
             , resource  =? "desktop_window" --> doIgnore
             , resource  =? "kdesktop"       --> doIgnore ]
 
@@ -327,12 +331,11 @@ myLogHook = return ()
 -- By default, do nothing.
 myStartupHook = do
         ewmhDesktopsStartup     --might be useless
-        spawnOnOnce "1" myBrowser
         spawnOnOnce "6" "thunderbird "
         spawnOnOnce "7" "telegram-desktop "
         spawnOnOnce "8" (myBrowser ++ " --new-window web.whatsapp.com")
-        spawnOnOnce "9" "discord "
         spawnOnOnce "9" ("chromium --new-window soundcloud.com")
+        spawnOnOnce "9" "discord --start-minimized"
         setWMName "LG3D"                                            --used to fix java apps
         setDefaultCursor xC_left_ptr
 

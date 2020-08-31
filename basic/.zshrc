@@ -81,6 +81,7 @@ alias vim='nvim'
 alias ivim='vim /home/max/.xmonad/xmonad.hs'
 alias ssys='sudo systemctl'
 alias cp='rsync -avh'
+alias powah="upower -i `upower -e |grep 'BAT'`"
 alias ls='exa'
 alias cat='bat'
 alias find='fd'
