@@ -20,7 +20,8 @@ import XMonad.Layout.Spacing            --Adds gaps
 import XMonad.Layout.NoBorders          -- makes it possible to remove borders for fullscreen
 import XMonad.Layout.MultiToggle        -- Toggle layout
 import XMonad.Layout.MultiToggle.Instances
-
+import XMonad.Layout.Tabbed
+import XMonad.Layout.TwoPane
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -84,7 +85,7 @@ scratchpads =
     findTerminal    = resource =? "scratchpad"
 
     dropdownPosition= customFloating $ W.RationalRect 0 0 1 0.4
-    centerFloatPos  = customFloating $ W.RationalRect (1/4) (1/11) (1/2) (4/5)
+    centerFloatPos  = customFloating $ W.RationalRect (1/6) (1/11) (2/3) (4/5)
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -111,6 +112,9 @@ shortKeys c = mkKeymap c $
 
      -- Rotate through the available layout algorithms
     , ("M-<Space>"          , sendMessage NextLayout)
+
+    -- Reset Layout
+    --, ("M-S-<Space>"        , setLayout $ XMonad.layoutHook conf)
 
     --  Reset the layouts on the current workspace to default
     --, ("M-S-<Space>"        , setLayout $ XMonad.layoutHook conf)
@@ -263,13 +267,14 @@ myLayout    = fullScreenToggle
             $ avoidStruts 
             $ standardLayout
     where
-        standardLayout      =   tiled ||| Mirror tiled
+        standardLayout      =   tiled ||| Mirror tiled ||| simpleTabbed ||| twoWindow
     
         fullScreenToggle    = mkToggle (single NBFULL)
 
         -- default tiling algorithm partitions the screen into two panes
-        tiled   = spacing 9 
-                $ Tall 1 (3/100) (1/2)
+        tiled       = spacing 9 
+                    $ Tall 1 (3/100) (1/2)
+        twoWindow   = avoidStruts $ TwoPane (3/100) (1/2)
 
 
 ------------------------------------------------------------------------
