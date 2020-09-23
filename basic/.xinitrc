@@ -25,5 +25,7 @@ xscreensaver -no-splash &
 
 #picom --experimental-backends &
 
-exec xmonad 
+sxhkd &
+
+exec bspwm 
 
