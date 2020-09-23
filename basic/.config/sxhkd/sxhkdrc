@@ -12,7 +12,7 @@ super + @d
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+	pkill -USR1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config'
 
 #################
 # bspwm hotkeys #
@@ -121,6 +121,7 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
 ###########################
 # Media/Keyboard Controls #
 ###########################
@@ -138,6 +139,14 @@ XF86Audio{Raise,Lower}Volume
 super + shift + w
     chromium
 
+# Screenshot
+Print
+    maim  -sou | xclip -selection clipboard -t 'image/png'
 
+# Power Menu
+super + BackSpace
+    /home/max/.scripts/power-menu
 
-
+# Help Menu
+super + slash
+    /home/max/.scripts/sxhkd-help
