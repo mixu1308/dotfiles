@@ -1,4 +1,4 @@
-[bar/bar1]
+[bar/main]
 monitor = ${env:MONITOR:}
 bottom = false
 width = 99%
