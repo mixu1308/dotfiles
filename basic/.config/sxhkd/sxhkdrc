@@ -36,7 +36,7 @@ super + y
 
 # swap the current node and the biggest window
 super + g
-	bspc node -s biggest.window
+	bspc node -s biggest.local
 
 ###############
 # state/flags #
@@ -44,7 +44,7 @@ super + g
 
 # set the window state
 super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+	bspc node -t {tiled,pseudo_tiled,floating,\~fullscreen}
 
 # set the node flags
 super + ctrl + {m,x,y,z}
@@ -131,6 +131,16 @@ XF86AudioMute
 # Change volume
 XF86Audio{Raise,Lower}Volume
     pactl set-sink-volume @DEFAULT_SINK@ {+,-}2%
+###############
+# Scratchpads #
+###############
+# Terminal scratchpad
+super + u
+    tdrop -ma -w -4 -y "$PANEL_HEIGHT" --wm bspwm -n 1 termite
+
+# Ranger scratchpad
+super + e
+    tdrop -ma -w -4 -y "$PANEL_HEIGHT"  --wm bspwm -n 2 termite -e ranger
 ################
 # Applications #
 ################
@@ -150,3 +160,7 @@ super + BackSpace
 # Help Menu
 super + slash
     /home/max/.scripts/sxhkd-help
+
+# Lock Screen
+super + x
+    i3lock-fancy-rapid 5 50

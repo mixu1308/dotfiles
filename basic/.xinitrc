@@ -7,6 +7,7 @@ setxkbmap -option caps:escape
 xbindkeys
 xset r rate 200 30 &
 xsetroot -cursor_name left_ptr &
+wmname LG3D &
 
 #.screenlayout/home-layout.sh
 
@@ -23,7 +24,7 @@ dunst &
 
 xscreensaver -no-splash &
 
-#picom --experimental-backends &
+picom --experimental-backends &
 
 sxhkd &
 
