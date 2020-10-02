@@ -19,5 +19,7 @@ bspc config gapless_monocle      false
 bspc config focus_follows_pointer true
 
 bspc rule -a Zathura state=tiled
+bspc rule -a discord desktop=^9
+bspc rule -a Pavucontrol state=floating
 
 /home/max/.scripts/launch-polybar

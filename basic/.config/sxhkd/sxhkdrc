@@ -7,8 +7,10 @@ super + Return
 	termite
 
 # program launcher
-super + @d
-	dmenu_run
+super + d
+	rofi -show drun -modi drun,run -show-icons -sidebar-mode -terminal termite
+super + shift + d
+    dmenu_run
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -140,11 +142,11 @@ XF86MonBrightness{Up,Down}
 ###############
 # Terminal scratchpad
 super + u
-    tdrop -ma -w -4 -y "$PANEL_HEIGHT" --wm bspwm -n 1 termite
+    tdrop -ma -w -4 -y 1 --wm bspwm -n 1 termite
 
 # Ranger scratchpad
 super + e
-    tdrop -ma -w -4 -y "$PANEL_HEIGHT"  --wm bspwm -n 2 termite -e ranger
+    tdrop -ma -w -4 -y 1  --wm bspwm -n 2 termite -e ranger
 ################
 # Applications #
 ################
