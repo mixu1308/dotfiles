@@ -168,3 +168,12 @@ super + slash
 # Lock Screen
 super + x
     i3lock-fancy-rapid 5 50
+
+# Open Whatsapp
+super + shift + i
+    chromium --new-window web.whatsapp.com
+
+# Open soundcloud
+super + shift + m
+    chromium --new-window soundcloud.com
+    
