@@ -29,7 +29,7 @@ tray-padding = 2
 
 wm-restack = bspwm
 
-modules-left = bspwm
+modules-left = bspwm pomo
 modules-center = date
 modules-right = cpu memory volume battery
 
@@ -164,3 +164,8 @@ type = internal/memory
 interval =1
 format = <label>
 label = " %percentage_used%%"
+
+[module/pomo]
+type = custom/script
+interval = 1
+exec = pomo status
