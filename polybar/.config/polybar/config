@@ -31,7 +31,7 @@ wm-restack = bspwm
 
 modules-left = bspwm pomo
 modules-center = date
-modules-right = cpu memory volume battery
+modules-right = cpu temperature memory volume battery
 
 
 [module/bspwm]
@@ -164,6 +164,22 @@ type = internal/memory
 interval =1
 format = <label>
 label = " %percentage_used%%"
+
+[module/temperature]
+type = internal/temperature
+interval = 0.5
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
+base-temperature = 20
+warn-temperature = 60
+
+format = <label>
+label =  %temperature-c%
+
+format-warn = <label-warn>
+label-warn =  %temperature-c%
+label-warn-foreground = #f00
+
+
 
 [module/pomo]
 type = custom/script

@@ -175,6 +175,10 @@ super + x
 super + shift + i
     chromium --new-window web.whatsapp.com
 
+# Open Spotify
+super + shift + n
+    chromium --new-window open.spotify.com
+
 # Open soundcloud
 super + shift + m
     chromium --new-window soundcloud.com
