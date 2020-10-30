@@ -157,7 +157,7 @@ super + shift + w
 
 # Screenshot
 Print
-    maim  -sou | xclip -selection clipboard -t 'image/png'
+    escrotum -s -C
 
 # Power Menu
 super + BackSpace
