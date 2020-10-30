@@ -170,6 +170,9 @@ super + slash
 # Lock Screen
 super + x
     i3lock-fancy-rapid 5 50
+# Lock Screen thijs
+super + shift + x
+    /home/max/.scripts/lock -l
 
 # Open Whatsapp
 super + shift + i
