@@ -3,8 +3,8 @@
 pgrep -x sxhkd > /dev/null || sxhkd &
 if [[ $(hostname) == 'Newton' ]]; then
     bspc wm -O HDMI-0 DVI-D-0
-    bspc monitor HDMI-0 -d I II III IV V 
-    bspc monitor DVI-D-0 -d VI VII VIII IX X
+    bspc monitor HDMI-0 -d I II III IV 
+    bspc monitor DVI-D-0 -d V VI VII VIII IX X
 else
     bspc monitor -d I II III IV V VI VII VIII IX X
 fi
