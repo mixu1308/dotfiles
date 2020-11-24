@@ -86,6 +86,9 @@ alias powah="upower -i `upower -e |grep 'BAT'`"
 alias ls='exa'
 alias cat='bat'
 alias find='fd'
+alias fanahh='nbfc set -f 1 -s 100 && nbfc set -f 0 -s 100'
+alias fanbrr='nbfc set -f 1 -s 50 && nbfc set -f 0 -s 50'
+alias fanshh='nbfc set -f 1 -s 5 && nbfc set -f 0 -s 5'
 
 
 gitall() {
