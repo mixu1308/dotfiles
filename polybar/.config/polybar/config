@@ -18,11 +18,12 @@ padding-right = 0
 module-margin-left = 3
 module-margin-right = 1
 
-font-0 = NotoSans-Regular:size=11;2
-font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=8;1"
-font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=8;1"
-font-3 = "Font Awesome 5 Brands:pixelsize=8;1"
-font-4 = Monospace:size=11;2
+font-0 = cryptocoins:style=Regular;0
+font-1 = NotoSans-Regular:size=11;2
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=8;1"
+font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=8;1"
+font-4 = "Font Awesome 5 Brands:pixelsize=8;1"
+font-5 = Monospace:size=11;2
 
 tray-position = right
 tray-padding = 2
@@ -31,7 +32,7 @@ wm-restack = bspwm
 
 modules-left = bspwm 
 modules-center = date
-modules-right = cpu temperature memory volume battery
+modules-right = crypto cpu temperature memory volume battery
 
 
 [module/bspwm]
@@ -185,3 +186,8 @@ label-warn-foreground = #f00
 type = custom/script
 interval = 1
 exec = pomo status
+
+[module/crypto]
+type = custom/script
+interval = 30
+exec = ~/.config/polybar/crypto.py

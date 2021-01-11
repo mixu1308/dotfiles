@@ -146,7 +146,7 @@ super + u
 
 # Ranger scratchpad
 super + e
-    tdrop -ma -w -4 -y 1  --wm bspwm -n 2 termite -e ranger
+    tdrop -ma -w -4 -y 1  --wm bspwm -n 2 termite -e "env EDITOR=nvim  ranger"
 ################
 # Applications #
 ################
@@ -186,3 +186,14 @@ super + shift + n
 super + shift + m
     chromium --new-window soundcloud.com
     
+
+##################
+# Paste Password #
+##################
+
+super + shift + v
+    xclip -sel c < Documents/Other/Condor2Key.txt
+
+super + v
+    xclip -sel c < Documents/Other/ffxiv_Key.txt
+
