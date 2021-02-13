@@ -26,13 +26,13 @@ font-4 = "Font Awesome 5 Brands:pixelsize=8;1"
 font-5 = Monospace:size=11;2
 
 tray-position = right
-tray-padding = 2
+tray-padding = 3
 
 wm-restack = bspwm
 
 modules-left = bspwm 
 modules-center = date
-modules-right = crypto cpu temperature memory volume battery
+modules-right = cpu temperature memory volume battery
 
 
 [module/bspwm]

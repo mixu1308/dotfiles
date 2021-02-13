@@ -5,6 +5,7 @@ nm-applet &
 
 setxkbmap -option caps:escape
 xbindkeys
+#xmodmap .config/xmodmap/xmodmap.cfg
 xset r rate 200 30 &
 xsetroot -cursor_name left_ptr &
 wmname LG3D &
