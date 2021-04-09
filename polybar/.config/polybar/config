@@ -189,5 +189,5 @@ exec = pomo status
 
 [module/crypto]
 type = custom/script
-interval = 30
+interval = 1
 exec = ~/.config/polybar/crypto.py
