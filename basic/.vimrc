@@ -21,8 +21,6 @@ set clipboard+=unnamedplus "use + register for clipboard operations
 set ignorecase
 
 "Keybindings
-
-
 nmap <S-Enter> O<Esc>j
 nmap <CR> o<Esc>k
 nnoremap <space> za
@@ -36,4 +34,11 @@ autocmd BufWritePost config.h,config.def.h !sudo make install
 call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'lervag/vimtex'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'  }
+
 call plug#end()
+
+set background=dark
+colorscheme PaperColor
+hi Normal guibg=NONE ctermbg=NONE "for transparency with theme

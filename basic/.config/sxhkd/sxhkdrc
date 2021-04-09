@@ -163,6 +163,8 @@ super + shift + w
 # Screenshot
 Print
     escrotum -s -C
+shift+Print
+    escrotum -C
 
 # Power Menu
 super + BackSpace
