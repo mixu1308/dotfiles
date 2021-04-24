@@ -9,7 +9,7 @@ cursor_shape = block
 urgent_on_bell = true
 scrollback_lines = 10000
 
-
+# Start flavours
 [colors]
 cursor = {cursor}
 foreground = {foreground}
@@ -31,4 +31,4 @@ color12 = {color12}
 color13 = {color13}
 color14 = {color14}
 color15 = {color15}
-
+# End flavours

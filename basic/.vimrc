@@ -24,6 +24,9 @@ set ignorecase
 nmap <S-Enter> O<Esc>j
 nmap <CR> o<Esc>k
 nnoremap <space> za
+let maplocalleader = ','
+
+
 " toggle gundo
 nnoremap <leader>u :GundoToggle<CR>
 
@@ -36,7 +39,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'lervag/vimtex'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'  }
-
 call plug#end()
 
 set background=dark

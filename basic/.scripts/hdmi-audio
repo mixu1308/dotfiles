@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #Device name variable
-devicename="alsa_output.pci-0000_23_00.1.hdmi-stereo-extra1"
+#devicename="alsa_output.pci-0000_23_00.1.hdmi-stereo-extra1"
+devicename="alsa_output.usb-Apple__Inc._USB-C_to_3.5mm_Headphone_Jack_Adapter_DWH1027007UL1MQAB-00.analog-stereo"
 
 #change the default sink
 pacmd "set-default-sink "$devicename""

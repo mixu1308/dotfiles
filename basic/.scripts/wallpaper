@@ -2,5 +2,5 @@
 
 feh --bg-fill ~/Pictures/wall.jpg 
 wal -cn
-wal -n -i  ~/Pictures/wall.jpg -o ~/.scripts/post-wal.sh
+#wal -n -i  ~/Pictures/wall.jpg -o ~/.scripts/post-wal.sh
 xrdb ~/.Xresources 

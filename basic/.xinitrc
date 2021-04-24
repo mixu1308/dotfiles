@@ -1,5 +1,8 @@
 #! /bin/bash
 xrdb -merge ~/.Xresources &
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+
 
 nm-applet &
 
@@ -28,6 +31,8 @@ xscreensaver -no-splash &
 picom --experimental-backends &
 
 sxhkd &
+
+keepassxc &
 
 exec bspwm 
 

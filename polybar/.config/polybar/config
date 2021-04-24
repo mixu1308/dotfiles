@@ -32,7 +32,7 @@ wm-restack = bspwm
 
 modules-left = bspwm 
 modules-center = date
-modules-right = cpu temperature memory volume battery
+modules-right = crypto cpu temperature memory volume battery
 
 
 [module/bspwm]
