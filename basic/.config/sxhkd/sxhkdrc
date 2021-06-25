@@ -193,14 +193,17 @@ super + shift + n
 super + shift + m
     chromium --new-window soundcloud.com
     
-
+# Start windows 10
+super + shift + o
+    sh /home/max/.scripts/start-windows.sh
 ##################
 # Paste Password #
 ##################
 
+# Condor
 super + shift + v
     xclip -sel c < Documents/Other/Condor2Key.txt
-
+# Final Fantasy
 super + v
     xclip -sel c < Documents/Other/ffxiv_Key.txt
 

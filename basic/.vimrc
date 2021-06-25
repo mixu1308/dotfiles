@@ -37,10 +37,17 @@ autocmd BufWritePost config.h,config.def.h !sudo make install
 call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'lervag/vimtex'
+Plug 'morhetz/gruvbox'
+Plug 'ghifarit53/tokyonight-vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer'  }
 call plug#end()
 
+
+
+let g:tokyonight_enable_italic = 1
+
+
 set background=dark
-colorscheme PaperColor
+colorscheme tokyonight
 hi Normal guibg=NONE ctermbg=NONE "for transparency with theme

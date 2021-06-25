@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PIDOF=$(pidof mpv)
+echo $PIDOF
+if [ -z "$PIDOF" ]
+then
+    mpv https://streaming02.zfast.co.uk/proxy/kookyinc\?mp\=/stream  &
+else
+    kill $PIDOF 
+fi
+

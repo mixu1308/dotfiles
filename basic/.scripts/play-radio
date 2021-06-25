@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PIDOF=$(pidof mpv)
+echo $PIDOF
+if [ -z "$PIDOF" ]
+then
+    mpv http://mgps.fmstream.ru:8010/megapolis-48.aac &
+else
+    kill $PIDOF 
+fi
+

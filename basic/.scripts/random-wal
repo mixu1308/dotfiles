@@ -1,0 +1,5 @@
+#!/bin/bash
+WAL="$(find $1 -type f|shuf -n 1)"
+cp $WAL /home/max/Pictures/wall.jpg
+/home/max/.scripts/wallpaper
+
